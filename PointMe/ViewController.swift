@@ -1,5 +1,4 @@
 import UIKit
-import YandexMapsMobile
 
 
 class ViewController: UIViewController {
