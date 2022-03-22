@@ -1,10 +1,9 @@
 import UIKit
 
-class FavoritesVC: UIViewController {
+class MapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.defaultBackgroundColor
-        title = "Избранные"
-
+        title = "Карты"
     }
 }
