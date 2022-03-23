@@ -19,6 +19,8 @@
 		873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69FF27EA40630004715E /* FavoritesVC.swift */; };
 		873C6A0327EA406A0004715E /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* AccountVC.swift */; };
 		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
+		8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB127EB10C700BC11B5 /* ColorSet.swift */; };
+		8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB527EB12ED00BC11B5 /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		873C69FF27EA40630004715E /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		873C6A0227EA406A0004715E /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		8744ACB127EB10C700BC11B5 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
+		8744ACB527EB12ED00BC11B5 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		CE1110205D48719CC6509C9E /* libPods-PointMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PointMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF909348BEAB5AB0822300FB /* Pods-PointMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointMe.debug.xcconfig"; path = "Target Support Files/Pods-PointMe/Pods-PointMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,12 +85,14 @@
 		2CBAF2E727E7763E001A35B2 /* PointMe */ = {
 			isa = PBXGroup;
 			children = (
-				873C6A1B27EA5AFB0004715E /* MapVC */,
-				873C6A1127EA4A090004715E /* FeedNewsVC */,
-				873C6A1027EA4A070004715E /* FindVC */,
-				873C6A0827EA49B20004715E /* LoginVC */,
-				873C6A0727EA49B00004715E /* AccountVC */,
-				873C6A0627EA49AE0004715E /* FavoritesVC */,
+				8744ACB427EB12DA00BC11B5 /* TabBar */,
+				8744ACB027EB108B00BC11B5 /* Colors */,
+				873C6A1B27EA5AFB0004715E /* Map */,
+				873C6A1127EA4A090004715E /* FeedNews */,
+				873C6A1027EA4A070004715E /* Find */,
+				873C6A0827EA49B20004715E /* Login */,
+				873C6A0727EA49B00004715E /* Account */,
+				873C6A0627EA49AE0004715E /* Favorites */,
 				2CE600FD27E7BC1E000902C8 /* Supporting files */,
 			);
 			path = PointMe;
@@ -105,52 +111,68 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
-		873C6A0627EA49AE0004715E /* FavoritesVC */ = {
+		873C6A0627EA49AE0004715E /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
 				873C69FF27EA40630004715E /* FavoritesVC.swift */,
 			);
-			path = FavoritesVC;
+			path = Favorites;
 			sourceTree = "<group>";
 		};
-		873C6A0727EA49B00004715E /* AccountVC */ = {
+		873C6A0727EA49B00004715E /* Account */ = {
 			isa = PBXGroup;
 			children = (
 				873C6A0227EA406A0004715E /* AccountVC.swift */,
 			);
-			path = AccountVC;
+			path = Account;
 			sourceTree = "<group>";
 		};
-		873C6A0827EA49B20004715E /* LoginVC */ = {
+		873C6A0827EA49B20004715E /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				2CBAF2EC27E7763E001A35B2 /* LoginVC.swift */,
 			);
-			path = LoginVC;
+			path = Login;
 			sourceTree = "<group>";
 		};
-		873C6A1027EA4A070004715E /* FindVC */ = {
+		873C6A1027EA4A070004715E /* Find */ = {
 			isa = PBXGroup;
 			children = (
 				873C69F927EA404A0004715E /* FindVC.swift */,
 			);
-			path = FindVC;
+			path = Find;
 			sourceTree = "<group>";
 		};
-		873C6A1127EA4A090004715E /* FeedNewsVC */ = {
+		873C6A1127EA4A090004715E /* FeedNews */ = {
 			isa = PBXGroup;
 			children = (
 				873C69F627EA40300004715E /* FeedNewsVC.swift */,
 			);
-			path = FeedNewsVC;
+			path = FeedNews;
 			sourceTree = "<group>";
 		};
-		873C6A1B27EA5AFB0004715E /* MapVC */ = {
+		873C6A1B27EA5AFB0004715E /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				873C6A1C27EA5B110004715E /* MapVC.swift */,
 			);
-			path = MapVC;
+			path = Map;
+			sourceTree = "<group>";
+		};
+		8744ACB027EB108B00BC11B5 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				8744ACB127EB10C700BC11B5 /* ColorSet.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		8744ACB427EB12DA00BC11B5 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				8744ACB527EB12ED00BC11B5 /* TabBar.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		FF334A8D8E76767E9410B90D /* Pods */ = {
@@ -281,10 +303,12 @@
 				2CBAF2ED27E7763E001A35B2 /* LoginVC.swift in Sources */,
 				873C69FA27EA404A0004715E /* FindVC.swift in Sources */,
 				873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */,
+				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
+				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

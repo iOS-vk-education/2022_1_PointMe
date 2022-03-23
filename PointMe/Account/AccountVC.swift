@@ -1,9 +1,9 @@
 import UIKit
 
-class AccountVC: UIViewController {
+class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.defaultBackgroundColor
+        view.backgroundColor = .defaultBackgroundColor
         title = "Аккаунт"
     }
 }

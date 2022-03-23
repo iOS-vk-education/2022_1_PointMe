@@ -1,9 +1,9 @@
 import UIKit
 
-class FeedNewsVC: UIViewController {
+class FeedNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.defaultBackgroundColor
+        view.backgroundColor = .defaultBackgroundColor
         title = "Новости"
     }
 }

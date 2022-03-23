@@ -1,9 +1,9 @@
 import UIKit
 
-class MapVC: UIViewController {
+class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.defaultBackgroundColor
+        view.backgroundColor = .defaultBackgroundColor
         title = "Карты"
     }
 }

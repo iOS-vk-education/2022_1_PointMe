@@ -1,9 +1,9 @@
 import UIKit
 
-class FindVC: UIViewController {
+class FindViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.defaultBackgroundColor
+        view.backgroundColor = .defaultBackgroundColor
         title = "Поиск"
     }
 }

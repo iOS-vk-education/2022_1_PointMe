@@ -12,8 +12,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
 
-        let FeedNewsViewController = LoginVC()
-        window?.rootViewController = FeedNewsViewController
+        let initViewController = TabBarController()
+        
+        window?.rootViewController = initViewController
         window?.makeKeyAndVisible()
         
     }

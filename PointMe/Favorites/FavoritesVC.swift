@@ -1,9 +1,9 @@
 import UIKit
 
-class FavoritesVC: UIViewController {
+class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.defaultBackgroundColor
+        view.backgroundColor = .defaultBackgroundColor
         title = "Избранные"
 
     }
