@@ -1,6 +1,7 @@
 import UIKit
 import YandexMapsMobile
 import Firebase
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,6 +10,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         YMKMapKit.setApiKey("be9fddd3-bdec-471d-a700-77390fc5156f")
+        
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 140
         
         return true
     }
