@@ -59,6 +59,25 @@ final class SignUpViewController: UIViewController {
     }()
     
     
+    private struct Constants {
+        // for textFilds layout
+        static let startOffsetByCenterTextField: CGFloat = -5
+        static let deltaOffsetByCenterTextField: CGFloat = -5
+        static let horizontalMarginTextField: CGFloat = 20
+        static let heightTextFileld: CGFloat = 55
+        
+        // for authButton layout
+        static let heightAuthButton: CGFloat = 56
+        static let marginTopAuthButton: CGFloat = 60
+        static let marginHorizontalAuthButton: CGFloat = 20
+        
+        // for labelPS
+        static let heightlabel: CGFloat = 50
+        static let marginBottomLabel: CGFloat = 20
+        static let marginHorizontalLabel: CGFloat = 18
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,22 +132,34 @@ final class SignUpViewController: UIViewController {
     
     
     private func setupLayoutTextFields() {
-        var offsetByCenter: CGFloat = -5
+        var offsetByCenter: CGFloat = Constants.startOffsetByCenterTextField
         
         _ = [self.textFieldPassword, self.textFieldEmail, self.textFieldUsername].map {
-            $0.pin.height(55).left(20).right(20).vCenter(offsetByCenter)
-            offsetByCenter -= 80
+            $0.pin.height(Constants.heightTextFileld)
+                .left(Constants.horizontalMarginTextField)
+                .right(Constants.horizontalMarginTextField)
+                .vCenter(offsetByCenter)
+            
+            offsetByCenter -= Constants.deltaOffsetByCenterTextField
         }
     }
     
     
     private func setupLayoutRegisterButton() {
-        self.registerButton.pin.below(of: textFieldPassword).left(20).right(20).height(56).marginTop(60)
+        self.registerButton.pin.below(of: self.textFieldPassword)
+            .left(Constants.marginHorizontalAuthButton)
+            .right(Constants.marginHorizontalAuthButton)
+            .height(Constants.heightAuthButton)
+            .marginTop(Constants.marginTopAuthButton)
     }
     
     
     private func setupLayoutLabelPS() {
-        self.labelPS.pin.height(50).right(18).left(18).bottom(20)
+        self.labelPS.pin
+            .height(Constants.heightlabel)
+            .left(Constants.marginHorizontalLabel)
+            .right(Constants.marginHorizontalLabel)
+            .bottom(Constants.marginBottomLabel)
     }
 
     
