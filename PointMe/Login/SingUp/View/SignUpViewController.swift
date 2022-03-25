@@ -62,7 +62,7 @@ final class SignUpViewController: UIViewController {
     private struct Constants {
         // for textFilds layout
         static let startOffsetByCenterTextField: CGFloat = -5
-        static let deltaOffsetByCenterTextField: CGFloat = 65
+        static let deltaOffsetByCenterTextField: CGFloat = 70
         static let horizontalMarginTextField: CGFloat = 20
         static let heightTextFileld: CGFloat = 55
         
@@ -91,7 +91,7 @@ final class SignUpViewController: UIViewController {
     
     
     private func setupView() {
-        view.backgroundColor = .defaultBackgroundColor
+        view.backgroundColor = .white
     }
     
     
@@ -128,6 +128,7 @@ final class SignUpViewController: UIViewController {
         self.setupLayoutTextFields()
         self.setupLayoutRegisterButton()
         self.setupLayoutLabelPS()
+        self.setupLayoutRegisterButton()
     }
     
     
