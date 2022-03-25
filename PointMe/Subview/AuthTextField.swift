@@ -2,6 +2,7 @@ import UIKit
 
 final class AuthTextField: UITextField {
     
+    /// constans values
     private struct Constants {
         static let widthUnderline: CGFloat = 1.0
         static let textInsetX: CGFloat = 1.5
