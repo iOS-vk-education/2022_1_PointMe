@@ -2,6 +2,9 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    static let NotificationDone = NSNotification.Name(rawValue: "Done")
+    
+    
     /// textField for login or email
     private let textFieldUsernameOrEmail: AuthTextField = {
         let textField = AuthTextField()
@@ -42,6 +45,7 @@ class LoginViewController: UIViewController {
     }()
     
     
+    /// constans values
     private struct Constants {
         // for textFilds layout
         static let startOffsetByCenterTextField: CGFloat = -5
@@ -65,6 +69,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupView()
+        self.setupNavigationBar()
         self.setupTextFieldUsernameOrEmail()
         self.setupTextFieldPassword()
         self.setupLoginButton()
@@ -73,7 +78,13 @@ class LoginViewController: UIViewController {
     
     
     private func setupView() {
-        view.backgroundColor = .white
+        self.view.backgroundColor = .white
+    }
+    
+    
+    private func setupNavigationBar() {
+        self.title = "PointMe"
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
     
@@ -90,16 +101,21 @@ class LoginViewController: UIViewController {
     private func setupLoginButton() {
         self.view.addSubview(loginButton)
         self.loginButton.setAction {
-            // MARK: FIX ME!
             print("call method for SingIn from viewModel")
+            // MARK: FIX ME!
+            NotificationCenter.default.post(
+                name: LoginViewController.NotificationDone,
+                object: nil
+            )
         }
     }
     
     
     private func setupRegistrationButton() {
         self.view.addSubview(registrationButton)
-        self.registrationButton.setAction {
+        self.registrationButton.setAction { [weak self] in
             // MARK: FIX ME!
+            self?.navigationController?.pushViewController(SignUpViewController(), animated: true)
             print("go to SingUpViewController")
         }
     }
@@ -113,6 +129,8 @@ class LoginViewController: UIViewController {
         self.setupLayoutRegistrationButton()
     }
     
+    
+    // MARK: Setup Layout
     
     private func setupLayoutTextFields() {
         var offsetByCenter: CGFloat = Constants.startOffsetByCenterTextField
@@ -138,7 +156,6 @@ class LoginViewController: UIViewController {
     
     
     private func setupLayoutRegistrationButton() {
-        print("hello")
         self.registrationButton.pin
             .below(of: self.loginButton)
             .left().right()

@@ -3,6 +3,7 @@ import PinLayout
 
 
 final class SignUpViewController: UIViewController {
+    
     /// textField for login
     private let textFieldUsername: AuthTextField = {
         let textField = AuthTextField()
@@ -59,6 +60,7 @@ final class SignUpViewController: UIViewController {
     }()
     
     
+    /// constans values
     private struct Constants {
         // for textFilds layout
         static let startOffsetByCenterTextField: CGFloat = -5
@@ -82,6 +84,7 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupView()
+        self.setupNavigationBar()
         self.setupTextFieldUsername()
         self.setupTextFieldEmail()
         self.setupTextFieldPassword()
@@ -92,6 +95,12 @@ final class SignUpViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .white
+    }
+    
+    
+    private func setupNavigationBar() {
+        self.title = "PointMe"
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
     
@@ -124,6 +133,8 @@ final class SignUpViewController: UIViewController {
     }
     
 
+    // MARK: Setup Layout
+    
     override func viewDidLayoutSubviews() {
         self.setupLayoutTextFields()
         self.setupLayoutRegisterButton()
