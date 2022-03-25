@@ -11,4 +11,6 @@ extension UIFont {
     static let buttonTitle: UIFont = UIFont(name: "ALSSiriusVF", size: 20)!
     
     static let textButtonTitle: UIFont = UIFont(name: "ALSSiriusVF_Light", size: 20)!
+    
+    static let titleNavBar: UIFont = UIFont(name: "ChelaOne-Regular", size: 30)!
 }

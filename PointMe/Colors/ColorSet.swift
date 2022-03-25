@@ -4,6 +4,14 @@ extension UIColor {
     static let defaultBackgroundColor: UIColor  = .init(red: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 1)
     
     
+    static let navBarItemColor: UIColor = UIColor(
+        red: 28 / 255,
+        green: 28 / 255,
+        blue: 30 / 255,
+        alpha: 1.0
+    )
+    
+    
     static let textFieldPlaceholderColor: UIColor = UIColor(
         red: 131 / 255,
         green: 131 / 255,

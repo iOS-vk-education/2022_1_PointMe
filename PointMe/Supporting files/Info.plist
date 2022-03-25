@@ -4,6 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ChelaOne-Regular.ttf</string>
 		<string>ALS-Sirius.ttf</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
