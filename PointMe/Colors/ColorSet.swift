@@ -34,4 +34,12 @@ extension UIColor {
         blue: 37 / 255,
         alpha: 1.0
     )
+    
+    
+    static let textButtonColor: UIColor = UIColor(
+        red: 0,
+        green: 0,
+        blue: 0,
+        alpha: 1.0
+    )
 }
