@@ -85,7 +85,6 @@
 		2C05A1B127EE288A00F77F1D /* SingUp */ = {
 			isa = PBXGroup;
 			children = (
-				2C05A1C427EE5FCB00F77F1D /* Navigation */,
 				2C05A1B227EE289700F77F1D /* View */,
 			);
 			path = SingUp;
@@ -200,6 +199,7 @@
 		873C6A0827EA49B20004715E /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				2C05A1C427EE5FCB00F77F1D /* Navigation */,
 				2C05A1B127EE288A00F77F1D /* SingUp */,
 				2C05A1B027EE286C00F77F1D /* SingIn */,
 			);
