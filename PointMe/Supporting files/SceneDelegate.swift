@@ -14,22 +14,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(toNextScreen(notification:)),
-            name: LoginViewController.NotificationDone,
-            object: nil
+        let navigationController: AuthNavigationController = AuthNavigationController(
+            rootViewController: SignInViewController()
         )
-        
-        let authNavigationController: AuthNavigationController = AuthNavigationController(rootViewController: LoginViewController())
-
-        let initViewController = debugMode ? TabBarController() : authNavigationController
+        let initViewController = debugMode ? TabBarController() : navigationController
         
         window?.rootViewController = initViewController
         window?.makeKeyAndVisible()
         
     }
 
+    
     func sceneDidDisconnect(_ scene: UIScene) {}
 
     
@@ -43,11 +38,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     
     func sceneDidEnterBackground(_ scene: UIScene) {}
-    
-    
-    @objc func toNextScreen(notification: Notification) {
-        let initViewController = TabBarController()
-        self.window?.rootViewController = initViewController
-    }
 }
 

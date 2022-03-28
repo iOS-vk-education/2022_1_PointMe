@@ -31,6 +31,4 @@ final class AuthNavigationController: UINavigationController {
         self.navigationBar.scrollEdgeAppearance = navigationBar.standardAppearance
         self.navigationBar.tintColor = .navBarItemColor
     }
-    
-    
 }

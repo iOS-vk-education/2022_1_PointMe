@@ -7,17 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C05A1B527EE298F00F77F1D /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1B427EE298F00F77F1D /* AuthTextField.swift */; };
 		2C05A1B927EE2A7700F77F1D /* ALS-Sirius.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1B827EE2A7700F77F1D /* ALS-Sirius.ttf */; };
 		2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BA27EE2ABF00F77F1D /* FontSet.swift */; };
 		2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */; };
-		2C05A1BF27EE2EE100F77F1D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BE27EE2EE100F77F1D /* AuthButton.swift */; };
-		2C05A1C327EE455C00F77F1D /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1C227EE455C00F77F1D /* TextButton.swift */; };
 		2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1C527EE5FED00F77F1D /* AuthNavigationViewController.swift */; };
 		2C05A1C827EE73D400F77F1D /* ChelaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */; };
 		2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */; };
 		2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */; };
-		2CBAF2ED27E7763E001A35B2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EC27E7763E001A35B2 /* LoginVC.swift */; };
+		2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EC27E7763E001A35B2 /* SignInViewController.swift */; };
 		2CBAF2F227E77644001A35B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAF2F127E77644001A35B2 /* Assets.xcassets */; };
 		2CBAF2F527E77644001A35B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAF2F327E77644001A35B2 /* LaunchScreen.storyboard */; };
 		2CBAF2FD27E77716001A35B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAF2FC27E77716001A35B2 /* GoogleService-Info.plist */; };
@@ -32,18 +29,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2C05A1B427EE298F00F77F1D /* AuthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextField.swift; sourceTree = "<group>"; };
 		2C05A1B827EE2A7700F77F1D /* ALS-Sirius.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ALS-Sirius.ttf"; sourceTree = "<group>"; };
 		2C05A1BA27EE2ABF00F77F1D /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		2C05A1BE27EE2EE100F77F1D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
-		2C05A1C227EE455C00F77F1D /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		2C05A1C527EE5FED00F77F1D /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
 		2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChelaOne-Regular.ttf"; sourceTree = "<group>"; };
 		2CBAF2E527E7763E001A35B2 /* PointMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2CBAF2EC27E7763E001A35B2 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		2CBAF2EC27E7763E001A35B2 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		2CBAF2F127E77644001A35B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2CBAF2F427E77644001A35B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CBAF2F627E77644001A35B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +85,7 @@
 		2C05A1B127EE288A00F77F1D /* SingUp */ = {
 			isa = PBXGroup;
 			children = (
+				2C05A1C427EE5FCB00F77F1D /* Navigation */,
 				2C05A1B227EE289700F77F1D /* View */,
 			);
 			path = SingUp;
@@ -102,16 +97,6 @@
 				2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2C05A1B327EE296400F77F1D /* Subview */ = {
-			isa = PBXGroup;
-			children = (
-				2C05A1B427EE298F00F77F1D /* AuthTextField.swift */,
-				2C05A1BE27EE2EE100F77F1D /* AuthButton.swift */,
-				2C05A1C227EE455C00F77F1D /* TextButton.swift */,
-			);
-			path = Subview;
 			sourceTree = "<group>";
 		};
 		2C05A1B627EE2A5A00F77F1D /* Fonts */ = {
@@ -135,7 +120,7 @@
 		2C05A1C127EE413E00F77F1D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2CBAF2EC27E7763E001A35B2 /* LoginVC.swift */,
+				2CBAF2EC27E7763E001A35B2 /* SignInViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,8 +154,6 @@
 		2CBAF2E727E7763E001A35B2 /* PointMe */ = {
 			isa = PBXGroup;
 			children = (
-				2C05A1C427EE5FCB00F77F1D /* Navigation */,
-				2C05A1B327EE296400F77F1D /* Subview */,
 				2C05A1B627EE2A5A00F77F1D /* Fonts */,
 				8744ACB427EB12DA00BC11B5 /* TabBar */,
 				8744ACB027EB108B00BC11B5 /* Colors */,
@@ -390,13 +373,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				873C6A0327EA406A0004715E /* AccountVC.swift in Sources */,
-				2C05A1BF27EE2EE100F77F1D /* AuthButton.swift in Sources */,
-				2CBAF2ED27E7763E001A35B2 /* LoginVC.swift in Sources */,
+				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
 				873C69FA27EA404A0004715E /* FindVC.swift in Sources */,
 				873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
-				2C05A1C327EE455C00F77F1D /* TextButton.swift in Sources */,
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
@@ -404,7 +385,6 @@
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
-				2C05A1B527EE298F00F77F1D /* AuthTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
