@@ -176,12 +176,12 @@ final class SignInViewController: UIViewController {
             .bottom(Constants.ContainerTextFields.spacingBetweenTextFields + Constants.ContainerTextFields.widthUnderline)
         
         underlines[1].pin
-            .below(of: textFieldPassword)
+            .below(of: textFieldUsernameOrEmail)
             .horizontally()
             .height(Constants.ContainerTextFields.widthUnderline)
         
         emailOrUsernameLabel.pin
-            .above(of: textFieldPassword)
+            .above(of: textFieldUsernameOrEmail)
             .horizontally()
             .height(emailOrUsernameLabel.font.pointSize)
         
@@ -236,7 +236,7 @@ final class SignInViewController: UIViewController {
                 self?.signUpButtonLabel.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
                 let signUpViewController: UIViewController = SignUpViewController()
-                self?.navigationController?.pushViewController(signUpViewController, animated: true)
+                self?.navigationController?.pushViewController(signUpViewController, animated: false)
             }
         }
     }

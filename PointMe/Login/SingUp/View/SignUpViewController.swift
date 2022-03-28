@@ -173,13 +173,13 @@ final class SignUpViewController: UIViewController {
             .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
             .bottom(Constants.ContainerTextFields.widthUnderline)
         
-        usernameLabel.pin
-            .above(of: textFieldUsername)
+        passwordLabel.pin
+            .above(of: textFieldPassword)
             .horizontally()
             .height(usernameLabel.font.pointSize)
         
         underlines[0].pin
-            .below(of: textFieldUsername)
+            .below(of: textFieldPassword)
             .horizontally()
             .height(Constants.ContainerTextFields.widthUnderline)
         
@@ -203,7 +203,7 @@ final class SignUpViewController: UIViewController {
             .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
             .bottom(Constants.ContainerTextFields.spacingBetweenTextFields * 2 + Constants.ContainerTextFields.widthUnderline)
         
-        passwordLabel.pin
+        usernameLabel.pin
             .above(of: textFieldUsername)
             .horizontally()
             .height(passwordLabel.font.pointSize)
