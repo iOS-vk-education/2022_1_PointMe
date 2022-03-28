@@ -129,8 +129,8 @@ final class SignInViewController: UIViewController {
             containerTextFieldsView.addSubview($0)
         }
         
-        underlines.forEach { [weak self] in
-            self?.containerTextFieldsView.addSubview($0)
+        underlines.forEach {
+            containerTextFieldsView.addSubview($0)
         }
         
         [signInButton, signUpButtonLabel].forEach {
@@ -236,7 +236,7 @@ final class SignInViewController: UIViewController {
                 self?.signUpButtonLabel.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
                 let signUpViewController: UIViewController = SignUpViewController()
-                self?.navigationController?.pushViewController(signUpViewController, animated: false)
+                self?.navigationController?.pushViewController(signUpViewController, animated: true)
             }
         }
     }
