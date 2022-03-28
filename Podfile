@@ -26,5 +26,5 @@ target 'PointMe' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'  
 
-
+  pod 'IQKeyboardManagerSwift'
 end
