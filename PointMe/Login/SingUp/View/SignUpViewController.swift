@@ -4,8 +4,9 @@ import PinLayout
 
 final class SignUpViewController: UIViewController {
     
-    /// MARK: - placeholder for  textField (username)
-    private lazy var labelForUsername: UILabel = {
+    // MARK: - Private properties (UI)
+    
+    private lazy var usernameLabel: UILabel = {
         let label: UILabel = UILabel()
         
         label.text = "Имя пользователя"
@@ -16,8 +17,7 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - placeholder for  textField (username)
-    private lazy var labelForEmail: UILabel = {
+    private lazy var emailLabel: UILabel = {
         let label: UILabel = UILabel()
         
         label.text = "Email"
@@ -28,8 +28,7 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - placeholder for  textField (password)
-    private lazy var labelForPassword: UILabel = {
+    private lazy var passwordLabel: UILabel = {
         let label: UILabel = UILabel()
         
         label.text = "Пароль"
@@ -40,7 +39,6 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - array views for textField's underline
     private lazy var underlines: [UIView] = {
         var arrayUnderlines: [UIView] = []
         
@@ -54,7 +52,6 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - textField for login
     private lazy var textFieldUsername: UITextField = {
         let textField = UITextField()
         
@@ -67,7 +64,6 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - textField for email
     private lazy var textFieldEmail: UITextField = {
         let textField = UITextField()
         
@@ -81,7 +77,6 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - textField for password
     private lazy var textFieldPassword: UITextField = {
         let textField = UITextField()
         
@@ -95,19 +90,18 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - button for SignUp
     private lazy var signUpButton: UIButton = {
         let button = UIButton()
         
         button.setTitle("Присоединиться", for: .normal)
-        button.titleLabel?.font =  .buttonTitle
+        button.titleLabel?.font = .buttonTitle
         button.backgroundColor = .buttonColor
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = Constants.Buttons.cornerRadius
         
         let gesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(
             target: self,
-            action: #selector(didLongPressSignUpButton)
+            action: #selector(didTapSignUpButton)
         )
         gesture.minimumPressDuration = Constants.Buttons.minPressDuration
         button.addGestureRecognizer(gesture)
@@ -116,25 +110,23 @@ final class SignUpViewController: UIViewController {
     }()
     
     
-    /// MARK: - container view for textFilds, placeholders and underlines
     private lazy var containerTextFieldsView: UIView = {
         let container: UIView = UIView()
         
-        container.backgroundColor = .white
+        container.backgroundColor = .authScreensBackgroundColor
         
         return container
     }()
     
     
-    /// MARK: - label containing registration rules P.S.
-    private lazy var labelPS: UILabel = {
+    private lazy var privacyLabel: UILabel = {
         let lable: UILabel = UILabel()
         
         lable.text = "Нажимая “Присоединиться”, вы принимаете Условия использования и Политику конфиденциальности  PointMe"
         lable.numberOfLines = 2
         lable.font = .authPS
         lable.textAlignment = .center
-        lable.textColor = .authPS
+        lable.textColor = .privacyLabelColor
         
         return lable
     }()
@@ -143,27 +135,10 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        
         setupNavigationBar()
-        setupContainerTextFields()
-        setupButtonAndLabelPS()
-    }
-    
-    
-    private func setupNavigationBar() {
-        self.title = "PointMe"
-        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
-    }
-    
-    
-    private func setupContainerTextFields() {
-        [textFieldUsername, textFieldEmail, textFieldPassword].forEach {
-            containerTextFieldsView.addSubview($0)
-            
-        }
+        view.backgroundColor = .authScreensBackgroundColor
         
-        [labelForUsername, labelForEmail, labelForPassword].forEach {
+        [textFieldUsername, textFieldEmail, textFieldPassword, usernameLabel, emailLabel, passwordLabel].forEach {
             containerTextFieldsView.addSubview($0)
         }
         
@@ -171,87 +146,93 @@ final class SignUpViewController: UIViewController {
             containerTextFieldsView.addSubview($0)
         }
         
+        [signUpButton, privacyLabel].forEach {
+            view.addSubview($0)
+        }
+        
         view.addSubview(containerTextFieldsView)
     }
     
+    // MARK: - Setups
     
-    private func setupButtonAndLabelPS() {
-        view.addSubview(signUpButton)
-        view.addSubview(labelPS)
+    private func setupNavigationBar() {
+        self.title = "PointMe"
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
-    
-    // MARK: Setup Layout
-    
+    // MARK: - Layout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        setupLayoutContainerTextFields()
-        setupLayoutButtonSingUp()
-        setupLayoutLabelPS()
-    }
-    
-    
-    private func setupLayoutContainerTextFields() {
-        var offsetByCenter: CGFloat = 0
-        var indexUnderline: Int = 0
-        
         containerTextFieldsView.pin
             .horizontally(Constants.ContainerTextFields.horizontalMarginContainer)
         
-        [textFieldPassword, textFieldEmail, textFieldUsername].forEach {
-            $0.pin.height(Constants.ContainerTextFields.heightTextFileld)
-                .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
-                .bottom(offsetByCenter + 1)
-            
-            underlines[indexUnderline].pin.below(of: $0)
-                .horizontally()
-                .height(Constants.ContainerTextFields.widthUnderline)
-            
-            indexUnderline += 1
-            offsetByCenter += Constants.ContainerTextFields.spacingBetweenTextFields
-        }
+        textFieldPassword.pin
+            .height(Constants.ContainerTextFields.heightTextFileld)
+            .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
+            .bottom(Constants.ContainerTextFields.widthUnderline)
         
-        labelForUsername.pin.above(of: textFieldUsername)
+        usernameLabel.pin
+            .above(of: textFieldUsername)
             .horizontally()
-            .height(labelForUsername.font.pointSize)
+            .height(usernameLabel.font.pointSize)
         
-        labelForEmail.pin.above(of: textFieldEmail)
+        underlines[0].pin
+            .below(of: textFieldUsername)
             .horizontally()
-            .height(labelForEmail.font.pointSize)
+            .height(Constants.ContainerTextFields.widthUnderline)
         
-        labelForPassword.pin.above(of: textFieldPassword)
+        textFieldEmail.pin
+            .height(Constants.ContainerTextFields.heightTextFileld)
+            .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
+            .bottom(Constants.ContainerTextFields.spacingBetweenTextFields + Constants.ContainerTextFields.widthUnderline)
+        
+        emailLabel.pin
+            .above(of: textFieldEmail)
             .horizontally()
-            .height(labelForPassword.font.pointSize)
+            .height(emailLabel.font.pointSize)
+        
+        underlines[1].pin
+            .below(of: textFieldEmail)
+            .horizontally()
+            .height(Constants.ContainerTextFields.widthUnderline)
+        
+        textFieldUsername.pin
+            .height(Constants.ContainerTextFields.heightTextFileld)
+            .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
+            .bottom(Constants.ContainerTextFields.spacingBetweenTextFields * 2 + Constants.ContainerTextFields.widthUnderline)
+        
+        passwordLabel.pin
+            .above(of: textFieldUsername)
+            .horizontally()
+            .height(passwordLabel.font.pointSize)
+        
+        underlines[2].pin
+            .below(of: textFieldUsername)
+            .horizontally()
+            .height(Constants.ContainerTextFields.widthUnderline)
+        
         
         containerTextFieldsView.pin
             .bottom(view.bounds.height / 2)
             .wrapContent()
-    }
-    
-    
-    private func setupLayoutButtonSingUp() {
-        signUpButton.pin.below(of: containerTextFieldsView)
+        
+        signUpButton.pin
+            .below(of: containerTextFieldsView)
             .horizontally(Constants.Buttons.marginHorizontalSignUpButton)
             .height(Constants.Buttons.heightSignUpButton)
             .marginTop(Constants.Buttons.marginTopSignUpButton)
-    }
-    
-    
-    private func setupLayoutLabelPS() {
-        labelPS.pin
+        
+        privacyLabel.pin
             .height(Constants.LabelPS.heightLabel)
             .bottom(view.safeAreaInsets.bottom)
             .horizontally(Constants.LabelPS.hotizontalMargin)
-        
     }
     
+    // MARK: - Actions
     
-    // MARK: Setup targets for buttons
-    
-    
-    @objc private func didLongPressSignUpButton(recognizer: UILongPressGestureRecognizer) {
+    @objc private func didTapSignUpButton(recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .began {
             UIView.animate(withDuration: Constants.Buttons.durationAnimation) { [weak self] in
                 self?.signUpButton.alpha = Constants.Buttons.tapOpacity
@@ -270,39 +251,31 @@ final class SignUpViewController: UIViewController {
 
 
 private extension SignUpViewController {
-    /// MARK: - constans values
+    // MARK: - Constans
     private struct Constants {
-        // for buttons
         struct Buttons {
-            // for buttons activity
             static let tapOpacity: CGFloat = 0.7
             static let identityOpacity: CGFloat = 1.0
             static let cornerRadius: CGFloat = 10
             static let durationAnimation: TimeInterval = 0.1
             static let minPressDuration: TimeInterval = 0
             
-            // for signUp layout
             static let heightSignUpButton: CGFloat = 56
             static let marginTopSignUpButton: CGFloat = 60
             static let marginHorizontalSignUpButton: CGFloat = 20
         }
         
-        // for container
         struct ContainerTextFields {
-            // for container
             static let horizontalMarginContainer: CGFloat = 20
             
-            // for underlines
             static let widthUnderline: CGFloat = 1.0
             
-            // for textFields
             static let countTextFields: Int = 3
             static let spacingBetweenTextFields: CGFloat = 70
             static let horizontalMarginTextField: CGFloat = 1
             static let heightTextFileld: CGFloat = 40
         }
         
-        // for labelPS
         struct LabelPS {
             static let hotizontalMargin: CGFloat = 18
             static let bottomMargin: CGFloat = 18
