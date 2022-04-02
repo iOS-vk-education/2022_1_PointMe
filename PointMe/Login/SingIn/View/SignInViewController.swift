@@ -236,7 +236,7 @@ final class SignInViewController: UIViewController {
                 self?.signUpButtonLabel.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
                 let signUpViewController: UIViewController = SignUpViewController()
-                self?.navigationController?.pushViewController(signUpViewController, animated: false)
+                self?.navigationController?.pushViewController(signUpViewController, animated: true)
             }
         }
     }
