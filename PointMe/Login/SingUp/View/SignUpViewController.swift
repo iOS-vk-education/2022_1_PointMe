@@ -2,7 +2,7 @@ import UIKit
 import PinLayout
 
 
-final class SignUpViewController: UIViewController {
+final class SignUpViewController: UIViewController, AlertMessages {
     
     // MARK: - Private properties (UI)
     
@@ -132,6 +132,9 @@ final class SignUpViewController: UIViewController {
     }()
     
     
+    private let model: SignUpModel = SignUpModel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -243,9 +246,41 @@ final class SignUpViewController: UIViewController {
             UIView.animate(withDuration: Constants.Buttons.durationAnimation) { [weak self] in
                 self?.signUpButton.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
-                print("SignUp success!")
+                let username = self?.textFieldUsername.text
+                let email = self?.textFieldEmail.text
+                let password = self?.textFieldPassword.text
+                
+                self?.model.signUpUser(email: email, password: password, username: username) { result in
+                    switch result {
+                    case .success:
+                        self?.showInfoAlert(
+                            forTitleText: "Подтверждение",
+                            forBodyText: "Вы успешно зарегестрированы!",
+                            viewController: self!,
+                            action: {
+                                self?.presentTabBar()
+                            }
+                        )
+                        break
+                    case .failure(_):
+                        self?.showWarningAlert(
+                            forTitleText: "\("Ошибка")",
+                            forBodyText: "Введите корректные имя пользователя, email и пароль (должен быть не менее 6 символов)!",
+                            viewController: self!
+                        )
+                        break
+                    }
+                }
             }
         }
+    }
+    
+    
+    private func presentTabBar() {
+        let tabBarController: TabBarController = TabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        tabBarController.modalTransitionStyle = .crossDissolve
+        present(tabBarController, animated: true)
     }
 }
 

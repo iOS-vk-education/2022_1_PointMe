@@ -344,6 +344,8 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - Firebase (8.13.0):
+    - Firebase/Core (= 8.13.0)
   - Firebase/Auth (8.13.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 8.13.0)
@@ -497,6 +499,7 @@ PODS:
   - YandexMapsMobile (4.0.0-full)
 
 DEPENDENCIES:
+  - Firebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -557,6 +560,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   YandexMapsMobile: 0f3d8c92fad685dc33d07f83eed4eb0166089743
 
-PODFILE CHECKSUM: ea1e13b83c1fbc5f89cd1ec95419349f240be25e
+PODFILE CHECKSUM: 905f458a9c59b7f4d6a9d7c2a94fc73bc833a28d
 
 COCOAPODS: 1.11.3

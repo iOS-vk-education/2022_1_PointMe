@@ -1,14 +1,15 @@
 import UIKit
+import Firebase
 
 
-final class SignInViewController: UIViewController {
+final class SignInViewController: UIViewController, AlertMessages {
     
     // MARK: - Private properties (UI)
     
-    private lazy var emailOrUsernameLabel: UILabel = {
+    private lazy var emailLabel: UILabel = {
         let label: UILabel = UILabel()
         
-        label.text = "Email/Имя пользователя"
+        label.text = "Email"
         label.textColor = .textFieldPlaceholderColor
         label.font = .textFieldPlaceholderFont
         
@@ -40,7 +41,7 @@ final class SignInViewController: UIViewController {
     }()
     
     
-    private lazy var textFieldUsernameOrEmail: UITextField = {
+    private lazy var textFieldEmail: UITextField = {
         let textField = UITextField()
         
         textField.font = .textFieldInput
@@ -119,18 +120,21 @@ final class SignInViewController: UIViewController {
     }()
     
     
+    private let model: SignInModel = SignInModel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .authScreensBackgroundColor
         setupNavigationBar()
         
-        [textFieldUsernameOrEmail, textFieldPassword, emailOrUsernameLabel, passwordLabel].forEach {
+        [textFieldEmail, textFieldPassword, emailLabel, passwordLabel].forEach {
             containerTextFieldsView.addSubview($0)
         }
         
-        underlines.forEach { [weak self] in
-            self?.containerTextFieldsView.addSubview($0)
+        underlines.forEach {
+            containerTextFieldsView.addSubview($0)
         }
         
         [signInButton, signUpButtonLabel].forEach {
@@ -170,20 +174,20 @@ final class SignInViewController: UIViewController {
             .horizontally()
             .height(passwordLabel.font.pointSize)
         
-        textFieldUsernameOrEmail.pin
+        textFieldEmail.pin
             .height(Constants.ContainerTextFields.heightTextFileld)
             .horizontally(Constants.ContainerTextFields.horizontalMarginTextField)
             .bottom(Constants.ContainerTextFields.spacingBetweenTextFields + Constants.ContainerTextFields.widthUnderline)
         
         underlines[1].pin
-            .below(of: textFieldUsernameOrEmail)
+            .below(of: textFieldEmail)
             .horizontally()
             .height(Constants.ContainerTextFields.widthUnderline)
         
-        emailOrUsernameLabel.pin
-            .above(of: textFieldUsernameOrEmail)
+        emailLabel.pin
+            .above(of: textFieldEmail)
             .horizontally()
-            .height(emailOrUsernameLabel.font.pointSize)
+            .height(emailLabel.font.pointSize)
         
         containerTextFieldsView.pin
             .bottom(view.bounds.height / 2)
@@ -215,12 +219,40 @@ final class SignInViewController: UIViewController {
             UIView.animate(withDuration: Constants.Buttons.durationAnimation) { [weak self] in
                 self?.signInButton.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
-                let tabBarController: TabBarController = TabBarController()
-                tabBarController.modalPresentationStyle = .fullScreen
-                tabBarController.modalTransitionStyle = .crossDissolve
-                self?.present(tabBarController, animated: true)
+                let email = self?.textFieldEmail.text
+                let password = self?.textFieldPassword.text
+
+                self?.model.signInUser(email: email, password: password, completion: { result in
+                    switch result {
+                    case .success:
+                        self?.showInfoAlert(
+                            forTitleText: "Подтверждение",
+                            forBodyText: "Вы успешно вошли!",
+                            viewController: self!,
+                            action: {
+                                self?.presentTabBar()
+                            }
+                        )
+                        break
+                    case .failure(_):
+                        self?.showWarningAlert(
+                            forTitleText: "\("Ошибка")",
+                            forBodyText: "Введите корректные email и пароль (должен быть не менее 6 символов)!",
+                            viewController: self!
+                        )
+                        break
+                    }
+                })
             }
         }
+    }
+    
+    
+    private func presentTabBar() {
+        let tabBarController: TabBarController = TabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        tabBarController.modalTransitionStyle = .crossDissolve
+        present(tabBarController, animated: true)
     }
     
     
@@ -236,7 +268,7 @@ final class SignInViewController: UIViewController {
                 self?.signUpButtonLabel.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
                 let signUpViewController: UIViewController = SignUpViewController()
-                self?.navigationController?.pushViewController(signUpViewController, animated: false)
+                self?.navigationController?.pushViewController(signUpViewController, animated: true)
             }
         }
     }

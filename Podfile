@@ -20,6 +20,7 @@ target 'PointMe' do
   pod 'PinLayout'
 
   #Firebase
+  pod 'Firebase'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database' 
