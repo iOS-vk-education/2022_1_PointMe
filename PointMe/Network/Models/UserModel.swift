@@ -7,7 +7,8 @@ struct UserModel {
     var password: String
     var username: String
     var avatar: String?
-    var subscribers: Int = 0
+    var countSubscribers: Int = 0
+    var countPublishers: Int = 0
     var publishers: [String] = []
     var posts: [String] = []
     var favourite: [String] = []

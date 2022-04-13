@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         let navigationController: AuthNavigationController = AuthNavigationController(
-            rootViewController: SignInViewController()
+            rootViewController: CreatingPostViewController()
         )
         let initViewController = debugMode ? TabBarController() : navigationController
         
