@@ -19,12 +19,17 @@
 		2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691827FDC2C600EF3054 /* UserModel.swift */; };
 		2C8C691B27FDC40200EF3054 /* AuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691A27FDC40200EF3054 /* AuthResult.swift */; };
 		2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691D27FDCA6800EF3054 /* SignInModel.swift */; };
+		2C9ACE062807360000FC54EC /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9ACE052807360000FC54EC /* PostModel.swift */; };
 		2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */; };
 		2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */; };
 		2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EC27E7763E001A35B2 /* SignInViewController.swift */; };
 		2CBAF2F227E77644001A35B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAF2F127E77644001A35B2 /* Assets.xcassets */; };
 		2CBAF2F527E77644001A35B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAF2F327E77644001A35B2 /* LaunchScreen.storyboard */; };
 		2CBAF2FD27E77716001A35B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAF2FC27E77716001A35B2 /* GoogleService-Info.plist */; };
+		2CC49F5A280311FC00E35E68 /* CreatingPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC49F59280311FC00E35E68 /* CreatingPostViewController.swift */; };
+		2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC49F5C28032EA500E35E68 /* AddPhotoCell.swift */; };
+		2CC49F612803836C00E35E68 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC49F602803836C00E35E68 /* ImageCell.swift */; };
+		2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC49F632803861300E35E68 /* CreatingPostModel.swift */; };
 		2CFEA8A927F7CD2B00750CF0 /* libFirebaseAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8A827F7CD2B00750CF0 /* libFirebaseAuth.a */; };
 		2CFEA8AB27F7CD9400750CF0 /* libFirebaseDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */; };
 		4A12BA8BD40F75A8203A7D0E /* libPods-PointMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1110205D48719CC6509C9E /* libPods-PointMe.a */; };
@@ -50,6 +55,7 @@
 		2C8C691827FDC2C600EF3054 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2C8C691A27FDC40200EF3054 /* AuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResult.swift; sourceTree = "<group>"; };
 		2C8C691D27FDCA6800EF3054 /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
+		2C9ACE052807360000FC54EC /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		2CBAF2E527E7763E001A35B2 /* PointMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +64,10 @@
 		2CBAF2F427E77644001A35B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CBAF2F627E77644001A35B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CBAF2FC27E77716001A35B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2CC49F59280311FC00E35E68 /* CreatingPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingPostViewController.swift; sourceTree = "<group>"; };
+		2CC49F5C28032EA500E35E68 /* AddPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCell.swift; sourceTree = "<group>"; };
+		2CC49F602803836C00E35E68 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		2CC49F632803861300E35E68 /* CreatingPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingPostModel.swift; sourceTree = "<group>"; };
 		2CFEA8A827F7CD2B00750CF0 /* libFirebaseAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseDatabase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE9F2D5A3D4A920510ED310 /* Pods-PointMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointMe.release.xcconfig"; path = "Target Support Files/Pods-PointMe/Pods-PointMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +213,7 @@
 			children = (
 				2C8C691827FDC2C600EF3054 /* UserModel.swift */,
 				2C8C691A27FDC40200EF3054 /* AuthResult.swift */,
+				2C9ACE052807360000FC54EC /* PostModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +247,7 @@
 		2CBAF2E727E7763E001A35B2 /* PointMe */ = {
 			isa = PBXGroup;
 			children = (
+				2CC49F57280310BF00E35E68 /* CreatingPost */,
 				2C8C690E27FCFC1500EF3054 /* Utils Protocols+Extensions */,
 				2C8C690B27FCEA7300EF3054 /* Network */,
 				2C05A1B627EE2A5A00F77F1D /* Fonts */,
@@ -250,6 +262,41 @@
 				2CE600FD27E7BC1E000902C8 /* Supporting files */,
 			);
 			path = PointMe;
+			sourceTree = "<group>";
+		};
+		2CC49F57280310BF00E35E68 /* CreatingPost */ = {
+			isa = PBXGroup;
+			children = (
+				2CC49F62280385F800E35E68 /* Model */,
+				2CC49F582803113E00E35E68 /* View */,
+			);
+			path = CreatingPost;
+			sourceTree = "<group>";
+		};
+		2CC49F582803113E00E35E68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2CC49F5B28032D9F00E35E68 /* Cells */,
+				2CC49F59280311FC00E35E68 /* CreatingPostViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2CC49F5B28032D9F00E35E68 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2CC49F5C28032EA500E35E68 /* AddPhotoCell.swift */,
+				2CC49F602803836C00E35E68 /* ImageCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2CC49F62280385F800E35E68 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2CC49F632803861300E35E68 /* CreatingPostModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2CE600FD27E7BC1E000902C8 /* Supporting files */ = {
@@ -465,6 +512,8 @@
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
+				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
+				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
 				2C8C691627FDBF9800EF3054 /* DatabaseManager.swift in Sources */,
 				2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */,
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
@@ -475,8 +524,11 @@
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */,
+				2CC49F612803836C00E35E68 /* ImageCell.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
+				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
+				2CC49F5A280311FC00E35E68 /* CreatingPostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

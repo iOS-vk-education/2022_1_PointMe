@@ -5,13 +5,14 @@ extension UIColor {
     
     static let authScreensBackgroundColor: UIColor = .white
     
+    static let addPostScreenBackgroundColor: UIColor  = .white
+    
     static let navBarItemColor: UIColor = UIColor(
         red: 28 / 255,
         green: 28 / 255,
         blue: 30 / 255,
         alpha: 1.0
     )
-    
     
     static let textFieldPlaceholderColor: UIColor = UIColor(
         red: 131 / 255,
@@ -20,7 +21,6 @@ extension UIColor {
         alpha: 1.0
     )
     
-    
     static let textFieldInputColor: UIColor = UIColor(
         red: 32 / 255,
         green: 34 / 255,
@@ -28,6 +28,12 @@ extension UIColor {
         alpha: 1.0
     )
     
+    static let textFieldTitlePlaceColor: UIColor = UIColor(
+        red: 241 / 255,
+        green: 241 / 255,
+        blue: 241 / 255,
+        alpha: 1.0
+    )
     
     static let privacyLabelColor: UIColor = UIColor(
         red: 60 / 255,
@@ -36,7 +42,6 @@ extension UIColor {
         alpha: 0.6
     )
     
-    
     static let buttonColor: UIColor = UIColor(
         red: 32 / 255,
         green: 34 / 255,
@@ -44,11 +49,45 @@ extension UIColor {
         alpha: 1.0
     )
     
-    
     static let textButtonColor: UIColor = UIColor(
         red: 0,
         green: 0,
         blue: 0,
+        alpha: 1.0
+    )
+    
+    static let lightTitleButton: UIColor = UIColor(
+        red: 1.0,
+        green: 1.0,
+        blue: 1.0,
+        alpha: 1.0
+    )
+    
+    static let buttonAddPhotoColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let backgroundColorDeletPhotoButton: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 0.75
+    )
+    
+    static let standartLabelColor: UIColor = UIColor(
+        red: 0,
+        green: 0,
+        blue: 0,
+        alpha: 1.0
+    )
+    
+    static let buttonAddMarkColor: UIColor = UIColor(
+        red: 254 / 255,
+        green: 61 / 255,
+        blue: 61 / 255,
         alpha: 1.0
     )
 }
