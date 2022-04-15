@@ -6,7 +6,7 @@ final class SignInModel: SimpleLogger {
     
     init() {}
     
-    func signInUser(email: String?, password: String?, completion: @escaping (AuthResult) -> Void) {
+    func signInUser(email: String?, password: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let email = email, let password = password else {
             completion(.failure(NSError()))
             return
@@ -32,7 +32,7 @@ final class SignInModel: SimpleLogger {
             }
             
             self?.log(message: "Success login an user")
-            completion(.success)
+            completion(.success(Void()))
             return
         }
     }

@@ -249,7 +249,7 @@ final class SignInViewController: UIViewController, AlertMessages {
     
     
     private func presentTabBar() {
-        let tabBarController: TabBarController = TabBarController()
+        let tabBarController: CreatingPostViewController = CreatingPostViewController()
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
         present(tabBarController, animated: true)

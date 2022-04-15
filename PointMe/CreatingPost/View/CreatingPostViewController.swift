@@ -6,6 +6,25 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     
     // MARK: - Private properties (UI)
     
+    private lazy var alertLoader: UIAlertController = {
+        let alert: UIAlertController = UIAlertController(
+            title: nil,
+            message: "Please wait...",
+            preferredStyle: .alert
+        )
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.medium
+        loadingIndicator.startAnimating()
+
+        alert.view.addSubview(loadingIndicator)
+        
+        return alert
+    }()
+
+    
+    
     private lazy var titleTextField: UITextField = {
         let textField: UITextField = UITextField()
         
@@ -304,29 +323,34 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
             UIView.animate(withDuration: Constants.Button.durationAnimation) { [weak self] in
                 self?.pushButton.alpha = Constants.Button.identityOpacity
             } completion: { [weak self] _ in
-                let title = self?.titleTextField.text
-                let comment = self?.commentTextView.text
+                guard let self = self else { return }
+                self.present(self.alertLoader, animated: true, completion: nil)
                 
-                self?.model.addPost(title: title, comment: comment) { result in
+                let title = self.titleTextField.text
+                let comment = self.commentTextView.text
+                
+                self.model.addPost(title: title, comment: comment) { result in
                     switch result {
                     case .success:
-                        self?.showInfoAlert(
+                        self.alertLoader.dismiss(animated: true, completion: nil)
+                        self.showInfoAlert(
                             forTitleText: "Подтверждение",
                             forBodyText: "Вы успешно добавили пост!",
-                            viewController: self!,
-                            action: nil // MARK: FIX ME!!! - добавить переход назад
+                            viewController: self,
+                            action: nil // FIX ME!!! - добавить переход назад
                         )
                         break
-                    case .failure(_):
-                        self?.showWarningAlert(
+                    case .failure(let error):
+                        print("[ERRRRROOOOOORRRR] : \(error.localizedDescription)")
+                        self.alertLoader.dismiss(animated: true, completion: nil)
+                        self.showWarningAlert(
                             forTitleText: "\("Ошибка")",
-                            forBodyText: "Произошла ошибка при добалении поста! Добавьте название, комментарий и оценку!",
-                            viewController: self!
+                            forBodyText: error.localizedDescription,
+                            viewController: self
                         )
                         break
                     }
                 }
-                
             }
         }
     }
@@ -359,10 +383,8 @@ extension CreatingPostViewController: UICollectionViewDelegateFlowLayout, UIColl
             return UICollectionViewCell()
         }
         
-        cell.setup(urlImage: model.getImageURL(for: indexPath.item - 1)) { [weak self] in
-            collectionView.deleteItems(at: [indexPath])
-            self?.model.removeByIndexURL(for: indexPath.item - 1)
-        }
+        cell.setup(indexPathCell: indexPath, urlImage: model.getImageURL(for: indexPath.item - 1))
+        cell.delegat = self
         
         return cell
     }
@@ -396,6 +418,15 @@ extension CreatingPostViewController: UICollectionViewDelegateFlowLayout, UIColl
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
+    }
+}
+
+
+extension CreatingPostViewController: ImageCellDelegate {
+    func didTapDeleteImageButton(indexPathCell: IndexPath) {
+        photosCollectionView.deleteItems(at: [indexPathCell])
+        self.model.removeByIndexURL(for: indexPathCell.item - 1)
+        photosCollectionView.reloadData()
     }
 }
 

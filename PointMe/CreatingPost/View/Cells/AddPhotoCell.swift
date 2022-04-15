@@ -5,7 +5,6 @@ import PinLayout
 final class AddPhotoCell: UICollectionViewCell {
     static let id: String = "AddPhotoCell"
     
-    
     private lazy var bodyView: UIView = {
         let bodyView: UIView = UIView()
         
@@ -15,7 +14,6 @@ final class AddPhotoCell: UICollectionViewCell {
         return bodyView
     }()
     
-    
     private lazy var titleImageView: UIImageView = {
         let titleImageView: UIImageView = UIImageView()
         
@@ -24,7 +22,6 @@ final class AddPhotoCell: UICollectionViewCell {
         
         return titleImageView
     }()
-    
     
     private lazy var titleText: UILabel = {
         let label: UILabel = UILabel()
@@ -38,7 +35,6 @@ final class AddPhotoCell: UICollectionViewCell {
         return label
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }
@@ -47,19 +43,13 @@ final class AddPhotoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func setup() {
         contentView.backgroundColor = .clear
-        
-        [bodyView].forEach {
-            contentView.addSubview($0)
-        }
-        
+        contentView.addSubview(bodyView)
         [titleImageView, titleText].forEach {
             bodyView.addSubview($0)
         }
     }
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -79,14 +69,12 @@ final class AddPhotoCell: UICollectionViewCell {
             .height(Constants.height4TextButton)
     }
     
-    
     override var isHighlighted: Bool {
         didSet {
             toggleIsHighlighted()
         }
     }
 
-    
     func toggleIsHighlighted() {
         UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseOut], animations: {
             self.alpha = self.isHighlighted ? 0.9 : 1.0

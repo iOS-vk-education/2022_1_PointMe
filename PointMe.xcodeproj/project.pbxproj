@@ -12,12 +12,13 @@
 		2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */; };
 		2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1C527EE5FED00F77F1D /* AuthNavigationViewController.swift */; };
 		2C05A1C827EE73D400F77F1D /* ChelaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */; };
+		2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */; };
+		2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF5DF2808CBB30058C84D /* AddPostError.swift */; };
 		2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C690727FB72C600EF3054 /* AlertMessages.swift */; };
 		2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691027FCFDC500EF3054 /* Logger.swift */; };
 		2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691327FDBB0000EF3054 /* SignUpModel.swift */; };
 		2C8C691627FDBF9800EF3054 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691527FDBF9800EF3054 /* DatabaseManager.swift */; };
 		2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691827FDC2C600EF3054 /* UserModel.swift */; };
-		2C8C691B27FDC40200EF3054 /* AuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691A27FDC40200EF3054 /* AuthResult.swift */; };
 		2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691D27FDCA6800EF3054 /* SignInModel.swift */; };
 		2C9ACE062807360000FC54EC /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9ACE052807360000FC54EC /* PostModel.swift */; };
 		2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */; };
@@ -48,12 +49,13 @@
 		2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2C05A1C527EE5FED00F77F1D /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
 		2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChelaOne-Regular.ttf"; sourceTree = "<group>"; };
+		2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellDelegate.swift; sourceTree = "<group>"; };
+		2C0BF5DF2808CBB30058C84D /* AddPostError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostError.swift; sourceTree = "<group>"; };
 		2C8C690727FB72C600EF3054 /* AlertMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessages.swift; sourceTree = "<group>"; };
 		2C8C691027FCFDC500EF3054 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2C8C691327FDBB0000EF3054 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		2C8C691527FDBF9800EF3054 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		2C8C691827FDC2C600EF3054 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		2C8C691A27FDC40200EF3054 /* AuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResult.swift; sourceTree = "<group>"; };
 		2C8C691D27FDCA6800EF3054 /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
 		2C9ACE052807360000FC54EC /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		2CBAF2E527E7763E001A35B2 /* PointMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,30 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		2C0BF5DA2808B5380058C84D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2C0BF5DB2808B5680058C84D /* Cells */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2C0BF5DB2808B5680058C84D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2C0BF5DE2808CBA10058C84D /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				2C0BF5DF2808CBB30058C84D /* AddPostError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		2C8C690627FB72A800EF3054 /* AlertMessages */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +203,7 @@
 		2C8C690B27FCEA7300EF3054 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2C0BF5DE2808CBA10058C84D /* Errors */,
 				2C8C691727FDC2B700EF3054 /* Models */,
 				2C8C691527FDBF9800EF3054 /* DatabaseManager.swift */,
 			);
@@ -212,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				2C8C691827FDC2C600EF3054 /* UserModel.swift */,
-				2C8C691A27FDC40200EF3054 /* AuthResult.swift */,
 				2C9ACE052807360000FC54EC /* PostModel.swift */,
 			);
 			path = Models;
@@ -267,6 +293,7 @@
 		2CC49F57280310BF00E35E68 /* CreatingPost */ = {
 			isa = PBXGroup;
 			children = (
+				2C0BF5DA2808B5380058C84D /* Protocols */,
 				2CC49F62280385F800E35E68 /* Model */,
 				2CC49F582803113E00E35E68 /* View */,
 			);
@@ -512,6 +539,7 @@
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
+				2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */,
 				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
 				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
 				2C8C691627FDBF9800EF3054 /* DatabaseManager.swift in Sources */,
@@ -519,7 +547,6 @@
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
-				2C8C691B27FDC40200EF3054 /* AuthResult.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
@@ -528,6 +555,7 @@
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
+				2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */,
 				2CC49F5A280311FC00E35E68 /* CreatingPostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

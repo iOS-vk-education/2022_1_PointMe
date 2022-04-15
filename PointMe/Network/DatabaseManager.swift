@@ -7,10 +7,12 @@ final class DatabaseManager {
     
     private var reference: DatabaseReference!
     private var storage: StorageReference!
+    private var infoReference: DatabaseReference!
     
     private init() {
         storage = Storage.storage().reference()
         reference = Database.database().reference()
+        infoReference = Database.database().reference(withPath: ".info/connected")
     }
     
     public var currentUserUID: String? {
@@ -19,9 +21,13 @@ final class DatabaseManager {
         }
     }
     
-    public func addPost(postData: PostModel, completion: ((AuthResult) -> Void)?) {
-        guard let keyPost = reference.child("posts").childByAutoId().key else {
-            completion?(.failure(NSError()))
+    public func addPost(postData: PostModel, completion: ((Result<Void, Error>) -> Void)?) {
+        
+        let newReference = Database.database().reference()
+        var newStorage = Storage.storage().reference()
+        
+        guard let keyPost = newReference.child("posts").childByAutoId().key else {
+            completion?(.failure(AddPostError.serverError))
             return
         }
         
@@ -37,12 +43,15 @@ final class DatabaseManager {
             "address" : postData.address,
             "comment" : postData.comment,
             "keysImages" : keysImages,
+            "day" : postData.day,
+            "month" : postData.month,
+            "year" : postData.year,
             "mark" : postData.mark
         ]
         
-        reference.child("posts").child(keyPost).setValue(data) { error, _ in
+        newReference.child("posts").child(keyPost).setValue(data) { error, _ in
             guard error == nil else {
-                completion?(.failure(NSError()))
+                completion?(.failure(AddPostError.serverError))
                 return
             }
             
@@ -51,42 +60,39 @@ final class DatabaseManager {
             
             for indexPost in (0 ..< keysImages.count) {
                 guard let dataImage = try? Data(contentsOf: postData.keysImages[indexPost]) else {
-                    completion?(.failure(NSError()))
+                    completion?(.failure(AddPostError.serverError))
                     return
                 }
                 
-                self.storage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
+                newStorage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
                     guard error == nil else {
-                        completion?(.failure(NSError()))
+                        completion?(.failure(AddPostError.serverError))
                         return
                     }
                 }
             }
             
-            
-            self.reference.child("users").child(postData.uid).child("posts").getData { error, snapshot in
+            newReference.child("users").child(postData.uid).child("posts").getData { error, snapshot in
                 guard error == nil else {
-                    print(error!.localizedDescription)
-                    completion?(.failure(NSError()))
+                    completion?(.failure(AddPostError.serverError))
                     return
                 }
                 
                 var arrayPosts = snapshot.value as? [String] ?? Array<String>()
                 arrayPosts.append(keyPost)
                 
-                self.reference.child("users").child(postData.uid).child("posts").setValue(arrayPosts) { error, _ in
+                newReference.child("users").child(postData.uid).child("posts").setValue(arrayPosts) { error, _ in
                     guard error == nil else {
-                        completion?(.failure(NSError()))
+                        completion?(.failure(AddPostError.serverError))
                         return
                     }
                 }
             }
-            
-            completion?(.success)
+            completion?(.success(Void()))
         }
     }
     
-    public func addUser(userData: UserModel, completion: ((AuthResult) -> Void)?) {
+    public func addUser(userData: UserModel, completion: ((Result<Void, Error>) -> Void)?) {
         let data: [String: Any] = [
             "uid" : userData.uid,
             "username" : userData.username,
@@ -105,7 +111,8 @@ final class DatabaseManager {
                 return
             }
             
-            completion?(.success)
+            completion?(.success(Void()))
         }
     }
+        
 }
