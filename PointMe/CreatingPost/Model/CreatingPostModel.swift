@@ -61,7 +61,7 @@ final class CreatingPostModel: SimpleLogger {
             mark: markValue
         )
         
-        addPost(postData: postModel) { [weak self] result in
+        DatabaseManager.shared.addPost(postData: postModel) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.log(message: "Error create a post")
@@ -72,81 +72,6 @@ final class CreatingPostModel: SimpleLogger {
                 completion(.success(Void()))
                 break
             }
-        }
-    }
-    
-    
-    public func addPost(
-        postData: PostModel,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        
-        let newReference = Database.database().reference()
-        let newStorage = Storage.storage().reference()
-        
-        guard let keyPost = newReference.child("posts").childByAutoId().key else {
-            completion(.failure(AddPostError.serverError))
-            return
-        }
-        
-        let keysImages: [String] = postData.keysImages.map { _ in
-            UUID().uuidString
-        }
-        
-        let data: [String: Any] = [
-            "uid" : postData.uid,
-            "title" : postData.title,
-            "latitude" : postData.latitude,
-            "longitude" : postData.longitude,
-            "address" : postData.address,
-            "comment" : postData.comment,
-            "keysImages" : keysImages,
-            "day" : postData.day,
-            "month" : postData.month,
-            "year" : postData.year,
-            "mark" : postData.mark
-        ]
-        
-        newReference.child("posts").child(keyPost).setValue(data) { error, _ in
-            guard error == nil else {
-                completion(.failure(AddPostError.serverError))
-                return
-            }
-            
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpeg"
-            
-            for indexPost in (0 ..< keysImages.count) {
-                guard let dataImage = try? Data(contentsOf: postData.keysImages[indexPost]) else {
-                    completion(.failure(AddPostError.serverError))
-                    return
-                }
-                
-                newStorage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
-                    guard error == nil else {
-                        completion(.failure(AddPostError.serverError))
-                        return
-                    }
-                }
-            }
-            
-            newReference.child("users").child(postData.uid).child("posts").getData { error, snapshot in
-                guard error == nil else {
-                    completion(.failure(AddPostError.serverError))
-                    return
-                }
-                
-                var arrayPosts = snapshot.value as? [String] ?? Array<String>()
-                arrayPosts.append(keyPost)
-                
-                newReference.child("users").child(postData.uid).child("posts").setValue(arrayPosts) { error, _ in
-                    guard error == nil else {
-                        completion(.failure(AddPostError.serverError))
-                        return
-                    }
-                }
-            }
-            completion(.success(Void()))
         }
     }
 }

@@ -21,13 +21,9 @@ final class DatabaseManager {
         }
     }
     
-    public func addPost(postData: PostModel, completion: ((Result<Void, Error>) -> Void)?) {
-        
-        let newReference = Database.database().reference()
-        var newStorage = Storage.storage().reference()
-        
-        guard let keyPost = newReference.child("posts").childByAutoId().key else {
-            completion?(.failure(AddPostError.serverError))
+    public func addPost(postData: PostModel, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let keyPost = reference.child("posts").childByAutoId().key else {
+            completion(.failure(AddPostError.serverError))
             return
         }
         
@@ -49,9 +45,14 @@ final class DatabaseManager {
             "mark" : postData.mark
         ]
         
-        newReference.child("posts").child(keyPost).setValue(data) { error, _ in
+        reference.child("posts").child(keyPost).setValue(data) { [weak self] error, _ in
+            guard let self = self else {
+                completion(.failure(AddPostError.unknownError))
+                return
+            }
+            
             guard error == nil else {
-                completion?(.failure(AddPostError.serverError))
+                completion(.failure(AddPostError.serverError))
                 return
             }
             
@@ -60,35 +61,35 @@ final class DatabaseManager {
             
             for indexPost in (0 ..< keysImages.count) {
                 guard let dataImage = try? Data(contentsOf: postData.keysImages[indexPost]) else {
-                    completion?(.failure(AddPostError.serverError))
+                    completion(.failure(AddPostError.serverError))
                     return
                 }
                 
-                newStorage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
+                self.storage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
                     guard error == nil else {
-                        completion?(.failure(AddPostError.serverError))
+                        completion(.failure(AddPostError.serverError))
                         return
                     }
                 }
             }
             
-            newReference.child("users").child(postData.uid).child("posts").getData { error, snapshot in
+            self.reference.child("users").child(postData.uid).child("posts").getData { error, snapshot in
                 guard error == nil else {
-                    completion?(.failure(AddPostError.serverError))
+                    completion(.failure(AddPostError.serverError))
                     return
                 }
                 
                 var arrayPosts = snapshot.value as? [String] ?? Array<String>()
                 arrayPosts.append(keyPost)
                 
-                newReference.child("users").child(postData.uid).child("posts").setValue(arrayPosts) { error, _ in
+                self.reference.child("users").child(postData.uid).child("posts").setValue(arrayPosts) { error, _ in
                     guard error == nil else {
-                        completion?(.failure(AddPostError.serverError))
+                        completion(.failure(AddPostError.serverError))
                         return
                     }
                 }
             }
-            completion?(.success(Void()))
+            completion(.success(Void()))
         }
     }
     

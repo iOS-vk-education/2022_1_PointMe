@@ -6,23 +6,35 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     
     // MARK: - Private properties (UI)
     
-    private lazy var alertLoader: UIAlertController = {
-        let alert: UIAlertController = UIAlertController(
-            title: nil,
-            message: "Please wait...",
-            preferredStyle: .alert
+    private lazy var loadingAlert: UIAlertController = {
+        let alert = UIAlertController(
+            title: "Ожидание",
+            message: "Пожалуйста подождите...",
+            preferredStyle: UIAlertController.Style.alert
         )
         
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        let loadingIndicator = UIActivityIndicatorView(
+            frame: CGRect(
+                x: 10,
+                y: 5,
+                width: 50,
+                height: 50
+            )
+        )
+        
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.style = UIActivityIndicatorView.Style.medium
         loadingIndicator.startAnimating()
 
         alert.view.addSubview(loadingIndicator)
         
+        let alertAction: UIAlertAction = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default) { [weak self] _ in
+            self?.didTapForBackViewController()
+        }
+        alert.addAction(alertAction)
+        
         return alert
     }()
-
     
     
     private lazy var titleTextField: UITextField = {
@@ -324,7 +336,7 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
                 self?.pushButton.alpha = Constants.Button.identityOpacity
             } completion: { [weak self] _ in
                 guard let self = self else { return }
-                self.present(self.alertLoader, animated: true, completion: nil)
+                self.present(self.loadingAlert, animated: true, completion: nil)
                 
                 let title = self.titleTextField.text
                 let comment = self.commentTextView.text
@@ -332,7 +344,7 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
                 self.model.addPost(title: title, comment: comment) { result in
                     switch result {
                     case .success:
-                        self.alertLoader.dismiss(animated: true, completion: nil)
+                        self.loadingAlert.dismiss(animated: true, completion: nil)
                         self.showInfoAlert(
                             forTitleText: "Подтверждение",
                             forBodyText: "Вы успешно добавили пост!",
@@ -341,8 +353,7 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
                         )
                         break
                     case .failure(let error):
-                        print("[ERRRRROOOOOORRRR] : \(error.localizedDescription)")
-                        self.alertLoader.dismiss(animated: true, completion: nil)
+                        self.loadingAlert.dismiss(animated: true, completion: nil)
                         self.showWarningAlert(
                             forTitleText: "\("Ошибка")",
                             forBodyText: error.localizedDescription,
@@ -353,6 +364,11 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
                 }
             }
         }
+    }
+    
+    
+    private func didTapForBackViewController() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

@@ -6,6 +6,32 @@ final class SignInViewController: UIViewController, AlertMessages {
     
     // MARK: - Private properties (UI)
     
+    private lazy var loadingAlert: UIAlertController = {
+        let alert = UIAlertController(
+            title: "Ожидание",
+            message: "Пожалуйста подождите...",
+            preferredStyle: UIAlertController.Style.alert
+        )
+        
+        let loadingIndicator = UIActivityIndicatorView(
+            frame: CGRect(
+                x: 10,
+                y: 5,
+                width: 50,
+                height: 50
+            )
+        )
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.medium
+        loadingIndicator.startAnimating()
+
+        alert.view.addSubview(loadingIndicator)
+        
+        return alert
+    }()
+    
+    
     private lazy var emailLabel: UILabel = {
         let label: UILabel = UILabel()
         
@@ -219,12 +245,16 @@ final class SignInViewController: UIViewController, AlertMessages {
             UIView.animate(withDuration: Constants.Buttons.durationAnimation) { [weak self] in
                 self?.signInButton.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
+                //guard let self = self else { return }
+                self?.present((self?.loadingAlert)!, animated: true, completion: nil)
+                
                 let email = self?.textFieldEmail.text
                 let password = self?.textFieldPassword.text
 
                 self?.model.signInUser(email: email, password: password, completion: { result in
                     switch result {
                     case .success:
+                        self?.loadingAlert.dismiss(animated: true, completion: nil)
                         self?.showInfoAlert(
                             forTitleText: "Подтверждение",
                             forBodyText: "Вы успешно вошли!",
@@ -235,8 +265,9 @@ final class SignInViewController: UIViewController, AlertMessages {
                         )
                         break
                     case .failure(_):
-                        self?.showWarningAlert(
-                            forTitleText: "\("Ошибка")",
+                        self?.loadingAlert.dismiss(animated: true, completion: nil)
+                        self?.showInfoAlert(
+                            forTitleText: "Ошибка",
                             forBodyText: "Введите корректные email и пароль (должен быть не менее 6 символов)!",
                             viewController: self!
                         )
@@ -249,7 +280,7 @@ final class SignInViewController: UIViewController, AlertMessages {
     
     
     private func presentTabBar() {
-        let tabBarController: CreatingPostViewController = CreatingPostViewController()
+        let tabBarController: TabBarController = TabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
         present(tabBarController, animated: true)
