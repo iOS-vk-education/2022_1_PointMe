@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C01DB1F280B59A300F90C09 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB1E280B59A300F90C09 /* PostViewController.swift */; };
+		2C01DB22280B70A500F90C09 /* PostViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB21280B70A500F90C09 /* PostViewControllerModel.swift */; };
+		2C01DB25280B867D00F90C09 /* ImagePresentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB24280B867D00F90C09 /* ImagePresentCell.swift */; };
+		2C01DB27280B905C00F90C09 /* FullScreenImagePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB26280B905C00F90C09 /* FullScreenImagePresenterViewController.swift */; };
+		2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB2D280B926E00F90C09 /* FullScreenImagePresenterCell.swift */; };
+		2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB32280B94C300F90C09 /* FullScreenImagePresenterModel.swift */; };
+		2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB34280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift */; };
 		2C05A1B927EE2A7700F77F1D /* ALS-Sirius.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1B827EE2A7700F77F1D /* ALS-Sirius.ttf */; };
 		2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BA27EE2ABF00F77F1D /* FontSet.swift */; };
 		2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */; };
@@ -44,6 +51,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C01DB1E280B59A300F90C09 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		2C01DB21280B70A500F90C09 /* PostViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewControllerModel.swift; sourceTree = "<group>"; };
+		2C01DB24280B867D00F90C09 /* ImagePresentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePresentCell.swift; sourceTree = "<group>"; };
+		2C01DB26280B905C00F90C09 /* FullScreenImagePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterViewController.swift; sourceTree = "<group>"; };
+		2C01DB2D280B926E00F90C09 /* FullScreenImagePresenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterCell.swift; sourceTree = "<group>"; };
+		2C01DB32280B94C300F90C09 /* FullScreenImagePresenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterModel.swift; sourceTree = "<group>"; };
+		2C01DB34280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterCellDelegate.swift; sourceTree = "<group>"; };
 		2C05A1B827EE2A7700F77F1D /* ALS-Sirius.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ALS-Sirius.ttf"; sourceTree = "<group>"; };
 		2C05A1BA27EE2ABF00F77F1D /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +120,92 @@
 				CE1110205D48719CC6509C9E /* libPods-PointMe.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C01DB1C280B592E00F90C09 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB29280B917D00F90C09 /* FullScreenImagePresenter */,
+				2C01DB28280B917500F90C09 /* OnePost */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		2C01DB1D280B593400F90C09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB23280B866900F90C09 /* Cell */,
+				2C01DB1E280B59A300F90C09 /* PostViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2C01DB20280B709100F90C09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB21280B70A500F90C09 /* PostViewControllerModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2C01DB23280B866900F90C09 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB24280B867D00F90C09 /* ImagePresentCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2C01DB28280B917500F90C09 /* OnePost */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB20280B709100F90C09 /* Model */,
+				2C01DB1D280B593400F90C09 /* View */,
+			);
+			path = OnePost;
+			sourceTree = "<group>";
+		};
+		2C01DB29280B917D00F90C09 /* FullScreenImagePresenter */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB2C280B91C800F90C09 /* Model */,
+				2C01DB2A280B91BA00F90C09 /* View */,
+				2C01DB2F280B944E00F90C09 /* Protocols */,
+			);
+			path = FullScreenImagePresenter;
+			sourceTree = "<group>";
+		};
+		2C01DB2A280B91BA00F90C09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB2B280B91C300F90C09 /* Cell */,
+				2C01DB26280B905C00F90C09 /* FullScreenImagePresenterViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2C01DB2B280B91C300F90C09 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB2D280B926E00F90C09 /* FullScreenImagePresenterCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2C01DB2C280B91C800F90C09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB32280B94C300F90C09 /* FullScreenImagePresenterModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2C01DB2F280B944E00F90C09 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2C01DB34280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		2C05A1B027EE286C00F77F1D /* SingIn */ = {
@@ -273,6 +373,7 @@
 		2CBAF2E727E7763E001A35B2 /* PointMe */ = {
 			isa = PBXGroup;
 			children = (
+				2C01DB1C280B592E00F90C09 /* Post */,
 				2CC49F57280310BF00E35E68 /* CreatingPost */,
 				2C8C690E27FCFC1500EF3054 /* Utils Protocols+Extensions */,
 				2C8C690B27FCEA7300EF3054 /* Network */,
@@ -531,6 +632,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
 				873C6A0327EA406A0004715E /* AccountVC.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
 				2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */,
@@ -539,9 +641,13 @@
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
+				2C01DB27280B905C00F90C09 /* FullScreenImagePresenterViewController.swift in Sources */,
 				2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */,
+				2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */,
 				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
+				2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */,
 				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
+				2C01DB25280B867D00F90C09 /* ImagePresentCell.swift in Sources */,
 				2C8C691627FDBF9800EF3054 /* DatabaseManager.swift in Sources */,
 				2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */,
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
@@ -549,9 +655,11 @@
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
+				2C01DB1F280B59A300F90C09 /* PostViewController.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */,
 				2CC49F612803836C00E35E68 /* ImageCell.swift in Sources */,
+				2C01DB22280B70A500F90C09 /* PostViewControllerModel.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,

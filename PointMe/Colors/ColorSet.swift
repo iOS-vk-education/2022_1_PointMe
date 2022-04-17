@@ -90,4 +90,62 @@ extension UIColor {
         blue: 61 / 255,
         alpha: 1.0
     )
+    
+    // MARK: - PostViewController
+    
+    static let userFontColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let labelUsernameColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let separatorColor: UIColor = UIColor(
+        red: 0,
+        green: 0,
+        blue: 0,
+        alpha: 1.0
+    )
+    
+    static let backgroundPostViewController: UIColor = UIColor(
+        red: 1.0,
+        green: 1.0,
+        blue: 1.0,
+        alpha: 1.0
+    )
+    
+    static let userImageBorderColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let titlePostColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let commentPostColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let chartButtonColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
 }

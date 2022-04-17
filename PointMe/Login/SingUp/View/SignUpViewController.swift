@@ -161,12 +161,6 @@ final class SignUpViewController: UIViewController, AlertMessages {
     private func setupNavigationBar() {
         self.title = "PointMe"
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
-//        self.navigationController?.navigationItem.leftBarButtonItem = nil
-//        self.navigationController?.navigationItem.hidesBackButton = true
-        self.navigationController?.navigationBar.backItem
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.hidesBackButton = true
-        //self.navigationItem
     }
     
     // MARK: - Layout

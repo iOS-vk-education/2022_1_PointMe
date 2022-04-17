@@ -19,4 +19,14 @@ extension UIFont {
     static let smallTitleButton: UIFont = UIFont(name: "ALSSiriusVF", size: 18)!
     
     static let labelAddMark: UIFont = UIFont(name: "ALSSiriusVF", size: 22)!
+    
+    // MARK: PostViewController
+    
+    static let usernameLabel: UIFont = UIFont(name: "ALSSiriusVF_Medium", size: 16)!
+    
+    static let dateLabel: UIFont = UIFont(name: "ALSSiriusVF_Book", size: 14)!
+    
+    static let titlePost: UIFont = UIFont(name: "ALSSiriusVF", size: 20)!
+    
+    static let commentPost: UIFont = UIFont(name: "ALSSiriusVF", size: 18)!
 }

@@ -12,6 +12,6 @@ extension SimpleLogger {
         let hour = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
-        print("\n[\(Self.nameClassLogger) - \(hour):\(minutes):\(seconds)] : \(text)")
+        print("\n#DEBUG [\(Self.nameClassLogger) - \(hour):\(minutes):\(seconds)] : \(text)")
     }
 }
