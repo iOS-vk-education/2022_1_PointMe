@@ -2,12 +2,7 @@ import Foundation
 
 final class PostViewControllerModel {
     
-    private var arrayDataImages: [String] = [
-        "1photo",
-        "2photo",
-        "3photo",
-        "4photo"
-    ]
+    private var arrayDataImages: [String] = []
     
     private let usernameValue: String = "Username"
     private let dateVlaue: String = "12 мая 2022 года"

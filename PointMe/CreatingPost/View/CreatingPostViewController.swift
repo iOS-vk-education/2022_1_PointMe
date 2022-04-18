@@ -344,21 +344,25 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
                 self.model.addPost(title: title, comment: comment) { result in
                     switch result {
                     case .success:
-                        self.loadingAlert.dismiss(animated: true, completion: nil)
-                        self.showInfoAlert(
-                            forTitleText: "Подтверждение",
-                            forBodyText: "Вы успешно добавили пост!",
-                            viewController: self,
-                            action: nil // FIX ME!!! - добавить переход назад
-                        )
+                        self.loadingAlert.dismiss(animated: true, completion: {
+                            self.showInfoAlert(
+                                forTitleText: "Подтверждение",
+                                forBodyText: "Вы успешно добавили пост!",
+                                viewController: self,
+                                action: {
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            )
+                        })
                         break
                     case .failure(let error):
-                        self.loadingAlert.dismiss(animated: true, completion: nil)
-                        self.showWarningAlert(
-                            forTitleText: "\("Ошибка")",
-                            forBodyText: error.localizedDescription,
-                            viewController: self
-                        )
+                        self.loadingAlert.dismiss(animated: true, completion: {
+                            self.showWarningAlert(
+                                forTitleText: "\("Ошибка")",
+                                forBodyText: error.localizedDescription,
+                                viewController: self
+                            )
+                        })
                         break
                     }
                 }
