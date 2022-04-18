@@ -13,7 +13,6 @@ final class ImageCell: UICollectionViewCell {
         return bodyView
     }()
     
-    
     private lazy var imageView: UIImageView = {
         let imageView: UIImageView = UIImageView()
         
@@ -25,7 +24,6 @@ final class ImageCell: UICollectionViewCell {
         return imageView
     }()
     
-    
     private lazy var view4Button: UIView = {
         let backViewForButton: UIView = UIView()
         
@@ -33,16 +31,12 @@ final class ImageCell: UICollectionViewCell {
         backViewForButton.layer.cornerRadius = Constants.baseCornerRadius
         backViewForButton.isUserInteractionEnabled = true
         
-        let gesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(didTapDeleteButton)
-        )
+        let gesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didTapDeleteButton))
         gesture.minimumPressDuration = Constants.minPressDuration
         backViewForButton.addGestureRecognizer(gesture)
         
         return backViewForButton
     }()
-    
     
     private lazy var icon4DeleteButton: UIImageView = {
         let titleImageView: UIImageView = UIImageView()
@@ -53,25 +47,24 @@ final class ImageCell: UICollectionViewCell {
         return titleImageView
     }()
     
+    private var indexPath: IndexPath!
     
-    private var deleteAction: (() -> Void)?
-    
+    var delegat: ImageCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func setup(urlImage: URL, actionDelete: (() -> Void)?) {
-        deleteAction = actionDelete
+    func setup(indexPathCell: IndexPath, urlImage: URL) {
         
         contentView.backgroundColor = .clear
         contentView.addSubview(bodyView)
+        
+        self.indexPath = indexPathCell
         
         imageView.image = UIImage(contentsOfFile: urlImage.path)
         bodyView.addSubview(imageView)
@@ -79,7 +72,6 @@ final class ImageCell: UICollectionViewCell {
         imageView.addSubview(view4Button)
         view4Button.addSubview(icon4DeleteButton)
     }
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -117,7 +109,7 @@ final class ImageCell: UICollectionViewCell {
             UIView.animate(withDuration: Constants.durationAnimation) { [weak self] in
                 self?.view4Button.alpha = 1.0
             } completion: {  [weak self] _ in
-                self?.deleteAction?()
+                self?.delegat?.didTapDeleteImageButton(indexPathCell: (self?.indexPath)!)
             }
         }
     }

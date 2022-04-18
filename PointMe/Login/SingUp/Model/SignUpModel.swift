@@ -7,7 +7,7 @@ final class SignUpModel: SimpleLogger {
     
     init() {}
     
-    public func signUpUser(email: String?, password: String?, username: String?, completion: @escaping (AuthResult) -> Void) {
+    public func signUpUser(email: String?, password: String?, username: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let email = email, let password = password, let username = username else {
             completion(.failure(NSError()))
             return
@@ -48,13 +48,13 @@ final class SignUpModel: SimpleLogger {
                         break
                     case .success:
                         self?.log(message: "Success create an user")
-                        completion(.success)
+                        completion(.success(Void()))
                         break
                     }
                 }
             )
             
-            completion(.success)
+            completion(.success(Void()))
             return
         }
     }

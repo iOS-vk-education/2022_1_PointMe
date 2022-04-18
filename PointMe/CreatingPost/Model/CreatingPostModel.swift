@@ -1,4 +1,5 @@
 import Foundation
+import Firebase
 
 
 final class CreatingPostModel: SimpleLogger {
@@ -30,28 +31,33 @@ final class CreatingPostModel: SimpleLogger {
         markValue = value
     }
     
-    public func addPost(title: String?, comment: String?, completion: @escaping (AuthResult) -> Void) {
-        guard let title = title, let comment = comment else {
-            completion(.failure(NSError()))
+    public func addPost(title: String?, comment: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let title = title, let comment = comment, title != "", comment != "", comment != "Оставьте комментарий", markValue != 0 else {
+            completion(.failure(AddPostError.invalidDataError))
             return
         }
         
         guard let userId = DatabaseManager.shared.currentUserUID else {
-            completion(.failure(NSError()))
+            completion(.failure(AddPostError.serverError))
             return
         }
+        
+        let date = getCurrentDate()
         
         let postModel: PostModel = PostModel(
             uid: userId,
             title: title,
-            // MARK: FIX ME!!! Исправить хардкод
+            // FIX ME!!! Исправить хардкод
             latitude: 55.751574,
-            // MARK: FIX ME!!! Исправить хардкод
+            // FIX ME!!! Исправить хардкод
             longitude: 37.573856,
-            // MARK: FIX ME!!! Исправить хардкод
+            // FIX ME!!! Исправить хардкод
             address: "test, address",
             comment: comment,
             keysImages: arrayOfImagesURL,
+            day: date.day,
+            month: date.mounth,
+            year: date.year,
             mark: markValue
         )
         
@@ -63,9 +69,24 @@ final class CreatingPostModel: SimpleLogger {
                 break
             case .success:
                 self?.log(message: "Success create a post")
-                completion(.success)
+                completion(.success(Void()))
                 break
             }
         }
+    }
+}
+
+
+private extension CreatingPostModel {
+    func getCurrentDate() -> (day: Int, mounth: Int, year: Int) {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date)
+
+        guard let day = components.day, let mounth = components.month, let year = components.year else {
+            return (day: 1, mounth: 1, year: 2022)
+        }
+        
+        return (day: day, mounth: mounth, year: year)
     }
 }

@@ -9,5 +9,8 @@ struct PostModel {
     var address: String
     var comment: String
     var keysImages: [URL]
+    var day: Int
+    var month: Int
+    var year: Int
     var mark: Int
 }
