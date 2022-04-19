@@ -43,7 +43,6 @@
 		8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB527EB12ED00BC11B5 /* TabBar.swift */; };
 		876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */; };
 		876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */; };
-		876B16B7280DC7BA001B08D1 /* DatabaseManager+GetPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B6280DC7BA001B08D1 /* DatabaseManager+GetPost.swift */; };
 		87918CBB2809DAE90071DDDB /* SubAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBA2809DAE90071DDDB /* SubAccountVC.swift */; };
 		87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */; };
 		87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */; };
@@ -93,7 +92,6 @@
 		8744ACB527EB12ED00BC11B5 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostDate.swift; sourceTree = "<group>"; };
 		876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountNetwork.swift; sourceTree = "<group>"; };
-		876B16B6280DC7BA001B08D1 /* DatabaseManager+GetPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+GetPost.swift"; sourceTree = "<group>"; };
 		87918CBA2809DAE90071DDDB /* SubAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubAccountVC.swift; sourceTree = "<group>"; };
 		87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostCell.swift; sourceTree = "<group>"; };
 		87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPresenter.swift; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 				87B7F417280ADEAC000CA15B /* MyAccountPost.swift */,
 				876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */,
 				876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */,
-				876B16B6280DC7BA001B08D1 /* DatabaseManager+GetPost.swift */,
 				87EC0F3B280EAF55001627CE /* MyAccountInfo.swift */,
 			);
 			path = Model;
@@ -597,7 +594,6 @@
 				2C8C691B27FDC40200EF3054 /* AuthResult.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
-				876B16B7280DC7BA001B08D1 /* DatabaseManager+GetPost.swift in Sources */,
 				8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */,
