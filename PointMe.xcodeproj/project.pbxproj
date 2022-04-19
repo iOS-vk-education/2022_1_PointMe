@@ -41,7 +41,14 @@
 		2CFEA8A927F7CD2B00750CF0 /* libFirebaseAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8A827F7CD2B00750CF0 /* libFirebaseAuth.a */; };
 		2CFEA8AB27F7CD9400750CF0 /* libFirebaseDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */; };
 		4A12BA8BD40F75A8203A7D0E /* libPods-PointMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1110205D48719CC6509C9E /* libPods-PointMe.a */; };
-		873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F627EA40300004715E /* FeedNewsVC.swift */; };
+		7D4D9D84280F413F008C4250 /* PostPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D7C280F413F008C4250 /* PostPreviewModel.swift */; };
+		7D4D9D85280F413F008C4250 /* FeedNewsColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D7D280F413F008C4250 /* FeedNewsColorSet.swift */; };
+		7D4D9D86280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D7E280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift */; };
+		7D4D9D87280F413F008C4250 /* FeedNewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D7F280F413F008C4250 /* FeedNewsModel.swift */; };
+		7D4D9D88280F413F008C4250 /* FeedNewsFontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D80280F413F008C4250 /* FeedNewsFontSet.swift */; };
+		7D4D9D89280F413F008C4250 /* FeedNewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D81280F413F008C4250 /* FeedNewsVC.swift */; };
+		7D4D9D8A280F413F008C4250 /* FeedNewsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D82280F413F008C4250 /* FeedNewsError.swift */; };
+		7D4D9D8B280F413F008C4250 /* PostPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D83280F413F008C4250 /* PostPreviewCell.swift */; };
 		873C69FA27EA404A0004715E /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F927EA404A0004715E /* FindVC.swift */; };
 		873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69FF27EA40630004715E /* FavoritesVC.swift */; };
 		873C6A0327EA406A0004715E /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* AccountVC.swift */; };
@@ -87,7 +94,14 @@
 		2CFEA8A827F7CD2B00750CF0 /* libFirebaseAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseDatabase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE9F2D5A3D4A920510ED310 /* Pods-PointMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointMe.release.xcconfig"; path = "Target Support Files/Pods-PointMe/Pods-PointMe.release.xcconfig"; sourceTree = "<group>"; };
-		873C69F627EA40300004715E /* FeedNewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNewsVC.swift; sourceTree = "<group>"; };
+		7D4D9D7C280F413F008C4250 /* PostPreviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPreviewModel.swift; sourceTree = "<group>"; };
+		7D4D9D7D280F413F008C4250 /* FeedNewsColorSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewsColorSet.swift; sourceTree = "<group>"; };
+		7D4D9D7E280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+PostPreviewLoader.swift"; sourceTree = "<group>"; };
+		7D4D9D7F280F413F008C4250 /* FeedNewsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewsModel.swift; sourceTree = "<group>"; };
+		7D4D9D80280F413F008C4250 /* FeedNewsFontSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewsFontSet.swift; sourceTree = "<group>"; };
+		7D4D9D81280F413F008C4250 /* FeedNewsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedNewsVC.swift; path = ../../../../../123/FeedNewsVC.swift; sourceTree = "<group>"; };
+		7D4D9D82280F413F008C4250 /* FeedNewsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewsError.swift; sourceTree = "<group>"; };
+		7D4D9D83280F413F008C4250 /* PostPreviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPreviewCell.swift; sourceTree = "<group>"; };
 		873C69F927EA404A0004715E /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		873C69FF27EA40630004715E /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		873C6A0227EA406A0004715E /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
@@ -477,7 +491,14 @@
 		873C6A1127EA4A090004715E /* FeedNews */ = {
 			isa = PBXGroup;
 			children = (
-				873C69F627EA40300004715E /* FeedNewsVC.swift */,
+				7D4D9D7E280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift */,
+				7D4D9D7D280F413F008C4250 /* FeedNewsColorSet.swift */,
+				7D4D9D82280F413F008C4250 /* FeedNewsError.swift */,
+				7D4D9D80280F413F008C4250 /* FeedNewsFontSet.swift */,
+				7D4D9D7F280F413F008C4250 /* FeedNewsModel.swift */,
+				7D4D9D81280F413F008C4250 /* FeedNewsVC.swift */,
+				7D4D9D83280F413F008C4250 /* PostPreviewCell.swift */,
+				7D4D9D7C280F413F008C4250 /* PostPreviewModel.swift */,
 			);
 			path = FeedNews;
 			sourceTree = "<group>";
@@ -632,12 +653,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D4D9D8A280F413F008C4250 /* FeedNewsError.swift in Sources */,
 				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
 				873C6A0327EA406A0004715E /* AccountVC.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
 				2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */,
+				7D4D9D87280F413F008C4250 /* FeedNewsModel.swift in Sources */,
 				873C69FA27EA404A0004715E /* FindVC.swift in Sources */,
-				873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */,
+				7D4D9D84280F413F008C4250 /* PostPreviewModel.swift in Sources */,
+				7D4D9D8B280F413F008C4250 /* PostPreviewCell.swift in Sources */,
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
@@ -652,7 +676,9 @@
 				2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */,
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
+				7D4D9D88280F413F008C4250 /* FeedNewsFontSet.swift in Sources */,
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
+				7D4D9D85280F413F008C4250 /* FeedNewsColorSet.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2C01DB1F280B59A300F90C09 /* PostViewController.swift in Sources */,
@@ -660,11 +686,13 @@
 				2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */,
 				2CC49F612803836C00E35E68 /* ImageCell.swift in Sources */,
 				2C01DB22280B70A500F90C09 /* PostViewControllerModel.swift in Sources */,
+				7D4D9D86280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
 				2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */,
 				2CC49F5A280311FC00E35E68 /* CreatingPostViewController.swift in Sources */,
+				7D4D9D89280F413F008C4250 /* FeedNewsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
