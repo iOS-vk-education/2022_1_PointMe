@@ -18,5 +18,24 @@ extension UIFont {
     
     static let smallTitleButton: UIFont = UIFont(name: "ALSSiriusVF", size: 18)!
     
+    static let accountInfo: UIFont = UIFont(name: "ALSSiriusVF", size: 16)!
+    
     static let labelAddMark: UIFont = UIFont(name: "ALSSiriusVF", size: 22)!
+    
+    static let postUserNameLabel: UIFont = UIFont(name: "ALSSiriusVF_Medium", size: MyAccountPostCell.Constants.UserName.fontSize)!
+    
+    static let postDateLabel: UIFont = UIFont(name: "ALSSiriusVF_Light", size: MyAccountPostCell.Constants.Date.fontSize)!
+    
+    static let postNumbersOfImagesLabel: UIFont = UIFont(name: "ALSSiriusVF",
+                                                         size: MyAccountPostCell.Constants.NumberOfImagesLabel.fontSize)!
+    
+    static let postMainTitleLabel: UIFont = UIFont(name: "ALSSiriusVF",
+                                                   size: MyAccountPostCell.Constants.MainTitleLabel.fontSize)!
+    
+    static let postPlaceAddressLabel: UIFont = UIFont(name: "ALSSiriusVF_Light",
+                                                      size: MyAccountPostCell.Constants.AddressLabel.fontSize)!
+    
+    static let postScoreLabel: UIFont = UIFont(name: "ALSSiriusVF",
+                                               size: 2 * MyAccountPostCell.Constants.ScoreImage.radius)!
+    
 }

@@ -33,13 +33,25 @@
 		2CFEA8A927F7CD2B00750CF0 /* libFirebaseAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8A827F7CD2B00750CF0 /* libFirebaseAuth.a */; };
 		2CFEA8AB27F7CD9400750CF0 /* libFirebaseDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */; };
 		4A12BA8BD40F75A8203A7D0E /* libPods-PointMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1110205D48719CC6509C9E /* libPods-PointMe.a */; };
+		8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */; };
 		873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F627EA40300004715E /* FeedNewsVC.swift */; };
 		873C69FA27EA404A0004715E /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F927EA404A0004715E /* FindVC.swift */; };
 		873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69FF27EA40630004715E /* FavoritesVC.swift */; };
-		873C6A0327EA406A0004715E /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* AccountVC.swift */; };
+		873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* MyAccountVC.swift */; };
 		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
 		8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB127EB10C700BC11B5 /* ColorSet.swift */; };
 		8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB527EB12ED00BC11B5 /* TabBar.swift */; };
+		876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */; };
+		876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */; };
+		876B16B7280DC7BA001B08D1 /* DatabaseManager+GetPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B6280DC7BA001B08D1 /* DatabaseManager+GetPost.swift */; };
+		87918CBB2809DAE90071DDDB /* SubAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBA2809DAE90071DDDB /* SubAccountVC.swift */; };
+		87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */; };
+		87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */; };
+		87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */; };
+		87B7F415280AD5F6000CA15B /* MyAccountModelIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B7F414280AD5F6000CA15B /* MyAccountModelIO.swift */; };
+		87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B7F417280ADEAC000CA15B /* MyAccountPost.swift */; };
+		87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EC0F3B280EAF55001627CE /* MyAccountInfo.swift */; };
+		87EC0F43280EF65A001627CE /* MyAccountBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EC0F42280EF65A001627CE /* MyAccountBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,13 +83,25 @@
 		2CFEA8A827F7CD2B00750CF0 /* libFirebaseAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseDatabase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE9F2D5A3D4A920510ED310 /* Pods-PointMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointMe.release.xcconfig"; path = "Target Support Files/Pods-PointMe/Pods-PointMe.release.xcconfig"; sourceTree = "<group>"; };
+		8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDeleteDelegateProtocol.swift; sourceTree = "<group>"; };
 		873C69F627EA40300004715E /* FeedNewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNewsVC.swift; sourceTree = "<group>"; };
 		873C69F927EA404A0004715E /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		873C69FF27EA40630004715E /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
-		873C6A0227EA406A0004715E /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		873C6A0227EA406A0004715E /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8744ACB127EB10C700BC11B5 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		8744ACB527EB12ED00BC11B5 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostDate.swift; sourceTree = "<group>"; };
+		876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountNetwork.swift; sourceTree = "<group>"; };
+		876B16B6280DC7BA001B08D1 /* DatabaseManager+GetPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+GetPost.swift"; sourceTree = "<group>"; };
+		87918CBA2809DAE90071DDDB /* SubAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubAccountVC.swift; sourceTree = "<group>"; };
+		87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostCell.swift; sourceTree = "<group>"; };
+		87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPresenter.swift; sourceTree = "<group>"; };
+		87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewControllerIO.swift; sourceTree = "<group>"; };
+		87B7F414280AD5F6000CA15B /* MyAccountModelIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountModelIO.swift; sourceTree = "<group>"; };
+		87B7F417280ADEAC000CA15B /* MyAccountPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPost.swift; sourceTree = "<group>"; };
+		87EC0F3B280EAF55001627CE /* MyAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountInfo.swift; sourceTree = "<group>"; };
+		87EC0F42280EF65A001627CE /* MyAccountBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountBuilder.swift; sourceTree = "<group>"; };
 		CE1110205D48719CC6509C9E /* libPods-PointMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PointMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF909348BEAB5AB0822300FB /* Pods-PointMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointMe.debug.xcconfig"; path = "Target Support Files/Pods-PointMe/Pods-PointMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -323,7 +347,11 @@
 		873C6A0727EA49B00004715E /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				873C6A0227EA406A0004715E /* AccountVC.swift */,
+				87EC0F41280EF638001627CE /* builder */,
+				87B7F413280AD5D9000CA15B /* Model */,
+				87918CBA2809DAE90071DDDB /* SubAccountVC.swift */,
+				87918CC12809E4B70071DDDB /* Presenter */,
+				87918CC02809E49B0071DDDB /* View */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -376,6 +404,46 @@
 				8744ACB527EB12ED00BC11B5 /* TabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		87918CC02809E49B0071DDDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */,
+				873C6A0227EA406A0004715E /* MyAccountVC.swift */,
+				87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */,
+				8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		87918CC12809E4B70071DDDB /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		87B7F413280AD5D9000CA15B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				87B7F414280AD5F6000CA15B /* MyAccountModelIO.swift */,
+				87B7F417280ADEAC000CA15B /* MyAccountPost.swift */,
+				876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */,
+				876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */,
+				876B16B6280DC7BA001B08D1 /* DatabaseManager+GetPost.swift */,
+				87EC0F3B280EAF55001627CE /* MyAccountInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		87EC0F41280EF638001627CE /* builder */ = {
+			isa = PBXGroup;
+			children = (
+				87EC0F42280EF65A001627CE /* MyAccountBuilder.swift */,
+			);
+			path = builder;
 			sourceTree = "<group>";
 		};
 		FF334A8D8E76767E9410B90D /* Pods */ = {
@@ -504,16 +572,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				873C6A0327EA406A0004715E /* AccountVC.swift in Sources */,
+				873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */,
+				87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
+				876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */,
 				2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */,
+				87EC0F43280EF65A001627CE /* MyAccountBuilder.swift in Sources */,
 				873C69FA27EA404A0004715E /* FindVC.swift in Sources */,
 				873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */,
+				87B7F415280AD5F6000CA15B /* MyAccountModelIO.swift in Sources */,
+				87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */,
+				87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */,
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
 				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
 				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
+				87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */,
 				2C8C691627FDBF9800EF3054 /* DatabaseManager.swift in Sources */,
 				2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */,
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
@@ -522,10 +597,15 @@
 				2C8C691B27FDC40200EF3054 /* AuthResult.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
+				876B16B7280DC7BA001B08D1 /* DatabaseManager+GetPost.swift in Sources */,
+				8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
+				876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */,
 				2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */,
 				2CC49F612803836C00E35E68 /* ImageCell.swift in Sources */,
+				87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
+				87918CBB2809DAE90071DDDB /* SubAccountVC.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
 				2CC49F5A280311FC00E35E68 /* CreatingPostViewController.swift in Sources */,

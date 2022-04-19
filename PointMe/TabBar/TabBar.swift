@@ -6,7 +6,7 @@ final class TabBarController: UITabBarController {
     private let vc2 = UINavigationController(rootViewController: FindViewController())
     private let vc3 = UINavigationController(rootViewController: MapViewController())
     private let vc4 = UINavigationController(rootViewController: FavoritesViewController())
-    private let vc5 = UINavigationController(rootViewController: AccountViewController())
+    private var vc5 = UINavigationController(rootViewController: MyAccountViewController())
     
     private let images = ["newspaper", "magnifyingglass", "map", "star", "person"]
     private let titles = ["Новости", "Поиск", "Карта", "Избранные", "Аккаунт"]
@@ -18,6 +18,10 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
+        let builder = MyAccountBuilder()
+        let viewController = builder.build()
+        vc5 = UINavigationController(rootViewController: viewController)
+        
         vc1.title = titles[0]
         vc2.title = titles[1]
         vc3.title = titles[2]
