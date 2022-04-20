@@ -62,7 +62,7 @@ class FeedNewsModel {
     }
     
     func checkIsExistImageByIndex(index: Int) -> Bool {
-        return posts[index].postImage != ""
+        return posts[index].postImage != nil
     }
     
 }

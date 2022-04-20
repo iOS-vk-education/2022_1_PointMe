@@ -32,9 +32,7 @@ class FeedNewsViewController: UIViewController {
             switch result {
             case .success():
                 print("success download")
-                DispatchQueue.main.async {
                     self.setupsCell()
-                }
                 break
             case .failure(_):
                 print("fail download")
@@ -55,11 +53,14 @@ class FeedNewsViewController: UIViewController {
     }
     
     @objc private func tapped() {
-        print(432)
+        let createPostViewController: CreatingPostViewController = CreatingPostViewController()
+        navigationController?.pushViewController(createPostViewController, animated: true)
     }
+    
     private func setupNewsFeedTableView() {
         view.addSubview(newsFeedTableView)
         newsFeedTableView.backgroundColor = .defaultBackgroundColor
+        newsFeedTableView.separatorStyle = .none
         newsFeedTableView.delegate = self
         newsFeedTableView.dataSource = self
     }
@@ -70,6 +71,7 @@ class FeedNewsViewController: UIViewController {
     
     private func setupsCell() {
         newsFeedTableView.reloadData()
+        //newsFeedTableView.refreshControl?.endRefreshing()
     }
     
 }
@@ -77,10 +79,10 @@ class FeedNewsViewController: UIViewController {
 extension FeedNewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if model.checkIsExistImageByIndex(index: indexPath.row) {
-            return 206
+            return 251
         }
         else {
-            return 251
+            return 206
         }
     }
 }
@@ -95,45 +97,8 @@ extension FeedNewsViewController: UITableViewDataSource {
             fatalError()
         }
         let post: PostPreviewModel = model.getPostPreviewModelByIndex(index: indexPath.row)
-
-        var avatarImageData: UIImage?
-        var username: String = ""
-        model.fetchUserData(uid: post.uid) { result in
-            switch result {
-            case .success(let data):
-                print("Аватар получен")
-                DispatchQueue.main.async {
-                    if let dataAvatar = data.avatarData {
-                        avatarImageData = UIImage(data: dataAvatar)
-                    }
-                    username = data.username
-                }
-                break
-            case .failure(_):
-                break
-            }
-        }
-        
-        var postImageData: UIImage?
-        
-        model.fetchImageData(idImage: post.postImage) { result in
-            switch result {
-            case .success(let data):
-                print("Картинка получена")
-                DispatchQueue.main.async {
-                    if let dataImage = data {
-                        postImageData = UIImage(data: dataImage)
-                        //self.layoutSubviews()
-                    }
-                }
-                break
-            case .failure(_):
-                print("FAIL ERROR IMAGE DATA")
-                break
-            }
-        }
-        
-        cell.configure(post: model.getPostPreviewModelByIndex(index: indexPath.row), username: username, avatarImage: avatarImageData, postImage: postImageData)
+        cell.configure(post: post)
+        cell.selectionStyle = .none
         cell.backgroundColor = .defaultBackgroundColor
         return cell
         //PostPreviewCell().configure(post: posts[indexPath.row])

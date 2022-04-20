@@ -194,8 +194,7 @@ final class PostPreviewCell: UITableViewCell {
                 .left(Constants.WithImage.ContainerImageView.containerImageViewLeft)
             
             postImageView.pin
-                .vertically()
-                .horizontally()
+                .all()
             
             numberOfPhotosView.pin
                 .right(Constants.WithImage.ContainerImageView.numberOfPhotosViewRight)
@@ -293,7 +292,9 @@ final class PostPreviewCell: UITableViewCell {
         avatarImageView.image = UIImage(systemName: "person.crop.circle")
         
         containerImageView.layer.cornerRadius = 10
+        postImageView.layer.masksToBounds = true
         postImageView.contentMode = .scaleAspectFill
+        postImageView.layer.cornerRadius = 10
         numberOfPhotosView.backgroundColor = .numberOfPhotosViewColor
         numberOfPhotosView.layer.cornerRadius = 5
         numberOfPhotosLabel.textColor = .numberOfPhotosLabelColor
@@ -317,15 +318,16 @@ final class PostPreviewCell: UITableViewCell {
         containerPublicationContentView.backgroundColor = .containerPublicationContentViewColor
     }
     
-    func configure(post: PostPreviewModel, username: String, avatarImage: UIImage?, postImage: UIImage?) {
-        if avatarImage != nil {
-            avatarImageView.image = avatarImage
+    func configure(post: PostPreviewModel) {
+        if let avatarData = post.avatarData {
+            avatarImageView.image = UIImage(data: avatarData)
         }
-        usernameLabel.text = username
+        
+        usernameLabel.text = post.username
         postDateLabel.text = post.postDate
         
-        if postImage != nil {
-            postImageView.image = postImage
+        if let previewPostImage = post.postImage {
+            postImageView.image = UIImage(data: previewPostImage)
         }
         
         /*

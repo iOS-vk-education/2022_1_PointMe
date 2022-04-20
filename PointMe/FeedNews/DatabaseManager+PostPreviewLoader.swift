@@ -4,6 +4,9 @@ import UIKit
 
 extension DatabaseManager {
     public func getDataPosts(completion: @escaping (Result<[PostPreviewModel], Error>) -> Void) {
+        let dispatchGroup: DispatchGroup = DispatchGroup()
+        let lock: NSLock = NSLock()
+        
         var arrayPosts: [PostPreviewModel] = []
         
         let reference: DatabaseReference = Database.database().reference()
@@ -23,11 +26,13 @@ extension DatabaseManager {
             
             reference.child("posts").getData { error, snapshot in
                 guard error == nil else {
+                    print("debug: error reference.child('posts').getData")
                     completion(.failure(FeedNewsError.loadDataError))
                     return
                 }
                 
                 guard let arrayPostsData = snapshot.value as? [String : Any] else {
+                    print("debug: arrayPostsData = snapshot.value")
                     completion(.failure(FeedNewsError.loadDataError))
                     return
                 }
@@ -37,22 +42,53 @@ extension DatabaseManager {
                         continue
                     }
                     
-                    
-                    arrayPosts.append(PostPreviewModel(
-                        uid: dictPosts["uid"] as? String ?? "",
-                        postId: postData.key,
-                        postDateDay: dictPosts["day"] as? Int ?? 1,
-                        postDateMonth: dictPosts["mounth"] as? Int ?? 1,
-                        postDateYear: dictPosts["year"] as? Int ?? 2021,
-                        postImage: (dictPosts["keysImages"] as? [String] ?? []).first ?? "",
-                        countImages: (dictPosts["keysImages"] as? [String] ?? []).count,
-                        title: dictPosts["title"] as? String ?? "",
-                        location: dictPosts["address"] as? String ?? "",
-                        mark: dictPosts["mark"] as? Int ?? 1
-                    ))
+                    dispatchGroup.enter()
+                    DatabaseManager.shared.fetchUserData(uid: dictPosts["uid"] as? String ?? "") { result in
+                        switch result {
+                        case .success(let userData):
+                            let keyPreviewImage = (dictPosts["keysImages"] as? [String] ?? []).first ?? ""
+                            dispatchGroup.enter()
+                            DatabaseManager.shared.fetchImagePreviewData(idImage: keyPreviewImage) { result in
+                                var tempDataImage: Data? = nil
+                                lock.lock()
+                                switch result {
+                                case .success(let dataPreviewImage):
+                                    tempDataImage = dataPreviewImage
+                                    break
+                                case .failure(_):
+                                    break
+                                }
+                                arrayPosts.append(PostPreviewModel(
+                                    uid: dictPosts["uid"] as? String ?? "",
+                                    postId: postData.key,
+                                    username: userData.username,
+                                    postDateDay: dictPosts["day"] as? Int ?? 1,
+                                    postDateMonth: dictPosts["mounth"] as? Int ?? 1,
+                                    postDateYear: dictPosts["year"] as? Int ?? 2021,
+                                    postImage: tempDataImage,
+                                    avatarData: userData.avatarData,
+                                    keysImages: dictPosts["keysImages"] as? [String] ?? [],
+                                    countImages: (dictPosts["keysImages"] as? [String] ?? []).count,
+                                    title: dictPosts["title"] as? String ?? "",
+                                    comment: dictPosts["comment"] as? String ?? "",
+                                    location: dictPosts["address"] as? String ?? "",
+                                    mark: dictPosts["mark"] as? Int ?? 1
+                                ))
+                                lock.unlock()
+                                dispatchGroup.leave()
+                            }
+                            break
+                        case .failure(_):
+                            break
+                        }
+                        dispatchGroup.leave()
+                    }
                 }
-                print("arraaaaay: \(arrayPosts)")
-                completion(.success(arrayPosts))
+                
+                dispatchGroup.notify(queue: .main) {
+                    print("debug: its all array \(arrayPosts)")
+                    completion(.success(arrayPosts))
+                }
             }
         }
     }
@@ -107,8 +143,6 @@ extension DatabaseManager {
             
             completion(.success(data))
         }
-            
-    
     }
     
     
