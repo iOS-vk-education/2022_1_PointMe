@@ -53,6 +53,25 @@ final class DatabaseManager {
         }
     }
     
+    public func removePostFromDatabase(postKeys: [String], completion: @escaping (Result <Void, Error>) -> Void) {
+        reference.child("users").child("Ffk5GXb4ohZsUGtXaT30wonM21K3").child("posts").setValue(postKeys) { error, _ in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+        }
+    }
+    
+    
+    public func removeImageFromStorage(imageKey: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        storage.child("posts").child(imageKey).delete { error in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+        }
+    }
+    
     public func getImage(destination: String, postImageKey: String, completion: @escaping (Result<Data, Error>) -> Void) {
         
         storage.child(destination).child(postImageKey).getData(maxSize: 1024 * 1024 * 100) { data, error in

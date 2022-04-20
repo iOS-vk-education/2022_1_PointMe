@@ -6,7 +6,7 @@ struct MyAccountInfo {
     let userImageKey: String
     var userImage: Data?
     
-    let postKeys: [String]
+    var postKeys: [String]
     
     let numberOfSubscribers: Int
     let numberOfSubscriptions: Int

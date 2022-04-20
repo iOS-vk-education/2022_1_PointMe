@@ -63,6 +63,16 @@ final class MyAccountPostCell: UITableViewCell {
         selectionStyle = .none
     }
     
+    override func prepareForReuse() {
+        mainImage.image = .none
+        userImage.image = .none
+        numberOfImagesLabel.text = ""
+        mainTitleLabel.text = ""
+        placeAddressLabel.text = ""
+        scoreLabel.text = ""
+        configureScoreImage(number: 5, color: .defaultWhiteColor)
+    }
+    
     override func layoutSubviews() {
         setupHeadViewContainerConstraint()
         setupContentViewContainerConstraint()
@@ -72,6 +82,7 @@ final class MyAccountPostCell: UITableViewCell {
         setupDateLabelConstraint()
         setupDeleteButtonConstraint()
         setupHeaderLineConstraint()
+        
         setupMainImageContainerConstraint()
 
         setupDescriptionViewContainerConstraint()
@@ -101,6 +112,8 @@ final class MyAccountPostCell: UITableViewCell {
         
         if let mainImageData = data.mainImage {
             mainImage.image = UIImage(data: mainImageData)
+        } else {
+            mainImage.image = nil
         }
         numberOfImagesLabel.text = "\(data.numberOfImages) фото"
         
@@ -109,7 +122,7 @@ final class MyAccountPostCell: UITableViewCell {
         placeAddressLabel.text = data.address
         
         scoreLabel.text = "\(data.mark)/5"
-        configureScoreImage(number: data.mark)
+        configureScoreImage(number: data.mark, color: .defaultRedColor)
     }
     
     private func configureView() {
@@ -185,7 +198,6 @@ final class MyAccountPostCell: UITableViewCell {
             .vCenter((-Constants.UserName.betweenPadding - Constants.UserName.fontSize) / 2)
             .horizontally()
             .marginLeft(Constants.UserName.leftPadding)
-//        userName.backgroundColor = .red
     }
     
     private func setupDateLabel() {
@@ -246,11 +258,19 @@ final class MyAccountPostCell: UITableViewCell {
     
     
     private func setupMainImageContainerConstraint() {
+        if mainImage.image != nil {
         mainImageContainer.pin
             .left(Constants.DefaultPadding.leftRightPadding)
             .vCenter()
             .width(Constants.Display.blockWidth)
             .height(Constants.Display.blockWidth)
+        } else {
+            mainImageContainer.pin
+                .left()
+                .top()
+                .width(0)
+                .height(0)
+        }
     }
     
     private func setupMainImage() {
@@ -265,30 +285,38 @@ final class MyAccountPostCell: UITableViewCell {
     }
     
     private func setupNumberOfImagesLabel() {
-        numberOfImagesLabel.clipsToBounds = true
+        
         numberOfImagesLabel.layer.cornerRadius = 5
         numberOfImagesLabel.textColor = .defaultWhiteColor
         numberOfImagesLabel.font = .postNumbersOfImagesLabel
         numberOfImagesLabel.textAlignment = .center
         numberOfImagesLabel.backgroundColor = .numberOfImagesColor
+        
     }
     
     private func setupNumberOfImagesLabelConstraint() {
+        if numberOfImagesLabel.text != "0" {
         numberOfImagesLabel.pin
             .bottom(Constants.NumberOfImagesLabel.bottomPadding)
             .right(Constants.NumberOfImagesLabel.rightPadding)
             .width(Constants.NumberOfImagesLabel.width)
             .height(Constants.NumberOfImagesLabel.fontSize + Constants.NumberOfImagesLabel.heightAdd)
+        } else {
+            numberOfImagesLabel.pin
+                .bottom()
+                .right()
+                .width(0)
+                .height(0)
+        }
     }
     
     func setupDescriptionViewContainerConstraint() {
         descriptionViewContainer.pin
-            .after(of: mainImageContainer, aligned: .top)
+            .after(of: mainImageContainer)
             .top(Constants.DefaultPadding.topBottomPadding)
             .marginLeft(Constants.DefaultPadding.leftRightPadding)
             .right(Constants.DefaultPadding.leftRightPadding)
             .bottom(Constants.DefaultPadding.topBottomPadding)
-//        descriptionViewContainer.backgroundColor = .blue
     }
     
     
@@ -311,16 +339,24 @@ final class MyAccountPostCell: UITableViewCell {
         placeViewContainer.pin
             .below(of: mainTitleLabel, aligned: .left)
             .marginTop(Constants.DefaultPadding.topBottomPadding)
-            .horizontally()
+            .width(Constants.Display.blockWidth)
             .height(Constants.AddressLabel.fontSize)
     }
 
     private func setupScoreViewContainerConstraint() {
-        scoreViewContainer.pin
-            .below(of: placeViewContainer, aligned: .left)
-            .marginTop(2 * Constants.DefaultPadding.topBottomPadding)
-            .horizontally()
-            .height(2 * Constants.ScoreImage.radius)
+        if numberOfImagesLabel.text != "0 фото" {
+            scoreViewContainer.pin
+                .below(of: placeViewContainer, aligned: .left)
+                .marginTop(2 * Constants.DefaultPadding.topBottomPadding)
+                .horizontally()
+                .height(2 * Constants.ScoreImage.radius)
+        } else {
+            scoreViewContainer.pin
+                .after(of: placeViewContainer, aligned: .bottom)
+                .marginLeft(Constants.DefaultPadding.leftRightPadding)
+                .right()
+                .height(2 * Constants.ScoreImage.radius)
+        }
     }
     
     private func setupOpenButton() {
@@ -368,7 +404,7 @@ final class MyAccountPostCell: UITableViewCell {
             .after(of: placeMarkViewContainer, aligned: .top)
             .left()
             .height(Constants.AddressLabel.fontSize)
-            .width(Constants.Display.blockWidth)
+            .width(Constants.Display.blockWidth - Constants.AddressLabel.fontSize)
     }
     
     private func setupScoreImage() {
@@ -398,9 +434,9 @@ final class MyAccountPostCell: UITableViewCell {
         }
     }
     
-    private func configureScoreImage(number: Int) {
+    private func configureScoreImage(number: Int, color: UIColor) {
         for i in 0..<number {
-            scoreImage[i].backgroundColor = .defaultRedColor
+            scoreImage[i].backgroundColor = color
         }
     }
     
