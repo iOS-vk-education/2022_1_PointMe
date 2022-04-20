@@ -94,7 +94,46 @@ extension FeedNewsViewController: UITableViewDataSource {
         guard let cell = newsFeedTableView.dequeueReusableCell(withIdentifier: "PostPreviewCell", for: indexPath) as? PostPreviewCell else {
             fatalError()
         }
-        cell.configure(post: model.getPostPreviewModelByIndex(index: indexPath.row))
+        let post: PostPreviewModel = model.getPostPreviewModelByIndex(index: indexPath.row)
+
+        var avatarImageData: UIImage?
+        var username: String = ""
+        model.fetchUserData(uid: post.uid) { result in
+            switch result {
+            case .success(let data):
+                print("Аватар получен")
+                DispatchQueue.main.async {
+                    if let dataAvatar = data.avatarData {
+                        avatarImageData = UIImage(data: dataAvatar)
+                    }
+                    username = data.username
+                }
+                break
+            case .failure(_):
+                break
+            }
+        }
+        
+        var postImageData: UIImage?
+        
+        model.fetchImageData(idImage: post.postImage) { result in
+            switch result {
+            case .success(let data):
+                print("Картинка получена")
+                DispatchQueue.main.async {
+                    if let dataImage = data {
+                        postImageData = UIImage(data: dataImage)
+                        //self.layoutSubviews()
+                    }
+                }
+                break
+            case .failure(_):
+                print("FAIL ERROR IMAGE DATA")
+                break
+            }
+        }
+        
+        cell.configure(post: model.getPostPreviewModelByIndex(index: indexPath.row), username: username, avatarImage: avatarImageData, postImage: postImageData)
         cell.backgroundColor = .defaultBackgroundColor
         return cell
         //PostPreviewCell().configure(post: posts[indexPath.row])
