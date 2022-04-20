@@ -317,7 +317,18 @@ final class PostPreviewCell: UITableViewCell {
         containerPublicationContentView.backgroundColor = .containerPublicationContentViewColor
     }
     
-    func configure(post: PostPreviewModel) {
+    func configure(post: PostPreviewModel, username: String, avatarImage: UIImage?, postImage: UIImage?) {
+        if avatarImage != nil {
+            avatarImageView.image = avatarImage
+        }
+        usernameLabel.text = username
+        postDateLabel.text = post.postDate
+        
+        if postImage != nil {
+            postImageView.image = postImage
+        }
+        
+        /*
         model.fetchUserData(uid: post.uid) { result in
             switch result {
             case .success():
@@ -332,7 +343,8 @@ final class PostPreviewCell: UITableViewCell {
                 break
             }
         }
-        
+        */
+        /*
         model.fetchImageData(idImage: post.postImage) { result in
             switch result {
             case .success():
@@ -348,8 +360,8 @@ final class PostPreviewCell: UITableViewCell {
                 break
             }
         }
-
-        postDateLabel.text = post.postDate
+*/
+        
 
         titleLabel.numberOfLines = 2
 
