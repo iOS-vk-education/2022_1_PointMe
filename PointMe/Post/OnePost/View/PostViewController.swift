@@ -204,7 +204,6 @@ final class PostViewController: UIViewController {
     
     func fillData() {
         usernameLabel.text = model.username
-        usernameLabel.textColor = .red
         dateLabel.text = model.date
         titleLabel.text = model.title
         commentLabel.text = model.commentText

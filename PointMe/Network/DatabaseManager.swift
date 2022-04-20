@@ -112,7 +112,7 @@ final class DatabaseManager {
             metadata.contentType = "image/jpeg"
             
             for indexPost in (0 ..< keysImages.count) {
-                guard let dataImage = try? Data(contentsOf: postData.keysImages[indexPost]) else {
+                guard let url = URL(string: postData.keysImages[indexPost]), let dataImage = try? Data(contentsOf: url) else {
                     completion(.failure(AddPostError.serverError))
                     return
                 }

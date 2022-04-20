@@ -43,6 +43,9 @@ final class CreatingPostModel: SimpleLogger {
         }
         
         let date = getCurrentDate()
+        let urlsStringImages: [String] = arrayOfImagesURL.map {
+            $0.path
+        }
         
         let postModel: PostModel = PostModel(
             uid: userId,
@@ -54,7 +57,7 @@ final class CreatingPostModel: SimpleLogger {
             // FIX ME!!! Исправить хардкод
             address: "test, address",
             comment: comment,
-            keysImages: arrayOfImagesURL,
+            keysImages: urlsStringImages,
             day: date.day,
             month: date.mounth,
             year: date.year,
