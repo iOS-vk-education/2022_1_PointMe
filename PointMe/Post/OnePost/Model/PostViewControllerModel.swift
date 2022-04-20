@@ -2,16 +2,69 @@ import Foundation
 
 final class PostViewControllerModel {
     
-    private var arrayDataImages: [String] = []
+    private let dates: [Int: String] = [
+        1: " января ",
+        2: " февраля ",
+        3: " марта ",
+        4: " апреля ",
+        5: " мая ",
+        6: " июня ",
+        7: " июля ",
+        8: " августа ",
+        9: " сентября ",
+        10: " октября ",
+        11: " ноября ",
+        12: " декабря "
+    ]
     
-    private let usernameValue: String = "Username"
-    private let dateVlaue: String = "12 мая 2022 года"
-    private let titleValue: String = "Лучшее место на земле"
+    private var arrayDataImages: [String] = []
+    private var avatarData: Data? = nil
+    private var dataArray: [Data?] = []
+    private var usernameValue: String = "Username"
+    private var dateVlaue: String = "12 мая 2022 года"
+    private var titleValue: String = "Лучшее место на земле"
     private var isChartPostValue: Bool = false
-    private let markValue: Int = 3
-    private let commentTextValue: String = "Здесь было хорошо! Вкусная еда, добрые люди, отличная музыка."
+    private var markValue: Int = 3
+    private var commentTextValue: String = "Здесь было хорошо! Вкусная еда, добрые люди, отличная музыка."
     
     init() {}
+    
+    func fetchData(context: PostContext, completion: @escaping (Result<Void, Error>) -> Void) {
+        usernameValue = context.username
+        dateVlaue = String(context.dateDay) + dates[context.dateMonth]! + String(context.dateYear) + " года"
+        titleValue = context.title
+        markValue = context.mark
+        commentTextValue = context.comment
+        avatarData = context.avatarImage
+        arrayDataImages = context.keysImages
+        avatarData = context.avatarImage
+        print("debug: \(usernameValue), \(dateVlaue), \(titleValue)")
+        
+        let group = DispatchGroup()
+        let lock = NSLock()
+        
+        for key in arrayDataImages {
+            group.enter()
+            DatabaseManager.shared.getImage(destination: "posts", postImageKey: key) { result in
+                switch result {
+                case .success(let data):
+                    lock.lock()
+                    self.dataArray.append(data)
+                    print("debug: add data")
+                    lock.unlock()
+                    break
+                case .failure(_):
+                    break
+                }
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            print("debug: its all")
+            completion(.success(Void()))
+        }
+    }
     
     public var username: String {
         get {
@@ -49,6 +102,12 @@ final class PostViewControllerModel {
         }
     }
     
+    public var avatar: Data? {
+        get {
+            avatarData
+        }
+    }
+    
     public func toggleChartPost() {
         isChartPostValue.toggle()
     }
@@ -61,15 +120,15 @@ final class PostViewControllerModel {
     
     public var countDataImages: Int {
         get {
-            arrayDataImages.count
+            dataArray.count
         }
     }
     
-    public func sendDataImages() -> [String] {
-        return arrayDataImages
+    public func sendDataImages() -> [Data?] {
+        return dataArray
     }
     
-    public func getDataImageByIndex(index: Int) -> String {
-        return arrayDataImages[index]
+    public func getDataImageByIndex(index: Int) -> Data? {
+        return dataArray[index]
     }
 }

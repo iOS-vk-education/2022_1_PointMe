@@ -32,6 +32,8 @@ final class MyAccountPostCell: UITableViewCell {
     
     var delegate: CellDeleteDelegate!
     
+    var openDelegate: CellTapButtonDelegate!
+    
     required init?(code aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -328,7 +330,7 @@ final class MyAccountPostCell: UITableViewCell {
         openButton.layer.cornerRadius = Constants.OpenButton.cornerRadius
         openButton.backgroundColor = .defaultBlackColor
         openButton.setTitle("Открыть обзор", for: .normal)
-        
+        openButton.addTarget(self, action: #selector(didTapOpenButton), for: .touchUpInside)
     }
     
     private func setupOpenButtonConstraint() {
@@ -417,6 +419,10 @@ final class MyAccountPostCell: UITableViewCell {
             
             .horizontally()
             .marginLeft(Constants.ScoreImage.betweenPadding)
+    }
+    
+    @objc func didTapOpenButton() {
+        openDelegate.didTapOpen(sender: self)
     }
 }
 

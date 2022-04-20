@@ -21,6 +21,7 @@
 		2C05A1C827EE73D400F77F1D /* ChelaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */; };
 		2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */; };
 		2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF5DF2808CBB30058C84D /* AddPostError.swift */; };
+		2C1C0B7C280F979C007E436D /* CellTapButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C0B7B280F979C007E436D /* CellTapButtonDelegate.swift */; };
 		2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C690727FB72C600EF3054 /* AlertMessages.swift */; };
 		2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691027FCFDC500EF3054 /* Logger.swift */; };
 		2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691327FDBB0000EF3054 /* SignUpModel.swift */; };
@@ -76,6 +77,7 @@
 		2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChelaOne-Regular.ttf"; sourceTree = "<group>"; };
 		2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellDelegate.swift; sourceTree = "<group>"; };
 		2C0BF5DF2808CBB30058C84D /* AddPostError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostError.swift; sourceTree = "<group>"; };
+		2C1C0B7B280F979C007E436D /* CellTapButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTapButtonDelegate.swift; sourceTree = "<group>"; };
 		2C8C690727FB72C600EF3054 /* AlertMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessages.swift; sourceTree = "<group>"; };
 		2C8C691027FCFDC500EF3054 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2C8C691327FDBB0000EF3054 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				873C6A0227EA406A0004715E /* MyAccountVC.swift */,
 				87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */,
 				8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */,
+				2C1C0B7B280F979C007E436D /* CellTapButtonDelegate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -698,6 +701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
+				2C1C0B7C280F979C007E436D /* CellTapButtonDelegate.swift in Sources */,
 				873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */,
 				87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,

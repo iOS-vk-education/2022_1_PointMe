@@ -83,7 +83,7 @@ class MyAccountViewController: UIViewController {
         }
         
         setupHeaderViewContainer()
-        setupNavigationBar()
+//        setupNavigationBar()
         setupImage()
         setupUserName()
         setupButton()
@@ -94,6 +94,11 @@ class MyAccountViewController: UIViewController {
         setupTable()
         
         view.backgroundColor = .white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -347,6 +352,7 @@ extension MyAccountViewController: UITableViewDataSource {
         myAccountPostData[indexPath.row].userImageData = myAccountInfo.userImage
         cell?.configure(data: myAccountPostData[indexPath.row])
         strongCell.delegate = self
+        strongCell.openDelegate = self
         return strongCell
     }
 }
@@ -362,6 +368,29 @@ extension MyAccountViewController: CellDeleteDelegate {
         myAccountPostData.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
+}
+
+extension MyAccountViewController: CellTapButtonDelegate {
+    func didTapOpen(sender: UITableViewCell) {
+        let indexPath = tableView.indexPath(for: sender)!
+        let postViewController: PostViewController = PostViewController()
+        let title = myAccountPostData[indexPath.row].mainTitle + " " + myAccountPostData[indexPath.row].address
+        //myAccountPostData[indexPath.row].
+        postViewController.setup(context: PostContext(
+            keysImages: myAccountPostData[indexPath.row].images,
+            avatarImage: myAccountInfo.userImage,
+            username: myAccountInfo.userName,
+            dateDay: myAccountPostData[indexPath.row].date.day,
+            dateMonth: myAccountPostData[indexPath.row].date.month,
+            dateYear: myAccountPostData[indexPath.row].date.year,
+            title: title,
+            comment: myAccountPostData[indexPath.row].comment,
+            mark: myAccountPostData[indexPath.row].mark
+        ))
+        navigationController?.pushViewController(postViewController, animated: true)
+    }
+    
+    
 }
  
 private extension MyAccountViewController {

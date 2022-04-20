@@ -1,3 +1,4 @@
+import Foundation
 import Firebase
 
 struct MyAccountPost {
@@ -5,6 +6,8 @@ struct MyAccountPost {
     var userImage: String
     var userImageData: Data?
     var userName: String
+    
+    var comment: String
     var date: MyAccountPostDate
     
     var images: [String]
@@ -23,6 +26,7 @@ struct MyAccountPost {
         self.userImage = userImage
         self.userName = userName
         
+        self.comment = snapshotValue["comment"] as! String
         date = MyAccountPostDate(day: snapshotValue["day"] as! Int, month: snapshotValue["month"] as! Int, year: snapshotValue["year"] as! Int)
         if let strongImages = (snapshotValue["keysImages"] as? [String]) {
             images = strongImages
@@ -40,6 +44,7 @@ struct MyAccountPost {
     
     init(userImage: String = "",
          userName: String = "",
+         comment: String = "",
          date: MyAccountPostDate = .init(day: 0, month: 0, year: 0),
          mainImage: [String] = [""],
          numberOfImages: Int = 0,
@@ -48,6 +53,7 @@ struct MyAccountPost {
          mark: Int = 0) {
         self.userImage = userImage
         self.userName = userName
+        self.comment = comment
         self.date = date
         
         self.images = mainImage

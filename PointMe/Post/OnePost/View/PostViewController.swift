@@ -151,6 +151,8 @@ final class PostViewController: UIViewController {
         
         view.backgroundColor = .backgroundPostViewController
         
+        navigationController?.navigationBar.isHidden = false
+        
         navigationController?.navigationBar.tintColor = .navBarItemColor
         
         view.addSubview(scrollView)
@@ -173,25 +175,52 @@ final class PostViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tabBarController?.tabBar.isHidden = true
+        //tabBarController?.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         tabBarController?.tabBar.isHidden = false
+        //tabBarController?.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    func setup() {
+    func setup(context: PostContext) {
+        print("debug: context: \(context)")
+        model.fetchData(context: context) { result in
+            switch result {
+            case .success():
+                //DispatchQueue.main.async {
+                    print("debug: success fill data")
+                    self.fillData()
+               //}
+                break
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    
+    func fillData() {
         usernameLabel.text = model.username
+        usernameLabel.textColor = .red
         dateLabel.text = model.date
         titleLabel.text = model.title
         commentLabel.text = model.commentText
         markLabel.text = "\(model.mark)/5"
         setupCircleArray()
         
+        photosCollectionView.reloadData()
+        
         let imageForButton: UIImage? = model.isChartPost ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
         chartButton.setBackgroundImage(imageForButton, for: .normal)
+        
+        if let dataAvatar = model.avatar {
+            userImageView.image = UIImage(data: dataAvatar)
+        }
+        
+        viewDidLayoutSubviews()
     }
     
     
@@ -227,14 +256,16 @@ final class PostViewController: UIViewController {
             .marginLeft(Constants.UserHeader.usernameLabelMarginLeft)
             .top(Constants.UserHeader.usernameLabelMarginTop)
             .height(Constants.UserHeader.usernameLabelHeight)
-            .sizeToFit(.height)
+            .width(200)
+            //.sizeToFit(.height)
         
         dateLabel.pin
             .after(of: userImageView)
             .marginLeft(Constants.UserHeader.dateLabelMarginLeft)
             .top(Constants.UserHeader.dateLabelMarginTop)
             .height(Constants.UserHeader.dateLabelHeight)
-            .sizeToFit(.height)
+            .width(200)
+            //.sizeToFit(.height)
         
         chartButton.pin
             .below(of: separatorView)
@@ -350,7 +381,7 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
             return UICollectionViewCell()
         }
         
-        cell.setup(urlImage: model.getDataImageByIndex(index: indexPath.item))
+        cell.setup(dataImage: model.getDataImageByIndex(index: indexPath.item))
         
         return cell
     }
@@ -376,6 +407,19 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         let fullScreenImageViewController: FullScreenImagePresenterViewController = FullScreenImagePresenterViewController(context: context)
         navigationController?.pushViewController(fullScreenImageViewController, animated: true)
     }
+}
+
+
+struct PostContext {
+    let keysImages: [String]
+    let avatarImage: Data?
+    let username: String
+    let dateDay: Int
+    let dateMonth: Int
+    let dateYear: Int
+    let title: String
+    let comment: String
+    let mark: Int
 }
 
 
@@ -452,3 +496,6 @@ private extension PostViewController {
         }
     }
 }
+
+
+
