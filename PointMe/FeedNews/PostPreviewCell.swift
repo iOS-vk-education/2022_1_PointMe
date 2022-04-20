@@ -27,6 +27,7 @@ final class PostPreviewCell: UITableViewCell {
     private let openReviewButton = UIButton()
     private let containerPostContentView = UIView()
     private let containerPublicationContentView = UIView()
+    private let model: PostPreviewCellModel = PostPreviewCellModel()
     
     // MARK: - Lifecycle
     
@@ -317,38 +318,48 @@ final class PostPreviewCell: UITableViewCell {
     }
     
     func configure(post: PostPreviewModel) {
-        if post.avatarImage != "" {
-            //avatarImageView.image = UIImage(systemName: post.avatarImage)
-        
-        }
-        
-        usernameLabel.text = post.username
-        postDateLabel.text = post.postDate
-        
-        if post.postImage != [] {
-            DatabaseManager.shared.getPostImage(imageKey: post.postImage[0], completion: { result in
-                switch result {
-                case .success(let data):
-                    self.postImageView.image = data
-                    print(12345)
-                    break
-                case .failure(let error):
-                    break
+        model.fetchUserData(uid: post.uid) { result in
+            switch result {
+            case .success():
+                DispatchQueue.main.async {
+                    if let dataAvatar = self.model.avatarData {
+                        self.avatarImageView.image = UIImage(data: dataAvatar)
+                    }
+                    self.usernameLabel.text = self.model.username
                 }
-            })
-            
-            
-            //postImageView.image = UIImage(systemName: post.postImage[0])
-            titleLabel.numberOfLines = 2
+                break
+            case .failure(_):
+                break
+            }
         }
         
-        
-        
+        model.fetchImageData(idImage: post.postImage) { result in
+            switch result {
+            case .success():
+                DispatchQueue.main.async {
+                    if let dataImage = self.model.imagePreview {
+                        self.postImageView.image = UIImage(data: dataImage)
+                        self.layoutSubviews()
+                    }
+                }
+                break
+            case .failure(_):
+                print("FAIL ERROR IMAGE DATA")
+                break
+            }
+        }
+
+        postDateLabel.text = post.postDate
+
+        titleLabel.numberOfLines = 2
+
+
+
         if post.numberOfImages != 0 {
             numberOfPhotosLabel.text = String(post.numberOfImages) + " фото"
             numberOfPhotosLabel.textAlignment = .center
         }
-        
+
         titleLabel.text = post.title
         locationLabel.text = post.location
         
@@ -369,7 +380,7 @@ final class PostPreviewCell: UITableViewCell {
         markImageView5.contentMode = .scaleAspectFill
         markImageView5.tintColor = .markImageViewColor
         markLabel.text = String(post.mark) + "/5"
-        
+
         if post.mark != 0 {
             if post.mark == 1 {
                 markImageView1.image = UIImage(systemName: "circle.fill")
@@ -404,7 +415,7 @@ final class PostPreviewCell: UITableViewCell {
                     }
                 }
             }
-        
+
         }
     }
 }

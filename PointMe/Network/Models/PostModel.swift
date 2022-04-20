@@ -8,7 +8,7 @@ struct PostModel {
     var longitude: Double  //55.751574, longitude: 37.573856
     var address: String
     var comment: String
-    var keysImages: [URL]
+    var keysImages: [String]
     var day: Int
     var month: Int
     var year: Int

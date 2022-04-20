@@ -3,13 +3,8 @@ import UIKit
 class FeedNewsViewController: UIViewController {
     
     private let newsFeedTableView = UITableView()
-    private let posts: [PostPreviewModel] = [
-        PostPreviewModel(avatarImage: nil, username: "username1", postDate: "17 апреля 2022 года", postImage: "star.square", numberOfImages: 2, title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor", location: "СолнцеЛокация", mark: 5),
-        PostPreviewModel(avatarImage: "person.circle.fill", username: "username2", postDate: "17 апреля 2022 года", postImage: nil, numberOfImages: 0, title: "Ut enim ad minim veniam, quis nostrud exercitation ullamco", location: "ВенераЛокация", mark: 4),
-        PostPreviewModel(avatarImage: nil, username: "username3", postDate: "17 апреля 2022 года", postImage: "star.square", numberOfImages: 3, title: "Duis aute irure dolor in reprehenderit", location: "ЗемляЛокация", mark: 5),
-        PostPreviewModel(avatarImage: nil, username: "username4", postDate: "17 апреля 2022 года", postImage: "star.square", numberOfImages: 1, title: "Excepteur sint occaecat cupidatat non proident", location: "СатурнЛокация", mark: 3),
-        PostPreviewModel(avatarImage: "person.circle.fill", username: "username5", postDate: "17 апреля 2022 года", postImage: nil, numberOfImages: 0, title: "Sunt in culpa qui officia deserunt", location: "ЮпитерЛокация", mark: 2)
-    ]
+    
+    private let model: FeedNewsModel = FeedNewsModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +27,20 @@ class FeedNewsViewController: UIViewController {
         
         setupNewsFeedTableView()
         registerCell()
+        
+        model.getPosts { result in
+            switch result {
+            case .success():
+                print("success download")
+                DispatchQueue.main.async {
+                    self.setupsCell()
+                }
+                break
+            case .failure(_):
+                print("fail download")
+                break
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,30 +68,33 @@ class FeedNewsViewController: UIViewController {
         newsFeedTableView.register(PostPreviewCell.self, forCellReuseIdentifier: "PostPreviewCell")
     }
     
+    private func setupsCell() {
+        newsFeedTableView.reloadData()
+    }
+    
 }
 
 extension FeedNewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if posts[indexPath.row].postImage == nil {
+        if model.checkIsExistImageByIndex(index: indexPath.row) {
             return 206
         }
         else {
             return 251
         }
-        //300
     }
 }
 
 extension FeedNewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        model.countPosts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = newsFeedTableView.dequeueReusableCell(withIdentifier: "PostPreviewCell", for: indexPath) as? PostPreviewCell else {
             fatalError()
         }
-        cell.configure(post: posts[indexPath.row])
+        cell.configure(post: model.getPostPreviewModelByIndex(index: indexPath.row))
         cell.backgroundColor = .defaultBackgroundColor
         return cell
         //PostPreviewCell().configure(post: posts[indexPath.row])
