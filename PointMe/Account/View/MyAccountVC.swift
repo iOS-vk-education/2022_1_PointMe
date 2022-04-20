@@ -40,6 +40,22 @@ class MyAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchData()
+        setupHeaderViewContainer()
+//        setupNavigationBar()
+        setupImage()
+        setupUserName()
+        setupButton()
+        setupSubscribersLabel()
+        setupSubscriptionsLabel()
+        setupBottomLine()
+        setupViews()
+        setupTable()
+        
+        view.backgroundColor = .white
+    }
+    
+    @objc func fetchData() {
         
         output.userWantsToViewAccountInfo() { [self] data in
             let group = DispatchGroup()
@@ -77,23 +93,11 @@ class MyAccountViewController: UIViewController {
             }
             group.notify(queue: .main) {
                 setupUserPhoto()
+                tableView.refreshControl?.endRefreshing()
                 tableView.reloadData()
                 tableView.refreshControl?.endRefreshing()
             }
         }
-        
-        setupHeaderViewContainer()
-//        setupNavigationBar()
-        setupImage()
-        setupUserName()
-        setupButton()
-        setupSubscribersLabel()
-        setupSubscriptionsLabel()
-        setupBottomLine()
-        setupViews()
-        setupTable()
-        
-        view.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -291,6 +295,10 @@ class MyAccountViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(fetchData), for: .valueChanged)
+        tableView.refreshControl = refreshControl
         
         tableView.register(MyAccountPostCell.self, forCellReuseIdentifier: "MyAccountPostCell")
         
