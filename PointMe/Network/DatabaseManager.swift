@@ -21,6 +21,58 @@ final class DatabaseManager {
         }
     }
     
+    public func getMyAccountInfo(completion: @escaping (Result<MyAccountInfo, Error>) -> Void) {
+        let strongCurrentUserUID = "Ffk5GXb4ohZsUGtXaT30wonM21K3"
+        
+        reference.child("users").child(strongCurrentUserUID).getData() { error, snapshot in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+            
+            let accountInfo = MyAccountInfo(snapshot: snapshot)
+            DispatchQueue.main.async {
+                completion(.success(accountInfo))
+            }
+        }
+    }
+    
+    public func getMyAccountPosts(userName: String, userImage: String, postKey: String, completion: @escaping (Result<MyAccountPost, Error>) -> Void) {
+        
+        reference.child("posts").child(postKey).getData() { error, snapshot in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+            let accountPost = MyAccountPost(userName: userName, userImage: userImage, snapshot: snapshot)
+            DispatchQueue.main.async {
+                completion(.success(accountPost))
+            }
+        }
+    }
+    
+    public func getImage(destination: String, postImageKey: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        
+        storage.child(destination).child(postImageKey).getData(maxSize: 1024 * 1024 * 100) { data, error in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+            if let data = data {
+                DispatchQueue.main.async {
+                    completion(.success(data))
+                }
+            }
+        }
+    }
+    
+    
     public func addPost(postData: PostModel, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let keyPost = reference.child("posts").childByAutoId().key else {
             completion(.failure(AddPostError.serverError))
@@ -116,4 +168,11 @@ final class DatabaseManager {
         }
     }
         
+}
+
+extension DatabaseManager {
+    struct Constants {
+        static let numberOfPostsBlock: Int = 5
+        
+    }
 }
