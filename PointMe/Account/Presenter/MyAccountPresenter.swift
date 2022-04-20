@@ -12,7 +12,13 @@ extension MyAccountPresenter: MyAccountModelOutput {
 }
 
 extension MyAccountPresenter: MyAccountViewControllerOutput {
-    
+
+    func userWantsToRemovePost(postKeys: [String], imageKey: String) {
+        model.removePostfromDatabase(postKeys: postKeys)
+        if (imageKey != "") {
+            model.removeImageFromStorage(imageKey: imageKey)
+        }
+    }
 
     func userWantsToViewAccountInfo(completion: @escaping (MyAccountInfo) -> Void) {
         model.getAccountInfoData(completion: completion)
@@ -25,5 +31,4 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
     func userWantsToViewImage(destination: String, postImageKey: String, completion: @escaping (Data) -> Void) {
         model.getImage(destination: destination, postImageKey: postImageKey, completion: completion)
     }
-    
 }

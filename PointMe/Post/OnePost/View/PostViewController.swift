@@ -288,6 +288,7 @@ final class PostViewController: UIViewController {
             .height(Constants.Container.mapViewHeight)
         
         if model.isImagesExist {
+            
             photosCollectionView.pin
                 .below(of: mapView)
                 .marginTop(Constants.Container.photosCollectionViewMarginTop)

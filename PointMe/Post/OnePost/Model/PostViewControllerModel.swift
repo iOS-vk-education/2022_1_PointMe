@@ -114,7 +114,13 @@ final class PostViewControllerModel {
     
     public var isImagesExist: Bool {
         get {
-            arrayDataImages.count != 0
+            print("debug: isImagesExist \(arrayDataImages)")
+            guard arrayDataImages.count != 0, (arrayDataImages.first ?? "") != "" else {
+                print("debug: isImagesExist return false")
+                return false
+            }
+            print("debug: isImagesExist return true")
+            return true//arrayDataImages.count != 0
         }
     }
     

@@ -22,7 +22,10 @@ final class DatabaseManager {
     }
     
     public func getMyAccountInfo(completion: @escaping (Result<MyAccountInfo, Error>) -> Void) {
-        let strongCurrentUserUID = "Ffk5GXb4ohZsUGtXaT30wonM21K3"
+        guard let strongCurrentUserUID = DatabaseManager.shared.currentUserUID else {
+            completion(.failure(NSError()))
+            return
+        }
         
         reference.child("users").child(strongCurrentUserUID).getData() { error, snapshot in
             if let error = error {
@@ -51,6 +54,30 @@ final class DatabaseManager {
             let accountPost = MyAccountPost(userName: userName, userImage: userImage, snapshot: snapshot)
             DispatchQueue.main.async {
                 completion(.success(accountPost))
+            }
+        }
+    }
+    
+    public func removePostFromDatabase(postKeys: [String], completion: @escaping (Result <Void, Error>) -> Void) {
+        guard let strongCurrentUserUID = DatabaseManager.shared.currentUserUID else {
+            completion(.failure(NSError()))
+            return
+        }
+        
+        reference.child("users").child(strongCurrentUserUID).child("posts").setValue(postKeys) { error, _ in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+        }
+    }
+    
+    
+    public func removeImageFromStorage(imageKey: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        storage.child("posts").child(imageKey).delete { error in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
             }
         }
     }

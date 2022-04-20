@@ -2,7 +2,7 @@ import UIKit
 import PinLayout
  
  
-class MyAccountViewController: UIViewController {
+class MyAccountViewController: UIViewController, AlertMessages {
     
     private let backButton = UIButton()
     
@@ -65,6 +65,7 @@ class MyAccountViewController: UIViewController {
             
             if(myAccountInfo.userImageKey != "") {
                 group.enter()
+                group.enter()
                 output.userWantsToViewImage(destination: "avatars", postImageKey: myAccountInfo.userImageKey) { dataImage in
                     myAccountInfo.userImage = dataImage
                     group.leave()
@@ -91,11 +92,10 @@ class MyAccountViewController: UIViewController {
                     }
                 }
             }
+            group.leave()
             group.notify(queue: .main) {
-                setupUserPhoto()
-                tableView.refreshControl?.endRefreshing()
+                configure()
                 tableView.reloadData()
-                tableView.refreshControl?.endRefreshing()
             }
         }
     }
@@ -116,6 +116,12 @@ class MyAccountViewController: UIViewController {
         setupSubscribersLabelConstraint()
         setupSubscriptionsLabelConstraint()
         setupBottomLineConstraint()
+    }
+    
+    private func configure() {
+        setupUserPhoto()
+        setupSubscribersAndSubscriptions()
+        setupUserNameText()
     }
     
     private func setupViews() {
@@ -171,12 +177,14 @@ class MyAccountViewController: UIViewController {
     
     private func setupUserName() {
         
-        //Запрос в БД
-        userName.text = "Jason"
         userName.tintColor = .defaultBlackColor
         userName.font = .boldSystemFont(ofSize: 18)
         userName.textAlignment = Constants.Username.textAlignment
         
+    }
+    
+    private func setupUserNameText() {
+        userName.text = myAccountInfo.userName
     }
     
     private func setupButton() {
@@ -214,12 +222,6 @@ class MyAccountViewController: UIViewController {
         
     }
     
-    private func isSubscribeQuery() -> Bool{
-        
-        //Запрос в БД
-        return false
-        
-    }
     
     private func setupAccountInfoConstraint() {
         
@@ -232,18 +234,10 @@ class MyAccountViewController: UIViewController {
     
     private func setupSubscribersLabel() {
         
-        let subscribesNum = numOfSubscribersQuery()
-        subscribersLabel.text = "Подписчики: " + String(subscribesNum)
         subscribersLabel.tintColor = .defaultBlackColor
         subscribersLabel.font = .accountInfo
         subscribersLabel.textAlignment = .right
         
-    }
-    
-    private func numOfSubscribersQuery() -> Int {
-        
-        //Запрос БД
-        return 120
     }
     
     private func setupSubscribersLabelConstraint() {
@@ -257,7 +251,6 @@ class MyAccountViewController: UIViewController {
     
     private func setupSubscriptionsLabel() {
         
-        subscriptionsLabel.text = "Подписки: " + "100"
         subscriptionsLabel.tintColor = .defaultBlackColor
         subscriptionsLabel.font = .accountInfo
         subscriptionsLabel.textAlignment = .left
@@ -270,6 +263,12 @@ class MyAccountViewController: UIViewController {
             .hCenter(Constants.AccountInfo.betweenPanding)
             .width(160)
             .height(Constants.AccountInfo.fontSize)
+
+    }
+    
+    private func setupSubscribersAndSubscriptions() {
+        subscriptionsLabel.text = "Подписки: " + String(myAccountInfo.numberOfSubscriptions)
+        subscribersLabel.text = "Подписчики: " + String(myAccountInfo.numberOfSubscribers)
         
     }
     
@@ -302,7 +301,7 @@ class MyAccountViewController: UIViewController {
         
         tableView.register(MyAccountPostCell.self, forCellReuseIdentifier: "MyAccountPostCell")
         
-        tableView.rowHeight = 70 + UIScreen.main.bounds.width / 2 - 1.5 * 12 + 2 * 12 + 8
+        
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = .defaultBackgroundColor
@@ -345,6 +344,14 @@ class MyAccountViewController: UIViewController {
  
 extension MyAccountViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if myAccountPostData[indexPath.row].mainImage != nil {
+            return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth + 2 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding + 8)
+        } else {
+            return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth)
+        }
+    }
+    
 }
  
 extension MyAccountViewController: UITableViewDataSource {
@@ -372,9 +379,17 @@ extension MyAccountViewController: MyAccountViewControllerInput {
 
 extension MyAccountViewController: CellDeleteDelegate {
     func deleteCell(sender: UITableViewCell) {
-        let indexPath = tableView.indexPath(for: sender)!
-        myAccountPostData.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        showDeleteAlertTwoButtons(forTitleText: "Подтверждение", forBodyText: "Вы уверены, что хотите удалить пост?", viewController: self) {
+            let indexPath = self.tableView.indexPath(for: sender)!
+            self.myAccountInfo.postKeys.remove(at: indexPath.row)
+            
+            for i in 0..<self.myAccountPostData[indexPath.row].images.count {
+                self.output.userWantsToRemovePost(postKeys:  self.myAccountInfo.postKeys, imageKey: self.myAccountPostData[indexPath.row].images[i])
+            }
+            
+            self.myAccountPostData.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
 
@@ -423,6 +438,10 @@ private extension MyAccountViewController {
                                         + Constants.AccountInfo.topPadding
                                         + Constants.AccountInfo.fontSize
                                         + 18
+        }
+        
+        struct CellHeader {
+            static let height: CGFloat = 70
         }
         
         struct Button {
