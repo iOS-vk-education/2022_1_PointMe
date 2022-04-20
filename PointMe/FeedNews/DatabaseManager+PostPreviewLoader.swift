@@ -11,7 +11,11 @@ extension DatabaseManager {
         
         let reference: DatabaseReference = Database.database().reference()
         
-        let currentUID = "GPPDuOVlTBQo7wtxpJeVc5ZAWro2" // "Ffk5GXb4ohZsUGtXaT30wonM21K3"
+        //"GPPDuOVlTBQo7wtxpJeVc5ZAWro2" // "Ffk5GXb4ohZsUGtXaT30wonM21K3"
+        guard let currentUID = DatabaseManager.shared.currentUserUID else {
+            completion(.failure(FeedNewsError.loadDataError))
+            return
+        }
         
         reference.child("users").child(currentUID).child("publishers").getData { error, snapshot in
             guard error == nil else {
@@ -63,7 +67,7 @@ extension DatabaseManager {
                                     postId: postData.key,
                                     username: userData.username,
                                     postDateDay: dictPosts["day"] as? Int ?? 1,
-                                    postDateMonth: dictPosts["mounth"] as? Int ?? 1,
+                                    postDateMonth: dictPosts["month"] as? Int ?? 1,
                                     postDateYear: dictPosts["year"] as? Int ?? 2021,
                                     postImage: tempDataImage,
                                     avatarData: userData.avatarData,
@@ -86,7 +90,22 @@ extension DatabaseManager {
                 }
                 
                 dispatchGroup.notify(queue: .main) {
-                    print("debug: its all array \(arrayPosts)")
+//                    completion(.success(arrayPosts.sort {
+//                        if $0.postDateYear < $1.postDateYear {
+//                            return true
+//                        }
+//
+//                        if $0.postDateYear == $1.postDateYear && $0.postDateMonth < $1.postDateMonth {
+//                            return true
+//                        }
+//
+//                        if $0.postDateYear == $1.postDateYear && $0.postDateMonth == $1.postDateMonth && $0.postDateDay < $1.postDateDay {
+//                            return true
+//                        }
+//
+//                        return false;
+//                    }))
+                    
                     completion(.success(arrayPosts))
                 }
             }
@@ -144,103 +163,4 @@ extension DatabaseManager {
             completion(.success(data))
         }
     }
-    
-    
-    //                    let postModel = PostModel(
-    //                        uid: userUID,
-    //                        title: dictPosts["title"] as? String ?? "",
-    //                        latitude: dictPosts["latitude"] as? Double ??  55.751574,
-    //                        longitude: dictPosts["longitude"] as? Double ??  55.751574,
-    //                        address: dictPosts["address"] as? String ?? "",
-    //                        comment: dictPosts["comment"] as? String ?? "",
-    //                        keysImages: dictPosts["keysImages"] as? [String] ?? [],
-    //                        day: dictPosts["day"] as? Int ?? 1,
-    //                        month: dictPosts["mounth"] as? Int ?? 1,
-    //                        year: dictPosts["year"] as? Int ?? 2021,
-    //                        mark: dictPosts["mark"] as? Int ?? 1
-    //                    )
-    
-    /*public func getPosts(publishers: [String], completion: @escaping (Result<[PostPreviewModel], Error>) -> Void) {
-        let reference: DatabaseReference = Database.database().reference()
-        var posts: [PostPreviewModel] = []
-        //let storage: StorageReference = Storage.storage().reference()
-        //let currentUserID = "Ffk5GXb4ohZsUGtXaT30wonM21K3"
-        print(321)
-        reference.child("posts").getData { error, snapshot in
-            guard error == nil else {
-                DispatchQueue.main.async {
-                    completion(.failure(FeedNewsError.loadDataError))
-                }
-                return
-            }
-            print(444)
-            for postData in snapshot.value  as! [String: AnyObject] {
-                let onePostData = postData.value as! [String: AnyObject]
-                let userUID = onePostData["uid"] as! String
-                print(5, onePostData["uid"] as! String)
-                print(6, publishers)
-                if publishers.contains(userUID) {
-                    
-                    reference.child("users").child(userUID).getData { error, userSnapshot in
-                        print(999)
-                        guard error == nil else {
-                            DispatchQueue.main.async {
-                                completion(.failure(FeedNewsError.loadDataError))
-                            }
-                            return
-                        }
-                        
-                        guard let userInfoArray = userSnapshot.value as? [String: AnyObject] else {
-                            DispatchQueue.main.async {
-                                completion(.failure(FeedNewsError.loadDataError))
-                            }
-                            return
-                        }
-                            
-                        let publicationInfo = PostPreviewModel(avatarImage: userInfoArray["avatar"] as! String,
-                                                               username: userInfoArray["username"] as! String,
-                                                               postDateDay: onePostData["day"] as! Int,
-                                                               postDateMonth: onePostData["month"] as! Int,
-                                                               postDateYear: onePostData["year"] as! Int,
-                                                               postImage: onePostData["keysImages"] as! [String],
-                                                               title: onePostData["title"] as! String,
-                                                               location: onePostData["address"] as! String,
-                                                               mark: onePostData["mark"] as! Int)
-                        
-                        posts.append(publicationInfo)
-                        print(8, posts.count)
-                    }
-                    
-                }
-                
-            }
-            DispatchQueue.main.async {
-                completion(.success(posts))
-            }
-            
-            
-        }
-    }
-    
-    public func getPostImage(imageKey: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        //let reference: DatabaseReference = Database.database().reference()
-        let storage: StorageReference = Storage.storage().reference()
-        //var posts: [PostPreviewModel] = []
-        //let storage: StorageReference = Storage.storage().reference()
-        //let currentUserID = "Ffk5GXb4ohZsUGtXaT30wonM21K3"
-        storage.child("posts").child(imageKey).getData(maxSize: 1024 * 1024 * 100) { data, error in
-            guard error == nil else {
-                DispatchQueue.main.async {
-                    completion(.failure(FeedNewsError.loadDataError))
-                }
-                return
-            }
-            let image = UIImage(data: data!)
-            DispatchQueue.main.async {
-                completion(.success(image!))
-            }
-            
-        }
-    }
-}*/
 }

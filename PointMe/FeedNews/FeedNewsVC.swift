@@ -2,6 +2,36 @@ import UIKit
 
 class FeedNewsViewController: UIViewController {
     
+    private lazy var loadingAlert: UIAlertController = {
+        let alert = UIAlertController(
+            title: "Ожидание",
+            message: "Пожалуйста подождите...",
+            preferredStyle: UIAlertController.Style.alert
+        )
+        
+        let loadingIndicator = UIActivityIndicatorView(
+            frame: CGRect(
+                x: 10,
+                y: 5,
+                width: 50,
+                height: 50
+            )
+        )
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.medium
+        loadingIndicator.startAnimating()
+
+        alert.view.addSubview(loadingIndicator)
+        
+//        let alertAction: UIAlertAction = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default) { [weak self] _ in
+//            self?.didTapForBackViewController()
+//        }
+//        alert.addAction(alertAction)
+        
+        return alert
+    }()
+    
     private let newsFeedTableView = UITableView()
     
     private let model: FeedNewsModel = FeedNewsModel()
@@ -27,18 +57,7 @@ class FeedNewsViewController: UIViewController {
         
         setupNewsFeedTableView()
         registerCell()
-        
-        model.getPosts { result in
-            switch result {
-            case .success():
-                print("success download")
-                    self.setupsCell()
-                break
-            case .failure(_):
-                print("fail download")
-                break
-            }
-        }
+        updateRequestData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,6 +78,7 @@ class FeedNewsViewController: UIViewController {
     
     private func setupNewsFeedTableView() {
         view.addSubview(newsFeedTableView)
+        setupRefreshControll()
         newsFeedTableView.backgroundColor = .defaultBackgroundColor
         newsFeedTableView.separatorStyle = .none
         newsFeedTableView.delegate = self
@@ -72,6 +92,33 @@ class FeedNewsViewController: UIViewController {
     private func setupsCell() {
         newsFeedTableView.reloadData()
         //newsFeedTableView.refreshControl?.endRefreshing()
+    }
+    
+    private func setupRefreshControll() {
+        let refreshControl = UIRefreshControl()
+
+        refreshControl.addTarget(self, action: #selector(updateRequestData), for: .valueChanged)
+
+        newsFeedTableView.refreshControl = refreshControl
+        //tableView.refreshControl = refreshControl
+    }
+    
+    
+    @objc func updateRequestData() {
+        self.present(loadingAlert, animated: true, completion: nil)
+        model.getPosts { result in
+            switch result {
+            case .success():
+                print("success download")
+                    self.setupsCell()
+                break
+            case .failure(_):
+                print("fail download")
+                break
+            }
+            self.newsFeedTableView.refreshControl?.endRefreshing()
+            self.loadingAlert.dismiss(animated: true, completion: nil)
+        }
     }
     
 }

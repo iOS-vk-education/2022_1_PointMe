@@ -90,6 +90,7 @@ private extension CreatingPostModel {
             return (day: 1, mounth: 1, year: 2022)
         }
         
+        print("debug: date = \(mounth)")
         return (day: day, mounth: mounth, year: year)
     }
 }
