@@ -3,6 +3,7 @@ import PinLayout
 
 final class MyAccountPostCell: UITableViewCell {
     
+    
     private let headViewContainer: UIView = UIView()
     private let contentViewContainer: UIView = UIView()
     
@@ -104,13 +105,29 @@ final class MyAccountPostCell: UITableViewCell {
     }
     
     func configure(data: MyAccountPost) {
+        
+        let dates: [Int: String] = [
+            1: " января ",
+            2: " февраля ",
+            3: " марта ",
+            4: " апреля ",
+            5: " мая ",
+            6: " июня ",
+            7: " июля ",
+            8: " августа ",
+            9: " сентября ",
+            10: " октября ",
+            11: " ноября ",
+            12: " декабря "
+        ]
+        
         if let imageData = data.userImageData {
             userImage.image = UIImage(data: imageData)
         } else {
-            userImage.image = UIImage(named: data.userImage)
+            userImage.image = UIImage(systemName: "person")
         }
         userName.text = data.userName
-        dateLabel.text = "\(data.date.day) марта \(data.date.year) года"
+        dateLabel.text = "\(data.date.day) \(dates[data.date.month]!) \(data.date.year) года"
         
         if let mainImageData = data.mainImage {
             mainImage.image = UIImage(data: mainImageData)
@@ -177,6 +194,7 @@ final class MyAccountPostCell: UITableViewCell {
         userImage.layer.cornerRadius = Constants.UserImage.radius
         userImage.layer.masksToBounds = true
         userImage.layer.borderWidth = Constants.UserImage.borderWidth
+        userImage.tintColor = .defaultBlackColor
     }
     
     private func setupUserImageConstraint() {

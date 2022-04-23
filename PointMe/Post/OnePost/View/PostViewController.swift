@@ -151,8 +151,12 @@ final class PostViewController: UIViewController {
         
         view.backgroundColor = .backgroundPostViewController
         
+        if let standardAppearance = self.navigationController?.navigationBar.standardAppearance,
+            let scrollAppearance = self.navigationController?.navigationBar.scrollEdgeAppearance {
+            standardAppearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
+            scrollAppearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
+        }
         navigationController?.navigationBar.isHidden = false
-        
         navigationController?.navigationBar.tintColor = .navBarItemColor
         
         view.addSubview(scrollView)
@@ -190,10 +194,8 @@ final class PostViewController: UIViewController {
         model.fetchData(context: context) { result in
             switch result {
             case .success():
-                //DispatchQueue.main.async {
-                    print("debug: success fill data")
-                    self.fillData()
-               //}
+                print("debug: success fill data")
+                self.fillData()
                 break
             case .failure(_):
                 break
@@ -359,9 +361,23 @@ final class PostViewController: UIViewController {
     
     
     @objc private func didTapChartButton() {
-        model.toggleChartPost()
-        let imageForButton: UIImage? = model.isChartPost ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
-        chartButton.setBackgroundImage(imageForButton, for: .normal)
+        model.toggleChartPost(completion: { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success():
+                let imageForButton: UIImage? = self.model.isChartPost ?
+                    UIImage(systemName: "star.fill") :
+                    UIImage(systemName: "star")
+                self.chartButton.setBackgroundImage(imageForButton, for: .normal)
+                break
+            case .failure(_):
+                print("failure toggle button chart")
+                break
+            }
+        })
     }
 }
 
@@ -411,6 +427,7 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
 
 
 struct PostContext {
+    let idPost: String
     let keysImages: [String]
     let avatarImage: Data?
     let username: String
@@ -421,7 +438,6 @@ struct PostContext {
     let comment: String
     let mark: Int
 }
-
 
 
 private extension PostViewController {

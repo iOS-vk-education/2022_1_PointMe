@@ -17,6 +17,7 @@ final class PostViewControllerModel {
         12: " декабря "
     ]
     
+    private var idPost: String = ""
     private var arrayDataImages: [String] = []
     private var avatarData: Data? = nil
     private var dataArray: [Data?] = []
@@ -38,32 +39,37 @@ final class PostViewControllerModel {
         avatarData = context.avatarImage
         arrayDataImages = context.keysImages
         avatarData = context.avatarImage
+        idPost = context.idPost
         print("debug: \(usernameValue), \(dateVlaue), \(titleValue)")
         
         let group = DispatchGroup()
         let lock = NSLock()
-        
-        for key in arrayDataImages {
-            group.enter()
-            DatabaseManager.shared.getImage(destination: "posts", postImageKey: key) { result in
-                switch result {
-                case .success(let data):
-                    lock.lock()
-                    self.dataArray.append(data)
-                    print("debug: add data")
-                    lock.unlock()
-                    break
-                case .failure(_):
-                    break
+        DatabaseManager.shared.isFavoritePost(idPost: idPost) { isFavorite in
+            self.isChartPostValue = isFavorite
+            
+            for key in self.arrayDataImages {
+                group.enter()
+                DatabaseManager.shared.getImage(destination: "posts", postImageKey: key) { result in
+                    switch result {
+                    case .success(let data):
+                        lock.lock()
+                        self.dataArray.append(data)
+                        print("debug: add data")
+                        lock.unlock()
+                        break
+                    case .failure(_):
+                        break
+                    }
+                    group.leave()
                 }
-                group.leave()
+            }
+            
+            group.notify(queue: .main) {
+                print("debug: its all")
+                completion(.success(Void()))
             }
         }
         
-        group.notify(queue: .main) {
-            print("debug: its all")
-            completion(.success(Void()))
-        }
     }
     
     public var username: String {
@@ -108,8 +114,24 @@ final class PostViewControllerModel {
         }
     }
     
-    public func toggleChartPost() {
-        isChartPostValue.toggle()
+    public func toggleChartPost(completion: @escaping (Result<Void, Error>) -> Void) {
+        DatabaseManager.shared.addPostToChart(idPost: idPost, isAppend: !isChartPostValue) { [weak self] result in
+            guard let self = self else {
+                completion(.failure(NSError()))
+                return
+            }
+            
+            switch result {
+            case .success():
+                self.isChartPostValue.toggle()
+                completion(.success(Void()))
+                break
+            case .failure(_):
+                break
+            }
+        }
+        
+        ///isChartPostValue.toggle()
     }
     
     public var isImagesExist: Bool {

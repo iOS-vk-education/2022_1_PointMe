@@ -116,7 +116,7 @@ final class SignInViewController: UIViewController, AlertMessages {
     private lazy var signUpButtonLabel: UILabel = {
         let button: UILabel = UILabel()
         
-        button.text = "Зарегестрироваться"
+        button.text = "Зарегистрироваться"
         button.font = .textButtonTitle
         button.textColor = .textButtonColor
         button.textAlignment = .center
@@ -265,12 +265,13 @@ final class SignInViewController: UIViewController, AlertMessages {
                         )
                         break
                     case .failure(_):
-                        self?.loadingAlert.dismiss(animated: true, completion: nil)
-                        self?.showInfoAlert(
-                            forTitleText: "Ошибка",
-                            forBodyText: "Введите корректные email и пароль (должен быть не менее 6 символов)!",
-                            viewController: self!
-                        )
+                        self?.loadingAlert.dismiss(animated: true, completion: {
+                            self?.showInfoAlert(
+                                forTitleText: "Ошибка",
+                                forBodyText: "Введите корректные email и пароль (должен быть не менее 6 символов)!",
+                                viewController: self!
+                            )
+                        })
                         break
                     }
                 })

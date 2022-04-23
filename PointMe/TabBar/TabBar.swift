@@ -40,14 +40,30 @@ final class TabBarController: UITabBarController {
         }
         
         tabBar.tintColor = .black
+        tabBar.unselectedItemTintColor = .black
         modalPresentationStyle = .fullScreen
         
         setupShadow()
+        
+        if #available(iOS 15.0, *) {
+            let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
+            let tabBarItemAppearance = UITabBarItemAppearance()
+
+            tabBarItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+            tabBarItemAppearance.normal.iconColor = .black
+            tabBarItemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.black]
+            tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
+            tabBarAppearance.backgroundEffect = UIBlurEffect(style: .light)
+            
+            tabBar.standardAppearance = tabBarAppearance
+            tabBar.scrollEdgeAppearance = tabBarAppearance
+        }
     }
     
     private func setupShadow()
     {
         tabBar.layer.shadowColor = UIColor.darkGray.cgColor
+        UITabBar.appearance().standardAppearance.backgroundColor = UIColor.darkGray
         tabBar.layer.shadowOpacity = 1
         tabBar.layer.shadowOffset = .zero
         tabBar.layer.shadowRadius = 2

@@ -24,11 +24,6 @@ class FeedNewsViewController: UIViewController {
 
         alert.view.addSubview(loadingIndicator)
         
-//        let alertAction: UIAlertAction = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default) { [weak self] _ in
-//            self?.didTapForBackViewController()
-//        }
-//        alert.addAction(alertAction)
-        
         return alert
     }()
     
@@ -36,19 +31,21 @@ class FeedNewsViewController: UIViewController {
     
     private let model: FeedNewsModel = FeedNewsModel()
     
+    private var isLoadingStartData: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .defaultBackgroundColor
         
-        let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .white
-        appearance.backIndicatorImage.withTintColor(.black)
-            appearance.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.titleNavBar
-        ]
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = .white
+//        appearance.backIndicatorImage.withTintColor(.black)
+//        appearance.titleTextAttributes = [
+//            NSAttributedString.Key.font: UIFont.titleNavBar
+//        ]
+//        navigationController?.navigationBar.standardAppearance = appearance
+//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         title = "PointMe"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(tapped))
         navigationController?.navigationBar.tintColor = .black
@@ -57,7 +54,29 @@ class FeedNewsViewController: UIViewController {
         
         setupNewsFeedTableView()
         registerCell()
-        updateRequestData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+        appearance.backIndicatorImage.withTintColor(.black)
+        appearance.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.titleNavBar
+        ]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !isLoadingStartData {
+            isLoadingStartData.toggle()
+            updateRequestData()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -110,14 +129,16 @@ class FeedNewsViewController: UIViewController {
             switch result {
             case .success():
                 print("success download")
-                    self.setupsCell()
+                self.loadingAlert.dismiss(animated: true, completion: nil)
+                self.setupsCell()
                 break
             case .failure(_):
-                print("fail download")
+                print("fail download!!!!")
+                self.loadingAlert.dismiss(animated: true, completion: nil)
                 break
             }
+            //self.loadingAlert.dismiss(animated: true, completion: nil)
             self.newsFeedTableView.refreshControl?.endRefreshing()
-            self.loadingAlert.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -160,6 +181,7 @@ extension FeedNewsViewController: PostPreviewButtonTapDelegate {
         let data = model.getPostPreviewModelByIndex(index: indexPath.row)
         
         onePostViewController.setup(context: PostContext(
+            idPost: data.postId,
             keysImages: data.keysImages,
             avatarImage: data.avatarData,
             username: data.username,

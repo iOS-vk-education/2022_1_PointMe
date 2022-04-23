@@ -62,33 +62,33 @@ class MyAccountViewController: UIViewController, AlertMessages {
             let lock = NSLock()
             
             myAccountInfo = data
-            
+            group.enter()
             if(myAccountInfo.userImageKey != "") {
-                group.enter()
                 group.enter()
                 output.userWantsToViewImage(destination: "avatars", postImageKey: myAccountInfo.userImageKey) { dataImage in
                     myAccountInfo.userImage = dataImage
                     group.leave()
                 }
             }
-
-            for i in 0..<myAccountInfo.postKeys.count {
-                group.enter()
-                output.userWantsToViewAccountPosts(userName: myAccountInfo.userName,
-                                                   userImage: myAccountInfo.userImageKey,
-                                                   postKey: myAccountInfo.postKeys[i]) { post in
-                    lock.lock()
-                    myAccountPostData.insert(post, at: i)
-                    lock.unlock()
-                    if (post.images[0] != "") {
-                        output.userWantsToViewImage(destination: "posts",postImageKey: post.images[0]) { dataImage in
-                            lock.lock()
-                            myAccountPostData[i].mainImage = dataImage
-                            lock.unlock()
+            if (myAccountInfo.postKeys != [""]) {
+                for i in 0..<myAccountInfo.postKeys.count {
+                    group.enter()
+                    output.userWantsToViewAccountPosts(userName: myAccountInfo.userName,
+                                                       userImage: myAccountInfo.userImageKey,
+                                                       postKey: myAccountInfo.postKeys[i]) { post in
+                        lock.lock()
+                        myAccountPostData.insert(post, at: i)
+                        lock.unlock()
+                        if (post.images[0] != "") {
+                            output.userWantsToViewImage(destination: "posts",postImageKey: post.images[0]) { dataImage in
+                                lock.lock()
+                                myAccountPostData[i].mainImage = dataImage
+                                lock.unlock()
+                                group.leave()
+                            }
+                        } else {
                             group.leave()
                         }
-                    } else {
-                        group.leave()
                     }
                 }
             }
@@ -96,6 +96,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
             group.notify(queue: .main) {
                 configure()
                 tableView.reloadData()
+                tableView.refreshControl?.endRefreshing()
             }
         }
     }
@@ -343,15 +344,13 @@ class MyAccountViewController: UIViewController, AlertMessages {
 }
  
 extension MyAccountViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if myAccountPostData[indexPath.row].mainImage != nil {
             return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth + 2 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding + 8)
         } else {
-            return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth)
+            return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth - 50)
         }
     }
-    
 }
  
 extension MyAccountViewController: UITableViewDataSource {
@@ -400,6 +399,7 @@ extension MyAccountViewController: CellTapButtonDelegate {
         let title = myAccountPostData[indexPath.row].mainTitle + " " + myAccountPostData[indexPath.row].address
         //myAccountPostData[indexPath.row].
         postViewController.setup(context: PostContext(
+            idPost: myAccountInfo.postKeys[indexPath.row],
             keysImages: myAccountPostData[indexPath.row].images,
             avatarImage: myAccountInfo.userImage,
             username: myAccountInfo.userName,

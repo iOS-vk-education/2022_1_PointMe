@@ -18,10 +18,19 @@ struct MyAccountInfo {
         userName = snapshotValue["username"] as! String
         userImageKey = snapshotValue["avatar"] as! String
         
-        postKeys = snapshotValue["posts"] as! [String]
+        if let strongValue = snapshotValue["posts"] as? [String] {
+            postKeys = strongValue
+        } else {
+            postKeys = [""]
+        }
         
         numberOfSubscribers = snapshotValue["subscribers"] as! Int
-        numberOfSubscriptions = (snapshotValue["publishers"] as! [String]).count
+        
+        if let strongValue = snapshotValue["publishers"] as? [String] {
+            numberOfSubscriptions = strongValue.count
+        } else {
+            numberOfSubscriptions = 0
+        }
     }
     
     init(userName: String = "", userImageKey: String = "", postKeys: [String] = [""], numberOfSubscribers: Int = 0, numberOfSubscriptions: Int = 0)

@@ -213,6 +213,57 @@ final class DatabaseManager {
             completion?(.success(Void()))
         }
     }
+    
+    
+    public func addPostToChart(idPost: String, isAppend: Bool, completion: @escaping ((Result<Void, Error>) -> Void)) {
+        guard let curUID = DatabaseManager.shared.currentUserUID else {
+            completion(.failure(NSError()))
+            return
+        }
+        
+        reference.child("users").child(curUID).child("favourite").getData { error, snapshot in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            
+            var chartPosts = snapshot.value as? [String] ?? []
+            if !chartPosts.contains(idPost) && isAppend {
+                chartPosts.append(idPost)
+            } else if chartPosts.contains(idPost) && !isAppend {
+                chartPosts = chartPosts.filter({
+                    $0 != idPost
+                })
+            }
+            
+            self.reference.child("users").child(curUID).child("favourite").setValue(chartPosts) { error, _ in
+                guard error == nil else {
+                    completion(.failure(NSError()))
+                    return
+                }
+                
+                completion(.success(Void()))
+            }
+        }
+    }
+    
+    
+    public func isFavoritePost(idPost: String, completion: @escaping (Bool) -> Void) {
+        guard let curUID = DatabaseManager.shared.currentUserUID else {
+            completion(false)
+            return
+        }
+        
+        reference.child("users").child(curUID).child("favourite").getData { error, snapshot in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            
+            let chartPosts = snapshot.value as? [String] ?? []
+            completion(chartPosts.contains(idPost))
+        }
+    }
         
 }
 
