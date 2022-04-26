@@ -7,7 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let debugMode: Bool = true//DatabaseManager.shared.currentUserUID != nil
+        let debugMode: Bool = false //DatabaseManager.shared.currentUserUID != nil
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
 

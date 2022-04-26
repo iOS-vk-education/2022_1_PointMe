@@ -22,17 +22,6 @@ class MyAccountViewController: UIViewController, AlertMessages {
     
     private var myAccountPostData: [MyAccountPost] = []
     
-//    private var accountPostData: [MyAccountPost] = [MyAccountPost(userImage: "Jason",
-//                                                               userName: "Jason",
-//                                                               date: MyAccountPostDate(day: 20,
-//                                                                                       month: 10,
-//                                                                                       year: 2020),
-//                                                               mainImage: "Jason",
-//                                                               numberOfImages: 2,
-//                                                               mainTitle: "Statham Face",
-//                                                               address: "New York, USA",
-//                                                               mark: 4)]
-    
     var myAccountInfo = MyAccountInfo()
     
     var output: MyAccountPresenter!
@@ -55,49 +44,15 @@ class MyAccountViewController: UIViewController, AlertMessages {
         view.backgroundColor = .white
     }
     
-    @objc func fetchData() {
-        
-        output.userWantsToViewAccountInfo() { [self] data in
-            let group = DispatchGroup()
-            let lock = NSLock()
-            
-            myAccountInfo = data
-            group.enter()
-            if(myAccountInfo.userImageKey != "") {
-                group.enter()
-                output.userWantsToViewImage(destination: "avatars", postImageKey: myAccountInfo.userImageKey) { dataImage in
-                    myAccountInfo.userImage = dataImage
-                    group.leave()
-                }
-            }
-            if (myAccountInfo.postKeys != [""]) {
-                for i in 0..<myAccountInfo.postKeys.count {
-                    group.enter()
-                    output.userWantsToViewAccountPosts(userName: myAccountInfo.userName,
-                                                       userImage: myAccountInfo.userImageKey,
-                                                       postKey: myAccountInfo.postKeys[i]) { post in
-                        lock.lock()
-                        myAccountPostData.insert(post, at: i)
-                        lock.unlock()
-                        if (post.images[0] != "") {
-                            output.userWantsToViewImage(destination: "posts",postImageKey: post.images[0]) { dataImage in
-                                lock.lock()
-                                myAccountPostData[i].mainImage = dataImage
-                                lock.unlock()
-                                group.leave()
-                            }
-                        } else {
-                            group.leave()
-                        }
-                    }
-                }
-            }
-            group.leave()
-            group.notify(queue: .main) {
-                configure()
-                tableView.reloadData()
-                tableView.refreshControl?.endRefreshing()
-            }
+    @objc
+    func fetchData() {
+        output.userWantsToViewMyAccountInfo() { [weak self] accountInfo, accountPosts in
+            guard let strongSelf = self else { return }
+            strongSelf.myAccountInfo = accountInfo
+            strongSelf.myAccountPostData = accountPosts
+            strongSelf.configure()
+            strongSelf.tableView.reloadData()
+            strongSelf.tableView.refreshControl?.endRefreshing()
         }
     }
     
@@ -179,7 +134,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
     private func setupUserName() {
         
         userName.tintColor = .defaultBlackColor
-        userName.font = .boldSystemFont(ofSize: 18)
+        userName.font = .boldSystemFont(ofSize: Constants.Username.fontSize)
         userName.textAlignment = Constants.Username.textAlignment
         
     }
@@ -229,7 +184,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
         accountInfo.pin
             .top(button.frame.maxY + Constants.AccountInfo.topPadding)
             .hCenter()
-            .width(280)
+            .width(Constants.AccountInfo.width)
             .height(Constants.AccountInfo.fontSize)
     }
     
@@ -246,7 +201,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
         subscribersLabel.pin
             .top()
             .hCenter(-Constants.AccountInfo.betweenPanding)
-            .width(160)
+            .width(Constants.SubscribersLabel.width)
             .height(Constants.AccountInfo.fontSize)
     }
     
@@ -262,7 +217,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
         subscriptionsLabel.pin
             .top()
             .hCenter(Constants.AccountInfo.betweenPanding)
-            .width(160)
+            .width(Constants.SubscribersLabel.width)
             .height(Constants.AccountInfo.fontSize)
 
     }
@@ -346,9 +301,16 @@ class MyAccountViewController: UIViewController, AlertMessages {
 extension MyAccountViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if myAccountPostData[indexPath.row].mainImage != nil {
-            return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth + 2 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding + 8)
+            return (MyAccountPostCell.Constants.Header.height + MyAccountPostCell.Constants.Display.blockWidth + 2 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding + 8)
         } else {
-            return (Constants.CellHeader.height + MyAccountPostCell.Constants.Display.blockWidth - 50)
+            return (MyAccountPostCell.Constants.Header.height
+                        + MyAccountPostCell.Constants.SeparatorLine.height
+                        + MyAccountPostCell.Constants.MainTitleLabel.fontSize
+                        + 4 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding
+                        + MyAccountPostCell.Constants.AddressLabel.fontSize
+                        + MyAccountPostCell.Constants.HeaderLine.width
+                        + MyAccountPostCell.Constants.OpenButton.height
+            )
         }
     }
 }
@@ -371,26 +333,32 @@ extension MyAccountViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - MyAccountViewControllerInput
+
 extension MyAccountViewController: MyAccountViewControllerInput {
     func reloadTableView() {
     }
 }
 
+// MARK: - CellDeleteDelegate
+
 extension MyAccountViewController: CellDeleteDelegate {
     func deleteCell(sender: UITableViewCell) {
         showDeleteAlertTwoButtons(forTitleText: "Подтверждение", forBodyText: "Вы уверены, что хотите удалить пост?", viewController: self) {
             let indexPath = self.tableView.indexPath(for: sender)!
+            let postKey = self.myAccountInfo.postKeys[indexPath.row]
+            
             self.myAccountInfo.postKeys.remove(at: indexPath.row)
             
-            for i in 0..<self.myAccountPostData[indexPath.row].images.count {
-                self.output.userWantsToRemovePost(postKeys:  self.myAccountInfo.postKeys, imageKey: self.myAccountPostData[indexPath.row].images[i])
-            }
-            
+            self.output.userWantsToRemovePost(postKey: postKey, postKeys:  self.myAccountInfo.postKeys, imageKey: self.myAccountPostData[indexPath.row].images)
+
             self.myAccountPostData.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
+
+// MARK: - CellTapButtonDelegate
 
 extension MyAccountViewController: CellTapButtonDelegate {
     func didTapOpen(sender: UITableViewCell) {
@@ -415,9 +383,17 @@ extension MyAccountViewController: CellTapButtonDelegate {
     
     
 }
+
+// MARK: - private Constants
  
 private extension MyAccountViewController {
     private struct Constants {
+        
+        struct SubscribersLabel {
+            
+            static let width: CGFloat = 160
+            
+        }
         
         struct Photo {
             
@@ -438,10 +414,6 @@ private extension MyAccountViewController {
                                         + Constants.AccountInfo.topPadding
                                         + Constants.AccountInfo.fontSize
                                         + 18
-        }
-        
-        struct CellHeader {
-            static let height: CGFloat = 70
         }
         
         struct Button {
@@ -470,6 +442,7 @@ private extension MyAccountViewController {
             static let betweenPanding: CGFloat = 100
             static let topPadding: CGFloat = 18
             static let fontSize: CGFloat = 18
+            static let width: CGFloat = 280
             
         }
         

@@ -58,7 +58,7 @@ final class DatabaseManager {
         }
     }
     
-    public func removePostFromDatabase(postKeys: [String], completion: @escaping (Result <Void, Error>) -> Void) {
+    public func removePostFromUserPosts(postKeys: [String], completion: @escaping (Result <Void, Error>) -> Void) {
         guard let strongCurrentUserUID = DatabaseManager.shared.currentUserUID else {
             completion(.failure(NSError()))
             return
@@ -69,6 +69,17 @@ final class DatabaseManager {
                 completion(.failure(NSError()))
                 return
             }
+            completion(.success(Void()))
+        }
+    }
+    
+    public func removePostFromPosts(postKey: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        reference.child("posts").child(postKey).setValue(nil) { error, _ in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            completion(.success(Void()))
         }
     }
     
@@ -79,6 +90,7 @@ final class DatabaseManager {
                 completion(.failure(NSError()))
                 return
             }
+            completion(.success(Void()))
         }
     }
     

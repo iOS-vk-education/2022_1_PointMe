@@ -73,7 +73,7 @@ final class MyAccountPostCell: UITableViewCell {
         mainTitleLabel.text = ""
         placeAddressLabel.text = ""
         scoreLabel.text = ""
-        configureScoreImage(number: 5, color: .defaultWhiteColor)
+        configureScoreImage(number: Constants.ScoreImage.quantity, color: .defaultWhiteColor)
     }
     
     override func layoutSubviews() {
@@ -106,28 +106,13 @@ final class MyAccountPostCell: UITableViewCell {
     
     func configure(data: MyAccountPost) {
         
-        let dates: [Int: String] = [
-            1: " января ",
-            2: " февраля ",
-            3: " марта ",
-            4: " апреля ",
-            5: " мая ",
-            6: " июня ",
-            7: " июля ",
-            8: " августа ",
-            9: " сентября ",
-            10: " октября ",
-            11: " ноября ",
-            12: " декабря "
-        ]
-        
         if let imageData = data.userImageData {
             userImage.image = UIImage(data: imageData)
         } else {
             userImage.image = UIImage(systemName: "person")
         }
         userName.text = data.userName
-        dateLabel.text = "\(data.date.day) \(dates[data.date.month]!) \(data.date.year) года"
+        dateLabel.text = "\(data.date.day) \(Constants.Date.month[data.date.month]!) \(data.date.year) года"
         
         if let mainImageData = data.mainImage {
             mainImage.image = UIImage(data: mainImageData)
@@ -140,7 +125,7 @@ final class MyAccountPostCell: UITableViewCell {
         
         placeAddressLabel.text = data.address
         
-        scoreLabel.text = "\(data.mark)/5"
+        scoreLabel.text = "\(data.mark)/\(Constants.ScoreImage.quantity)"
         configureScoreImage(number: data.mark, color: .defaultRedColor)
     }
     
@@ -185,9 +170,9 @@ final class MyAccountPostCell: UITableViewCell {
     private func setupHeadViewContainerConstraint() {
         headViewContainer.backgroundColor = .defaultWhiteColor
         headViewContainer.pin
-            .top(Constants.SeparatorLine.width)
+            .top(Constants.SeparatorLine.height)
             .horizontally()
-            .height(70)
+            .height(Constants.Header.height)
     }
     
     private func setupUserImage() {
@@ -199,7 +184,7 @@ final class MyAccountPostCell: UITableViewCell {
     
     private func setupUserImageConstraint() {
         userImage.pin
-            .left(14)
+            .left(Constants.DefaultPadding.leftRightPadding)
             .vCenter()
             .height(2 * Constants.UserImage.radius)
             .width(2 * Constants.UserImage.radius)
@@ -216,7 +201,7 @@ final class MyAccountPostCell: UITableViewCell {
             .after(of: userImage)
             .height(Constants.UserName.fontSize)
             .vCenter((-Constants.UserName.betweenPadding - Constants.UserName.fontSize) / 2)
-            .horizontally()
+            .right()
             .marginLeft(Constants.UserName.leftPadding)
     }
     
@@ -232,7 +217,7 @@ final class MyAccountPostCell: UITableViewCell {
             .height(Constants.Date.fontSize)
             .vCenter((Constants.UserName.betweenPadding + Constants.Date.fontSize) / 2)
             .marginLeft(Constants.UserName.leftPadding)
-            .horizontally()
+            .right()
 
         
     }
@@ -306,7 +291,7 @@ final class MyAccountPostCell: UITableViewCell {
     
     private func setupNumberOfImagesLabel() {
         
-        numberOfImagesLabel.layer.cornerRadius = 5
+        numberOfImagesLabel.layer.cornerRadius = Constants.NumberOfImagesLabel.cornerRadius
         numberOfImagesLabel.textColor = .defaultWhiteColor
         numberOfImagesLabel.font = .postNumbersOfImagesLabel
         numberOfImagesLabel.textAlignment = .center
@@ -349,7 +334,6 @@ final class MyAccountPostCell: UITableViewCell {
     
     private func setupMainTitleLabelConstraint() {
         mainTitleLabel.pin
-            .left()
             .top()
             .horizontally()
             .height(Constants.MainTitleLabel.fontSize)
@@ -391,7 +375,7 @@ final class MyAccountPostCell: UITableViewCell {
         openButton.pin
             .bottom()
             .horizontally()
-            .height(40)
+            .height(Constants.OpenButton.height)
     }
     
     private func setupPlaceMarkImage() {
@@ -422,7 +406,6 @@ final class MyAccountPostCell: UITableViewCell {
     private func setupPlaceAddressLabelConstraint() {
         placeAddressLabel.pin
             .after(of: placeMarkViewContainer, aligned: .top)
-            .left()
             .height(Constants.AddressLabel.fontSize)
             .width(Constants.Display.blockWidth - Constants.AddressLabel.fontSize)
     }
@@ -431,8 +414,8 @@ final class MyAccountPostCell: UITableViewCell {
         for _ in 0...4 {
             let temp = UIView()
             temp.backgroundColor = .white
-            temp.layer.cornerRadius = 9
-            temp.layer.borderWidth = 2
+            temp.layer.cornerRadius = Constants.ScoreImage.radius
+            temp.layer.borderWidth = Constants.ScoreImage.borderWidth
             temp.layer.borderColor = UIColor.defaultRedColor.cgColor
             scoreImage.append(temp)
         }
@@ -448,7 +431,7 @@ final class MyAccountPostCell: UITableViewCell {
             scoreImage[i].pin
                 .height(2 * Constants.ScoreImage.radius)
                 .width(2 * Constants.ScoreImage.radius)
-                .after(of: scoreImage[i-1], aligned: .top)
+                .after(of: scoreImage[i-1])
                 .marginLeft(4)
                 .vCenter()
         }
@@ -470,8 +453,7 @@ final class MyAccountPostCell: UITableViewCell {
         scoreLabel.pin
             .height(2 * Constants.ScoreImage.radius)
             .after(of: scoreImage[4], aligned: .top)
-            
-            .horizontally()
+            .right()
             .marginLeft(Constants.ScoreImage.betweenPadding)
     }
     
@@ -480,12 +462,19 @@ final class MyAccountPostCell: UITableViewCell {
     }
 }
 
+// MARK: - Constants
+
 extension MyAccountPostCell {
     struct Constants {
+        
+        struct Header {
+            static let height: CGFloat = 70
+        }
         
         struct OpenButton {
             static let cornerRadius: CGFloat = 8
             static let fontSize: CGFloat = 14
+            static let height: CGFloat = 40
         }
         
         struct DeleteButton {
@@ -499,7 +488,7 @@ extension MyAccountPostCell {
             static let width: CGFloat = 60
             static let fontSize: CGFloat = 16
             static let heightAdd: CGFloat = 8
-            static let cornerRadius: CGFloat = 4
+            static let cornerRadius: CGFloat = 5
         }
         
         struct UserImage {
@@ -516,6 +505,20 @@ extension MyAccountPostCell {
         
         struct Date {
             static let fontSize: CGFloat = 14
+            static let month: [Int: String] = [
+                1: " января ",
+                2: " февраля ",
+                3: " марта ",
+                4: " апреля ",
+                5: " мая ",
+                6: " июня ",
+                7: " июля ",
+                8: " августа ",
+                9: " сентября ",
+                10: " октября ",
+                11: " ноября ",
+                12: " декабря "
+            ]
         }
         
         struct Display {
@@ -541,8 +544,10 @@ extension MyAccountPostCell {
         }
         
         struct ScoreImage {
+            static let quantity: Int = 5
             static let radius: CGFloat = 9
             static let betweenPadding: CGFloat = 6
+            static let borderWidth: CGFloat = 2
         }
         
         struct HeaderLine {
@@ -555,7 +560,7 @@ extension MyAccountPostCell {
         }
         
         struct SeparatorLine {
-            static let width: CGFloat = 8
+            static let height: CGFloat = 8
         }
     }
 }

@@ -5,30 +5,72 @@ final class MyAccountPresenter {
     var model: MyAccountModelInput!
 }
 
+// MARK: - MyAccountModelOutput
+
 extension MyAccountPresenter: MyAccountModelOutput {
     func reloadOutdatedInfo() {
 
     }
 }
 
+// MARK: - MyAccountViewControllerOutput
+
 extension MyAccountPresenter: MyAccountViewControllerOutput {
 
-    func userWantsToRemovePost(postKeys: [String], imageKey: String) {
+    func userWantsToRemovePost(postKey: String, postKeys: [String], imageKey: [String]) {
         model.removePostfromDatabase(postKeys: postKeys)
-        if (imageKey != "") {
-            model.removeImageFromStorage(imageKey: imageKey)
+        for i in 0..<imageKey.count {
+            if (imageKey[i] != "") {
+                model.removeImageFromStorage(imageKey: imageKey[i])
+            }
+            model.removePostFromPosts(postKey: postKey)
         }
     }
-
-    func userWantsToViewAccountInfo(completion: @escaping (MyAccountInfo) -> Void) {
-        model.getAccountInfoData(completion: completion)
-    }
-    
-    func userWantsToViewAccountPosts(userName: String, userImage: String, postKey: String, completion: @escaping (MyAccountPost) -> Void) {
-        model.getAccountPostData(userName: userName, userImage: userImage, postKey: postKey, completion: completion)
-    }
-    
-    func userWantsToViewImage(destination: String, postImageKey: String, completion: @escaping (Data) -> Void) {
-        model.getImage(destination: destination, postImageKey: postImageKey, completion: completion)
+    func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)
+    {
+        model.getAccountInfoData() {[weak self] data in
+            guard let strongSelf = self else { return }
+            let group = DispatchGroup()
+            let lock = NSLock()
+            
+            var myAccountInfo = data
+            var myAccountPosts: [MyAccountPost] = []
+            
+            group.enter()
+            if(myAccountInfo.userImageKey != "") {
+                group.enter()
+                strongSelf.model.getImage(destination: "avatars", postImageKey: myAccountInfo.userImageKey) { dataImage in
+                    myAccountInfo.userImage = dataImage
+                    group.leave()
+                }
+            }
+            if (myAccountInfo.postKeys != [""]) {
+                for i in 0..<myAccountInfo.postKeys.count {
+                    group.enter()
+                    strongSelf.model.getAccountPostData(userName: myAccountInfo.userName,
+                                                        userImage: myAccountInfo.userImageKey,
+                                                        postKey: myAccountInfo.postKeys[i]) { post in
+                        lock.lock()
+                        myAccountPosts.insert(post, at: i)
+                        lock.unlock()
+                        if (post.images[0] != "") {
+                            strongSelf.model.getImage(destination: "posts",postImageKey: post.images[0]) { dataImage in
+                                lock.lock()
+                                myAccountPosts[i].mainImage = dataImage
+                                lock.unlock()
+                                group.leave()
+                            }
+                        } else {
+                            group.leave()
+                        }
+                    }
+                }
+            }
+            group.leave()
+            group.notify(queue: .main) {
+                
+                completion(myAccountInfo, myAccountPosts)
+            }
+        }
     }
 }

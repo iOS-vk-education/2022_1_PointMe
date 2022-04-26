@@ -7,7 +7,18 @@ final class MyAccountNetwork {
 
 extension MyAccountNetwork: MyAccountModelInput {
     func removePostfromDatabase(postKeys: [String]) {
-        DatabaseManager.shared.removePostFromDatabase(postKeys: postKeys) { result in
+        DatabaseManager.shared.removePostFromUserPosts(postKeys: postKeys) { result in
+            switch result {
+            case .failure(let error):
+                print("Error removePost \(error)")
+            case .success():
+                break
+            }
+        }
+    }
+    
+    func removePostFromPosts(postKey: String) {
+        DatabaseManager.shared.removePostFromPosts(postKey: postKey) { result in
             switch result {
             case .failure(let error):
                 print("Error removePost \(error)")
