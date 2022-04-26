@@ -56,7 +56,7 @@ final class TabBarController: UITabBarController {
             tabBarAppearance.backgroundEffect = UIBlurEffect(style: .light)
             
             tabBar.standardAppearance = tabBarAppearance
-//            tabBar.scrollEdgeAppearance = tabBarAppearance
+            tabBar.scrollEdgeAppearance = tabBarAppearance
         }
     }
     
