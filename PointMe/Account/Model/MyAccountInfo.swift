@@ -11,30 +11,28 @@ struct MyAccountInfo {
     let numberOfSubscribers: Int
     let numberOfSubscriptions: Int
     
-    init(snapshot: DataSnapshot)
-    {
-        let snapshotValue = snapshot.value as! [String : AnyObject]
+    init(snapshot: DataSnapshot) {
+        let snapshotValue = snapshot.value as? [String : AnyObject]
         
-        userName = snapshotValue["username"] as! String
-        userImageKey = snapshotValue["avatar"] as! String
+        userName = snapshotValue?["username"] as? String ?? ""
+        userImageKey = snapshotValue?["avatar"] as? String ?? ""
         
-        if let strongValue = snapshotValue["posts"] as? [String] {
+        if let strongValue = snapshotValue?["posts"] as? [String] {
             postKeys = strongValue
         } else {
             postKeys = [""]
         }
         
-        numberOfSubscribers = snapshotValue["subscribers"] as! Int
+        numberOfSubscribers = snapshotValue?["subscribers"] as? Int ?? 0
         
-        if let strongValue = snapshotValue["publishers"] as? [String] {
+        if let strongValue = snapshotValue?["publishers"] as? [String] {
             numberOfSubscriptions = strongValue.count
         } else {
             numberOfSubscriptions = 0
         }
     }
     
-    init(userName: String = "", userImageKey: String = "", postKeys: [String] = [""], numberOfSubscribers: Int = 0, numberOfSubscriptions: Int = 0)
-    {
+    init(userName: String = "", userImageKey: String = "", postKeys: [String] = [""], numberOfSubscribers: Int = 0, numberOfSubscriptions: Int = 0) {
         self.userName = userName
         self.userImageKey = userImageKey
         

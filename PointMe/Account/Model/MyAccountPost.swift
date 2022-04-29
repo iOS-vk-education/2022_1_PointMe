@@ -21,25 +21,27 @@ struct MyAccountPost {
     
     init(userName: String, userImage: String, snapshot: DataSnapshot)
     {
-        let snapshotValue = snapshot.value as! [String : AnyObject]
+        let snapshotValue = snapshot.value as? [String : AnyObject]
         
         self.userImage = userImage
         self.userName = userName
         
-        self.comment = snapshotValue["comment"] as! String
-        date = MyAccountPostDate(day: snapshotValue["day"] as! Int, month: snapshotValue["month"] as! Int, year: snapshotValue["year"] as! Int)
-        if let strongImages = (snapshotValue["keysImages"] as? [String]) {
-            images = strongImages
-            numberOfImages = images.count
-        } else {
-            images = [""]
+        self.comment = snapshotValue?["comment"] as? String ?? ""
+        date = MyAccountPostDate(day: snapshotValue?["day"] as? Int ?? 1,
+                                 month: snapshotValue?["month"] as? Int ?? 1,
+                                 year: snapshotValue?["year"] as? Int ?? 2000)
+        images = snapshotValue?["keysImages"] as? [String] ?? [""]
+        numberOfImages = images.count
+        if (images[0] == "") {
             numberOfImages = 0
+        } else {
+            numberOfImages = images.count
         }
         
-        mainTitle = snapshotValue["title"] as! String
-        address = snapshotValue["address"] as! String
+        mainTitle = snapshotValue?["title"] as? String ?? ""
+        address = snapshotValue?["address"] as? String ?? ""
         
-        mark = snapshotValue["mark"] as! Int
+        mark = snapshotValue?["mark"] as? Int ?? 0
     }
     
     init(userImage: String = "",

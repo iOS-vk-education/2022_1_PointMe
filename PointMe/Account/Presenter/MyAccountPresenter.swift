@@ -18,12 +18,33 @@ extension MyAccountPresenter: MyAccountModelOutput {
 extension MyAccountPresenter: MyAccountViewControllerOutput {
 
     func userWantsToRemovePost(postKey: String, postKeys: [String], imageKey: [String]) {
-        model.removePostfromDatabase(postKeys: postKeys)
+        model.removePostfromDatabase(postKeys: postKeys) { result in
+            switch result {
+            case .failure(let error):
+                print("Holy cow removePostfromDatabase not done! (\(error))")
+            case .success():
+                print("removePostfromDatabase successfully done")
+            }
+        }
         for i in 0..<imageKey.count {
             if (imageKey[i] != "") {
-                model.removeImageFromStorage(imageKey: imageKey[i])
+                model.removeImageFromStorage(imageKey: imageKey[i]) { result in
+                    switch result {
+                    case .failure(let error):
+                        print("Holy cow removeImageFromStorage not done! (\(error))")
+                    case .success():
+                        print("removeImageFromStorage successfully done")
+                    }
+                }
             }
-            model.removePostFromPosts(postKey: postKey)
+            model.removePostFromPosts(postKey: postKey) { result in
+                switch result {
+                case .failure(let error):
+                    print("Holy cow removePostFromPosts not done! (\(error))")
+                case .success():
+                    print("removePostFromPosts successfully done")
+                }
+            }
         }
     }
     func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)

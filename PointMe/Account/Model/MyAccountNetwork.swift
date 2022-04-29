@@ -6,35 +6,35 @@ final class MyAccountNetwork {
 }
 
 extension MyAccountNetwork: MyAccountModelInput {
-    func removePostfromDatabase(postKeys: [String]) {
+    func removePostfromDatabase(postKeys: [String], completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removePostFromUserPosts(postKeys: postKeys) { result in
             switch result {
             case .failure(let error):
-                print("Error removePost \(error)")
+                completion(.failure(error))
             case .success():
-                break
+                completion(.success(Void()))
             }
         }
     }
     
-    func removePostFromPosts(postKey: String) {
+    func removePostFromPosts(postKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removePostFromPosts(postKey: postKey) { result in
             switch result {
             case .failure(let error):
-                print("Error removePost \(error)")
+                completion(.failure(error))
             case .success():
-                break
+                completion(.success(Void()))
             }
         }
     }
     
-    func removeImageFromStorage(imageKey: String) {
+    func removeImageFromStorage(imageKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removeImageFromStorage(imageKey: imageKey) { result in
             switch result {
             case .failure(let error):
-                print("Error removePost \(error)")
+                completion(.failure(error))
             case .success():
-                break
+                completion(.success(Void()))
             }
         }
     }

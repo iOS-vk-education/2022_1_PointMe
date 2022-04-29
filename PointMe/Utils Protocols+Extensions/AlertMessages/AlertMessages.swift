@@ -17,7 +17,11 @@ extension AlertMessages {
         viewController.present(alert, animated: true, completion: nil)
     }
     
-    func showDeleteAlertTwoButtons(forTitleText title: String, forBodyText text: String, viewController: UIViewController, destructiveAction: @escaping () -> Void, actionTwo: (() -> Void)? = nil) {
+    func showDeleteAlertTwoButtons(forTitleText title: String,
+                                   forBodyText text: String,
+                                   viewController: UIViewController,
+                                   destructiveAction: @escaping () -> Void,
+                                   actionTwo: (() -> Void)? = nil) {
         let alert = UIAlertController(
             title: title,
             message: text,

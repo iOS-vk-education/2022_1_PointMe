@@ -31,9 +31,9 @@ final class MyAccountPostCell: UITableViewCell {
     private var scoreImage: [UIView] = []
     private let scoreLabel: UILabel = UILabel()
     
-    var delegate: CellDeleteDelegate!
+    var delegate: CellDeleteDelegate?
     
-    var openDelegate: CellTapButtonDelegate!
+    var openDelegate: CellTapButtonDelegate?
     
     required init?(code aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,27 +46,13 @@ final class MyAccountPostCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setupUserImage()
-        setupUserName()
-        setupDateLabel()
-        setupDeleteButton()
-        setupHeaderLine()
-        setupMainTitleLabel()
-        setupOpenButton()
-        setupMainImage()
-        setupNumberOfImagesLabel()
-        setupPlaceMarkImage()
-        setupPlaceAddressLabel()
+        setupCell()
         setupScoreImage()
-        setupScoreLabel()
-        
         configureView()
-        
-        backgroundColor = .defaultBackgroundColor
-        selectionStyle = .none
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         mainImage.image = .none
         userImage.image = .none
         numberOfImagesLabel.text = ""
@@ -77,35 +63,12 @@ final class MyAccountPostCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        setupHeadViewContainerConstraint()
-        setupContentViewContainerConstraint()
-
-        setupUserImageConstraint()
-        setupUserNameConstraint()
-        setupDateLabelConstraint()
-        setupDeleteButtonConstraint()
-        setupHeaderLineConstraint()
+        super.layoutSubviews()
         
-        setupMainImageContainerConstraint()
-
-        setupDescriptionViewContainerConstraint()
-        setupMainTitleLabelConstraint()
-        setupPlaceViewContainerConstraint()
-
-        setupScoreViewContainerConstraint()
-
-        setupOpenButtonConstraint()
-        setupMainImageConstraint()
-        setupNumberOfImagesLabelConstraint()
-        setupPlaceMarkViewContainer()
-        setupPlaceMarkImageConstraint()
-        setupPlaceAddressLabelConstraint()
-        setupScoreImageConstraint()
-        setupScoreLabelConstraint()
+        setupCellConstraints()
     }
     
     func configure(data: MyAccountPost) {
-        
         if let imageData = data.userImageData {
             userImage.image = UIImage(data: imageData)
         } else {
@@ -130,7 +93,6 @@ final class MyAccountPostCell: UITableViewCell {
     }
     
     private func configureView() {
-        
         [userImage, userName, dateLabel, headerLine, deleteButton].forEach {
             headViewContainer.addSubview($0)
         }
@@ -167,129 +129,32 @@ final class MyAccountPostCell: UITableViewCell {
         }
     }
     
-    private func setupHeadViewContainerConstraint() {
-        headViewContainer.backgroundColor = .defaultWhiteColor
-        headViewContainer.pin
-            .top(Constants.SeparatorLine.height)
-            .horizontally()
-            .height(Constants.Header.height)
-    }
-    
-    private func setupUserImage() {
+    private func setupCell() {
         userImage.layer.cornerRadius = Constants.UserImage.radius
         userImage.layer.masksToBounds = true
         userImage.layer.borderWidth = Constants.UserImage.borderWidth
         userImage.tintColor = .defaultBlackColor
-    }
-    
-    private func setupUserImageConstraint() {
-        userImage.pin
-            .left(Constants.DefaultPadding.leftRightPadding)
-            .vCenter()
-            .height(2 * Constants.UserImage.radius)
-            .width(2 * Constants.UserImage.radius)
-    }
-    
-    private func setupUserName() {
+
+        headViewContainer.backgroundColor = .defaultWhiteColor
+        
+        contentViewContainer.backgroundColor = .defaultWhiteColor
+        
         userName.tintColor = .defaultBlackColor
         userName.font = .postUserNameLabel
         userName.textAlignment = .left
-    }
-    
-    private func setupUserNameConstraint() {
-        userName.pin
-            .after(of: userImage)
-            .height(Constants.UserName.fontSize)
-            .vCenter((-Constants.UserName.betweenPadding - Constants.UserName.fontSize) / 2)
-            .right()
-            .marginLeft(Constants.UserName.leftPadding)
-    }
-    
-    private func setupDateLabel() {
+        
         dateLabel.tintColor = .defaultBlackColor
         dateLabel.font = .postDateLabel
         dateLabel.textAlignment = .left
-    }
-    
-    private func setupDateLabelConstraint() {
-        dateLabel.pin
-            .after(of: userImage)
-            .height(Constants.Date.fontSize)
-            .vCenter((Constants.UserName.betweenPadding + Constants.Date.fontSize) / 2)
-            .marginLeft(Constants.UserName.leftPadding)
-            .right()
-
         
-    }
-    
-    private func setupDeleteButton() {
         deleteButton.setBackgroundImage(UIImage(systemName: "xmark"), for: .normal)
         deleteButton.tintColor = .defaultBlackColor
         deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
-    }
-    
-    @objc
-    private func tapDeleteButton() {
-        delegate.deleteCell(sender: self)
-    }
-    
-    private func setupDeleteButtonConstraint() {
-        deleteButton.pin
-            .right(Constants.DeleteButton.rigthPadding)
-            .vCenter()
-            .height(Constants.DeleteButton.sideSize)
-            .width(Constants.DeleteButton.sideSize)
-    }
-    
-    private func setupHeaderLineConstraint() {
-        headerLine.pin
-            .horizontally()
-            .bottom()
-            .height(Constants.HeaderLine.width)
-    }
-    
-    private func setupHeaderLine() {
+        
         headerLine.backgroundColor = .defaultBlackColor
-    }
-    
-    private func setupContentViewContainerConstraint() {
-        contentViewContainer.backgroundColor = .defaultWhiteColor
-        contentViewContainer.pin
-            .below(of: headViewContainer)
-            .left()
-            .horizontally()
-            .bottom()
-    }
-    
-    
-    private func setupMainImageContainerConstraint() {
-        if mainImage.image != nil {
-        mainImageContainer.pin
-            .left(Constants.DefaultPadding.leftRightPadding)
-            .vCenter()
-            .width(Constants.Display.blockWidth)
-            .height(Constants.Display.blockWidth)
-        } else {
-            mainImageContainer.pin
-                .left()
-                .top()
-                .width(0)
-                .height(0)
-        }
-    }
-    
-    private func setupMainImage() {
+        
         mainImage.layer.cornerRadius = Constants.MainImage.cornerRadius
         mainImage.layer.masksToBounds = true
-    }
-    
-    private func setupMainImageConstraint() {
-        mainImage.pin
-            .all()
-
-    }
-    
-    private func setupNumberOfImagesLabel() {
         
         numberOfImagesLabel.layer.cornerRadius = Constants.NumberOfImagesLabel.cornerRadius
         numberOfImagesLabel.textColor = .defaultWhiteColor
@@ -297,58 +162,121 @@ final class MyAccountPostCell: UITableViewCell {
         numberOfImagesLabel.textAlignment = .center
         numberOfImagesLabel.backgroundColor = .numberOfImagesColor
         
+        mainTitleLabel.tintColor = .defaultBlackColor
+        mainTitleLabel.font = .postMainTitleLabel
+        mainTitleLabel.textAlignment = .left
+        
+        openButton.tintColor = .defaultWhiteColor
+        openButton.layer.cornerRadius = Constants.OpenButton.cornerRadius
+        openButton.backgroundColor = .defaultBlackColor
+        openButton.setTitle("Открыть обзор", for: .normal)
+        openButton.addTarget(self, action: #selector(didTapOpenButton), for: .touchUpInside)
+        
+        placeAddressLabel.tintColor = .defaultBlackColor
+        placeAddressLabel.font = .postPlaceAddressLabel
+        placeAddressLabel.textAlignment = .left
+        
+        placeMarkImage.image = UIImage(named: "LocationPointer")
+        
+        scoreLabel.tintColor = .defaultBlackColor
+        scoreLabel.font = .postScoreLabel
+        scoreLabel.textAlignment = .left
+        
+        backgroundColor = .defaultBackgroundColor
+        selectionStyle = .none
     }
     
-    private func setupNumberOfImagesLabelConstraint() {
-        if numberOfImagesLabel.text != "0" {
-        numberOfImagesLabel.pin
-            .bottom(Constants.NumberOfImagesLabel.bottomPadding)
-            .right(Constants.NumberOfImagesLabel.rightPadding)
-            .width(Constants.NumberOfImagesLabel.width)
-            .height(Constants.NumberOfImagesLabel.fontSize + Constants.NumberOfImagesLabel.heightAdd)
+    private func setupCellConstraints() {
+        headViewContainer.pin
+            .top(Constants.SeparatorLine.height)
+            .horizontally()
+            .height(Constants.Header.height)
+        
+        contentViewContainer.pin
+            .below(of: headViewContainer)
+            .left()
+            .horizontally()
+            .bottom()
+        
+        userImage.pin
+            .left(Constants.DefaultPadding.leftRightPadding)
+            .vCenter()
+            .height(2 * Constants.UserImage.radius)
+            .width(2 * Constants.UserImage.radius)
+        
+        userName.pin
+            .after(of: userImage)
+            .height(Constants.UserName.fontSize)
+            .vCenter((-Constants.UserName.betweenPadding - Constants.UserName.fontSize) / 2)
+            .right()
+            .marginLeft(Constants.UserName.leftPadding)
+        
+        dateLabel.pin
+            .after(of: userImage)
+            .height(Constants.Date.fontSize)
+            .vCenter((Constants.UserName.betweenPadding + Constants.Date.fontSize) / 2)
+            .marginLeft(Constants.UserName.leftPadding)
+            .right()
+        
+        deleteButton.pin
+            .right(Constants.DeleteButton.rigthPadding)
+            .vCenter()
+            .height(Constants.DeleteButton.sideSize)
+            .width(Constants.DeleteButton.sideSize)
+        
+        headerLine.pin
+            .horizontally()
+            .bottom()
+            .height(Constants.HeaderLine.width)
+        
+        if mainImage.image != nil {
+            mainImageContainer.pin
+                .left(Constants.DefaultPadding.leftRightPadding)
+                .vCenter()
+                .width(Constants.Display.blockWidth)
+                .height(Constants.Display.blockWidth)
+            
+            numberOfImagesLabel.pin
+                .bottom(Constants.NumberOfImagesLabel.bottomPadding)
+                .right(Constants.NumberOfImagesLabel.rightPadding)
+                .width(Constants.NumberOfImagesLabel.width)
+                .height(Constants.NumberOfImagesLabel.fontSize + Constants.NumberOfImagesLabel.heightAdd)
         } else {
+            mainImageContainer.pin
+                .left()
+                .top()
+                .width(0)
+                .height(0)
+            
             numberOfImagesLabel.pin
                 .bottom()
                 .right()
                 .width(0)
                 .height(0)
         }
-    }
-    
-    func setupDescriptionViewContainerConstraint() {
+        
+        mainImage.pin
+            .all()
+        
         descriptionViewContainer.pin
             .after(of: mainImageContainer)
             .top(Constants.DefaultPadding.topBottomPadding)
             .marginLeft(Constants.DefaultPadding.leftRightPadding)
             .right(Constants.DefaultPadding.leftRightPadding)
             .bottom(Constants.DefaultPadding.topBottomPadding)
-    }
-    
-    
-    private func setupMainTitleLabel() {
-        mainTitleLabel.tintColor = .defaultBlackColor
-        mainTitleLabel.font = .postMainTitleLabel
-        mainTitleLabel.textAlignment = .left
         
-    }
-    
-    private func setupMainTitleLabelConstraint() {
         mainTitleLabel.pin
             .top()
             .horizontally()
             .height(Constants.MainTitleLabel.fontSize)
-    }
-    
-    private func setupPlaceViewContainerConstraint() {
+        
         placeViewContainer.pin
             .below(of: mainTitleLabel, aligned: .left)
             .marginTop(Constants.DefaultPadding.topBottomPadding)
             .width(Constants.Display.blockWidth)
             .height(Constants.AddressLabel.fontSize)
-    }
-
-    private func setupScoreViewContainerConstraint() {
-        if numberOfImagesLabel.text != "0 фото" {
+        
+        if mainImage.image != nil {
             scoreViewContainer.pin
                 .below(of: placeViewContainer, aligned: .left)
                 .marginTop(2 * Constants.DefaultPadding.topBottomPadding)
@@ -361,67 +289,28 @@ final class MyAccountPostCell: UITableViewCell {
                 .right()
                 .height(2 * Constants.ScoreImage.radius)
         }
-    }
-    
-    private func setupOpenButton() {
-        openButton.tintColor = .defaultWhiteColor
-        openButton.layer.cornerRadius = Constants.OpenButton.cornerRadius
-        openButton.backgroundColor = .defaultBlackColor
-        openButton.setTitle("Открыть обзор", for: .normal)
-        openButton.addTarget(self, action: #selector(didTapOpenButton), for: .touchUpInside)
-    }
-    
-    private func setupOpenButtonConstraint() {
+        
         openButton.pin
             .bottom()
             .horizontally()
             .height(Constants.OpenButton.height)
-    }
-    
-    private func setupPlaceMarkImage() {
-        placeMarkImage.image = UIImage(named: "LocationPointer")
-    }
-    
-    private func setupPlaceMarkImageConstraint() {
-        placeMarkImage.pin
-            .left()
-            .height(Constants.AddressLabel.fontSize)
-            .width(Constants.AddressLabel.fontSize / Constants.LocationPoint.ratio)
-    }
-    
-    private func setupPlaceMarkViewContainer() {
+        
         placeMarkViewContainer.pin
             .top()
             .left()
             .height(Constants.AddressLabel.fontSize)
             .width(Constants.AddressLabel.fontSize)
-    }
-    
-    private func setupPlaceAddressLabel() {
-        placeAddressLabel.tintColor = .defaultBlackColor
-        placeAddressLabel.font = .postPlaceAddressLabel
-        placeAddressLabel.textAlignment = .left
-    }
-    
-    private func setupPlaceAddressLabelConstraint() {
+        
+        placeMarkImage.pin
+            .left()
+            .height(Constants.AddressLabel.fontSize)
+            .width(Constants.AddressLabel.fontSize / Constants.LocationPoint.ratio)
+        
         placeAddressLabel.pin
             .after(of: placeMarkViewContainer, aligned: .top)
             .height(Constants.AddressLabel.fontSize)
             .width(Constants.Display.blockWidth - Constants.AddressLabel.fontSize)
-    }
-    
-    private func setupScoreImage() {
-        for _ in 0...4 {
-            let temp = UIView()
-            temp.backgroundColor = .white
-            temp.layer.cornerRadius = Constants.ScoreImage.radius
-            temp.layer.borderWidth = Constants.ScoreImage.borderWidth
-            temp.layer.borderColor = UIColor.defaultRedColor.cgColor
-            scoreImage.append(temp)
-        }
-    }
-    
-    private func setupScoreImageConstraint() {
+        
         scoreImage[0].pin
             .left()
             .top()
@@ -435,6 +324,28 @@ final class MyAccountPostCell: UITableViewCell {
                 .marginLeft(4)
                 .vCenter()
         }
+        
+        scoreLabel.pin
+            .height(2 * Constants.ScoreImage.radius)
+            .after(of: scoreImage[4], aligned: .top)
+            .right()
+            .marginLeft(Constants.ScoreImage.betweenPadding)
+    }
+    
+    @objc
+    private func tapDeleteButton() {
+        delegate?.deleteCell(sender: self)
+    }
+    
+    private func setupScoreImage() {
+        for _ in 0...4 {
+            let temp = UIView()
+            temp.backgroundColor = .white
+            temp.layer.cornerRadius = Constants.ScoreImage.radius
+            temp.layer.borderWidth = Constants.ScoreImage.borderWidth
+            temp.layer.borderColor = UIColor.defaultRedColor.cgColor
+            scoreImage.append(temp)
+        }
     }
     
     private func configureScoreImage(number: Int, color: UIColor) {
@@ -443,22 +354,8 @@ final class MyAccountPostCell: UITableViewCell {
         }
     }
     
-    private func setupScoreLabel() {
-        scoreLabel.tintColor = .defaultBlackColor
-        scoreLabel.font = .postScoreLabel
-        scoreLabel.textAlignment = .left
-    }
-    
-    private func setupScoreLabelConstraint() {
-        scoreLabel.pin
-            .height(2 * Constants.ScoreImage.radius)
-            .after(of: scoreImage[4], aligned: .top)
-            .right()
-            .marginLeft(Constants.ScoreImage.betweenPadding)
-    }
-    
     @objc func didTapOpenButton() {
-        openDelegate.didTapOpen(sender: self)
+        openDelegate?.didTapOpen(sender: self)
     }
 }
 
@@ -466,7 +363,6 @@ final class MyAccountPostCell: UITableViewCell {
 
 extension MyAccountPostCell {
     struct Constants {
-        
         struct Header {
             static let height: CGFloat = 70
         }
