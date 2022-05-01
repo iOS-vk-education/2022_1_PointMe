@@ -6,12 +6,12 @@ class FeedNewsModel {
     private var posts: [PostPreviewModel] = []
     
     func getPosts(completion: @escaping (Result<Void, Error>) -> Void) {
-        DatabaseManager.shared.getDataPosts { result in
+        DatabaseManager.shared.getDataPosts { [weak self] result in
             switch result {
             case .success(let postsArray):
                 print(9, postsArray)
-                self.posts = postsArray
-                print("debug: self.posts = \(self.posts)")
+                self?.posts = postsArray
+                print("debug: self.posts = \(String(describing: self?.posts))")
                 completion(.success(Void()))
                 break
             case .failure(let error):
@@ -26,7 +26,6 @@ class FeedNewsModel {
         DatabaseManager.shared.fetchUserData(uid: uid) { result in
             switch result {
             case .success(let res):
-                //self.userPreviewModel = res
                 completion(.success(res))
                 break
             case .failure(let error):
@@ -40,8 +39,6 @@ class FeedNewsModel {
         DatabaseManager.shared.fetchImagePreviewData(idImage: idImage) { result in
             switch result {
             case .success(let res):
-                print(876, res!)
-                //self.imageData = res
                 completion(.success(res))
                 break
             case .failure(let error):
