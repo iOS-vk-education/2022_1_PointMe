@@ -37,7 +37,7 @@ final class FindUserCell: UITableViewCell {
     
     public func setupCell(context: FindUserCellContext) {
         let imageData: Data? = context.imageData
-        userImageView.image = imageData != nil ? UIImage(data: imageData!) : UIImage(named: "1photo")
+        userImageView.image = imageData != nil ? UIImage(data: imageData!) : UIImage(named: "avatar")
         
         usernameLabel.text = context.username
         
