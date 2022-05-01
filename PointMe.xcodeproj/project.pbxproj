@@ -28,6 +28,9 @@
 		2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691827FDC2C600EF3054 /* UserModel.swift */; };
 		2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691D27FDCA6800EF3054 /* SignInModel.swift */; };
 		2C9ACE062807360000FC54EC /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9ACE052807360000FC54EC /* PostModel.swift */; };
+		2CA6DE56281EA3D100292E0B /* FindUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6DE55281EA3D100292E0B /* FindUserCell.swift */; };
+		2CA6DE58281EC3BC00292E0B /* FindUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6DE57281EC3BC00292E0B /* FindUserModel.swift */; };
+		2CA6DE5B281ECDD400292E0B /* LoadFindUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6DE5A281ECDD400292E0B /* LoadFindUserData.swift */; };
 		2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */; };
 		2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */; };
 		2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EC27E7763E001A35B2 /* SignInViewController.swift */; };
@@ -42,7 +45,7 @@
 		2CFEA8AB27F7CD9400750CF0 /* libFirebaseDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */; };
 		4A12BA8BD40F75A8203A7D0E /* libPods-PointMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1110205D48719CC6509C9E /* libPods-PointMe.a */; };
 		873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F627EA40300004715E /* FeedNewsVC.swift */; };
-		873C69FA27EA404A0004715E /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F927EA404A0004715E /* FindVC.swift */; };
+		873C69FA27EA404A0004715E /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69F927EA404A0004715E /* FindViewController.swift */; };
 		873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69FF27EA40630004715E /* FavoritesVC.swift */; };
 		873C6A0327EA406A0004715E /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* AccountVC.swift */; };
 		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
@@ -72,6 +75,9 @@
 		2C8C691827FDC2C600EF3054 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2C8C691D27FDCA6800EF3054 /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
 		2C9ACE052807360000FC54EC /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		2CA6DE55281EA3D100292E0B /* FindUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUserCell.swift; sourceTree = "<group>"; };
+		2CA6DE57281EC3BC00292E0B /* FindUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUserModel.swift; sourceTree = "<group>"; };
+		2CA6DE5A281ECDD400292E0B /* LoadFindUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFindUserData.swift; sourceTree = "<group>"; };
 		2CBAF2E527E7763E001A35B2 /* PointMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +94,7 @@
 		2CFEA8AA27F7CD9400750CF0 /* libFirebaseDatabase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseDatabase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE9F2D5A3D4A920510ED310 /* Pods-PointMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointMe.release.xcconfig"; path = "Target Support Files/Pods-PointMe/Pods-PointMe.release.xcconfig"; sourceTree = "<group>"; };
 		873C69F627EA40300004715E /* FeedNewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNewsVC.swift; sourceTree = "<group>"; };
-		873C69F927EA404A0004715E /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
+		873C69F927EA404A0004715E /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		873C69FF27EA40630004715E /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		873C6A0227EA406A0004715E /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -352,6 +358,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2CA6DE53281E94F200292E0B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				873C69F927EA404A0004715E /* FindViewController.swift */,
+				2CA6DE55281EA3D100292E0B /* FindUserCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2CA6DE54281E950000292E0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2CA6DE57281EC3BC00292E0B /* FindUserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2CA6DE59281ECDA200292E0B /* Network+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2CA6DE5A281ECDD400292E0B /* LoadFindUserData.swift */,
+			);
+			path = "Network+Extensions";
+			sourceTree = "<group>";
+		};
 		2CBAF2DC27E7763E001A35B2 = {
 			isa = PBXGroup;
 			children = (
@@ -469,7 +500,9 @@
 		873C6A1027EA4A070004715E /* Find */ = {
 			isa = PBXGroup;
 			children = (
-				873C69F927EA404A0004715E /* FindVC.swift */,
+				2CA6DE59281ECDA200292E0B /* Network+Extensions */,
+				2CA6DE54281E950000292E0B /* Model */,
+				2CA6DE53281E94F200292E0B /* View */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -633,10 +666,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
+				2CA6DE56281EA3D100292E0B /* FindUserCell.swift in Sources */,
 				873C6A0327EA406A0004715E /* AccountVC.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
 				2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */,
-				873C69FA27EA404A0004715E /* FindVC.swift in Sources */,
+				873C69FA27EA404A0004715E /* FindViewController.swift in Sources */,
 				873C69F727EA40300004715E /* FeedNewsVC.swift in Sources */,
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
@@ -652,7 +686,9 @@
 				2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */,
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
+				2CA6DE58281EC3BC00292E0B /* FindUserModel.swift in Sources */,
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
+				2CA6DE5B281ECDD400292E0B /* LoadFindUserData.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2C01DB1F280B59A300F90C09 /* PostViewController.swift in Sources */,
