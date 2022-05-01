@@ -33,6 +33,7 @@
 		2C8C691927FDC2C600EF3054 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691827FDC2C600EF3054 /* UserModel.swift */; };
 		2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C691D27FDCA6800EF3054 /* SignInModel.swift */; };
 		2C9ACE062807360000FC54EC /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9ACE052807360000FC54EC /* PostModel.swift */; };
+		2CA6DE5E281F3F1600292E0B /* PostContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6DE5D281F3F1600292E0B /* PostContext.swift */; };
 		2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */; };
 		2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */; };
 		2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAF2EC27E7763E001A35B2 /* SignInViewController.swift */; };
@@ -99,6 +100,7 @@
 		2C8C691827FDC2C600EF3054 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2C8C691D27FDCA6800EF3054 /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
 		2C9ACE052807360000FC54EC /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		2CA6DE5D281F3F1600292E0B /* PostContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContext.swift; sourceTree = "<group>"; };
 		2CBAF2E527E7763E001A35B2 /* PointMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBAF2E827E7763E001A35B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CBAF2EA27E7763E001A35B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		2C01DB28280B917500F90C09 /* OnePost */ = {
 			isa = PBXGroup;
 			children = (
+				2CA6DE5C281F3F0400292E0B /* Context */,
 				2C01DB20280B709100F90C09 /* Model */,
 				2C01DB1D280B593400F90C09 /* View */,
 			);
@@ -394,6 +397,14 @@
 				2C8C691D27FDCA6800EF3054 /* SignInModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2CA6DE5C281F3F0400292E0B /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				2CA6DE5D281F3F1600292E0B /* PostContext.swift */,
+			);
+			path = Context;
 			sourceTree = "<group>";
 		};
 		2CBAF2DC27E7763E001A35B2 = {
@@ -732,6 +743,7 @@
 			files = (
 				7D4D9D8A280F413F008C4250 /* FeedNewsError.swift in Sources */,
 				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
+				2CA6DE5E281F3F1600292E0B /* PostContext.swift in Sources */,
 				2C1C0B7C280F979C007E436D /* CellTapButtonDelegate.swift in Sources */,
 				873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */,
 				87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */,

@@ -32,7 +32,7 @@ final class PostViewControllerModel {
     
     func fetchData(context: PostContext, completion: @escaping (Result<Void, Error>) -> Void) {
         usernameValue = context.username
-        dateVlaue = String(context.dateDay) + dates[context.dateMonth]! + String(context.dateYear) + " года"
+        dateVlaue = String(context.dateDay) + (dates[context.dateMonth] ?? " января ")  + String(context.dateYear) + " года"
         titleValue = context.title
         markValue = context.mark
         commentTextValue = context.comment
@@ -44,7 +44,11 @@ final class PostViewControllerModel {
         
         let group = DispatchGroup()
         let lock = NSLock()
-        DatabaseManager.shared.isFavoritePost(idPost: idPost) { isFavorite in
+        DatabaseManager.shared.isFavoritePost(idPost: idPost) { [weak self] isFavorite in
+            guard let self = self else {
+                return
+            }
+            
             self.isChartPostValue = isFavorite
             
             for key in self.arrayDataImages {

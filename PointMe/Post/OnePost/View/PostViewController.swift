@@ -180,22 +180,19 @@ final class PostViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
-        //tabBarController?.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         tabBarController?.tabBar.isHidden = false
-        //tabBarController?.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func setup(context: PostContext) {
-        print("debug: context: \(context)")
-        model.fetchData(context: context) { result in
+        model.fetchData(context: context) { [weak self] result in
             switch result {
             case .success():
                 print("debug: success fill data")
-                self.fillData()
+                self?.fillData()
                 break
             case .failure(_):
                 break
@@ -426,20 +423,6 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
 }
 
 
-struct PostContext {
-    let idPost: String
-    let keysImages: [String]
-    let avatarImage: Data?
-    let username: String
-    let dateDay: Int
-    let dateMonth: Int
-    let dateYear: Int
-    let title: String
-    let comment: String
-    let mark: Int
-}
-
-
 private extension PostViewController {
     struct Constants {
         struct UserHeader {
@@ -512,6 +495,3 @@ private extension PostViewController {
         }
     }
 }
-
-
-

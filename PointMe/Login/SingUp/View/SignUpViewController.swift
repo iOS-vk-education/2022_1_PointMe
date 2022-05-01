@@ -246,27 +246,31 @@ final class SignUpViewController: UIViewController, AlertMessages {
             UIView.animate(withDuration: Constants.Buttons.durationAnimation) { [weak self] in
                 self?.signUpButton.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
-                let username = self?.textFieldUsername.text
-                let email = self?.textFieldEmail.text
-                let password = self?.textFieldPassword.text
+                guard let self = self else {
+                    return
+                }
                 
-                self?.model.signUpUser(email: email, password: password, username: username) { result in
+                let username = self.textFieldUsername.text
+                let email = self.textFieldEmail.text
+                let password = self.textFieldPassword.text
+                
+                self.model.signUpUser(email: email, password: password, username: username) { result in
                     switch result {
                     case .success:
-                        self?.showInfoAlert(
+                        self.showInfoAlert(
                             forTitleText: "Подтверждение",
                             forBodyText: "Вы успешно зарегестрированы!",
-                            viewController: self!,
+                            viewController: self,
                             action: {
-                                self?.presentTabBar()
+                                self.presentTabBar()
                             }
                         )
                         break
                     case .failure(_):
-                        self?.showWarningAlert(
+                        self.showWarningAlert(
                             forTitleText: "\("Ошибка")",
                             forBodyText: "Введите корректные имя пользователя, email и пароль (должен быть не менее 6 символов)!",
-                            viewController: self!
+                            viewController: self
                         )
                         break
                     }

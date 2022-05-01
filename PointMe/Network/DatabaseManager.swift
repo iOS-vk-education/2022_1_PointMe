@@ -118,13 +118,9 @@ final class DatabaseManager {
             return
         }
         
-        print("#DEBUG test1")
-        
         let keysImages: [String] = postData.keysImages.map { _ in
             UUID().uuidString
         }
-        
-        print("#DEBUG test2")
         
         let data: [String: Any] = [
             "uid" : postData.uid,
@@ -140,17 +136,13 @@ final class DatabaseManager {
             "mark" : postData.mark
         ]
         
-        print("#DEBUG test3")
-        
         reference.child("posts").child(keyPost).setValue(data) { [weak self] error, _ in
             guard let self = self else {
-                print("#DEBUG test4")
                 completion(.failure(AddPostError.unknownError))
                 return
             }
             
             guard error == nil else {
-                print("#DEBUG test5")
                 completion(.failure(AddPostError.serverError))
                 return
             }
@@ -160,21 +152,14 @@ final class DatabaseManager {
             
             for indexPost in (0 ..< keysImages.count) {
                 let url = URL(fileURLWithPath: postData.keysImages[indexPost])
-//                guard let  else {
-//                    print("#DEBUG test6")
-//                    completion(.failure(AddPostError.serverError))
-//                    return
-//                }
                 
                 guard let dataImage = try? Data(contentsOf: url) else {
-                    print("#DEBUG test66, url = \(url)")
                     completion(.failure(AddPostError.serverError))
                     return
                 }
                 
                 self.storage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
                     guard error == nil else {
-                        print("#DEBUG test7")
                         completion(.failure(AddPostError.serverError))
                         return
                     }
@@ -183,7 +168,6 @@ final class DatabaseManager {
             
             self.reference.child("users").child(postData.uid).child("posts").getData { error, snapshot in
                 guard error == nil else {
-                    print("#DEBUG test8")
                     completion(.failure(AddPostError.serverError))
                     return
                 }
@@ -193,7 +177,6 @@ final class DatabaseManager {
                 
                 self.reference.child("users").child(postData.uid).child("posts").setValue(arrayPosts) { error, _ in
                     guard error == nil else {
-                        print("#DEBUG test9")
                         completion(.failure(AddPostError.serverError))
                         return
                     }
