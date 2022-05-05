@@ -157,7 +157,10 @@ extension FeedNewsViewController: UITableViewDataSource {
 
 extension FeedNewsViewController: PostPreviewButtonTapDelegate {
     func didTapOpenButton(sender: UITableViewCell) {
-        let indexPath = newsFeedTableView.indexPath(for: sender)!
+        guard let indexPath = newsFeedTableView.indexPath(for: sender) else {
+            print("cannot find indexPath for cell")
+            return
+        }
         let onePostViewController: PostViewController = PostViewController()
         let data = model.getPostPreviewModelByIndex(index: indexPath.row)
         
