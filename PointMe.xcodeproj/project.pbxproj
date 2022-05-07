@@ -528,7 +528,9 @@
 		873C6A1027EA4A070004715E /* Find */ = {
 			isa = PBXGroup;
 			children = (
-				873C69F927EA404A0004715E /* FindVC.swift */,
+				2CA6DE59281ECDA200292E0B /* Network+Extensions */,
+				2CA6DE54281E950000292E0B /* Model */,
+				2CA6DE53281E94F200292E0B /* View */,
 			);
 			path = Find;
 			sourceTree = "<group>";
