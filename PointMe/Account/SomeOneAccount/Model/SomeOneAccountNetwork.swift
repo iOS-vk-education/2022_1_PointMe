@@ -1,46 +1,25 @@
 import Firebase
 
-final class MyAccountNetwork {
+final class SomeOneAccountNetwork {
     
     weak var presenter: MyAccountPresenter!
 }
 
-extension MyAccountNetwork: MyAccountModelInput {
-    func removePostfromDatabase(postKeys: [String], completion: @escaping (Result<Void, Error>) -> Void) {
-        DatabaseManager.shared.removePostFromUserPosts(postKeys: postKeys) { result in
+extension SomeOneAccountNetwork: SomeOneAccountModelInput {
+    
+    func getUserPublishers(uid: String?, completion: @escaping (DataSnapshot) -> Void) {
+        DatabaseManager.shared.getPublishers(uid: uid) { result in
             switch result {
             case .failure(let error):
-                completion(.failure(error))
-            case .success():
-                completion(.success(Void()))
+                print("Error getUserPublishers \(error)")
+            case .success(let snapshot):
+                completion(snapshot)
             }
         }
     }
     
-    func removePostFromPosts(postKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        DatabaseManager.shared.removePostFromPosts(postKey: postKey) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success():
-                completion(.success(Void()))
-            }
-        }
-    }
-    
-    func removeImageFromStorage(imageKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        DatabaseManager.shared.removeImageFromStorage(imageKey: imageKey) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success():
-                completion(.success(Void()))
-            }
-        }
-    }
-    
-    func getAccountInfoData(completion: @escaping (MyAccountInfo) -> Void) {
-        DatabaseManager.shared.getMyAccountInfo() { result in
+    func getAccountInfoData(uid: String?, completion: @escaping (MyAccountInfo) -> Void) {
+        DatabaseManager.shared.getAccountInfo(uid: uid) { result in
             switch result {
             case .failure(let error):
                 print("Error getAccountInfoData \(error)")
@@ -71,4 +50,23 @@ extension MyAccountNetwork: MyAccountModelInput {
             }
         }
     }
+    
+    func makeSubscriber(uid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        DatabaseManager.shared.addPublisher(uid: uid) { result in
+            completion(result)
+        }
+        DatabaseManager.shared.increaseSubscribersNumber(uid: uid) { result in
+            completion(result)
+        }
+    }
+    
+    func dismissSubscribe(uid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        DatabaseManager.shared.removePublisher(uid: uid) { result in
+            completion(result)
+        }
+        DatabaseManager.shared.decreaseSubscribersNumber(uid: uid) { result in
+            completion(result)
+        }
+    }
 }
+

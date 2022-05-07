@@ -21,13 +21,13 @@ final class DatabaseManager {
         }
     }
     
-    public func getMyAccountInfo(completion: @escaping (Result<MyAccountInfo, Error>) -> Void) {
-        guard let strongCurrentUserUID = DatabaseManager.shared.currentUserUID else {
+    public func getAccountInfo(uid: String?, completion: @escaping (Result<MyAccountInfo, Error>) -> Void) {
+        guard let strongUserUID = uid else {
             completion(.failure(NSError()))
             return
         }
         
-        reference.child("users").child(strongCurrentUserUID).getData() { error, snapshot in
+        reference.child("users").child(strongUserUID).getData() { error, snapshot in
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
@@ -111,6 +111,115 @@ final class DatabaseManager {
         }
     }
     
+    public func removePublisher(uid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let strongCurrentUserUID = currentUserUID else {
+            completion(.failure(NSError()))
+            return
+        }
+        reference.child("users").child(strongCurrentUserUID).child("publishers").getData() { [weak self] error, snapshot in
+            guard let strongSelf = self else { return }
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            guard var publishers = snapshot.value as? [String] else {
+                return
+            }
+            guard let index = publishers.firstIndex(of: uid) else { return }
+            publishers.remove(at: index)
+            strongSelf.reference.child("users").child(strongCurrentUserUID).child("publishers").setValue(publishers) { error, _ in
+                guard error == nil else {
+                    completion(.failure(NSError()))
+                    return
+                }
+                completion(.success(Void()))
+            }
+        }
+    }
+    
+    public func decreaseSubscribersNumber(uid: String,  completion: @escaping (Result<Void, Error>) -> Void) {
+        reference.child("users").child(uid).child("subscribers").getData() { [weak self] error, snapshot in
+            guard let strongSelf = self else { return }
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            guard let subNum = snapshot.value as? Int else {
+                completion(.failure(NSError()))
+                return
+            }
+            strongSelf.reference.child("users").child(uid).child("subscribers").setValue(subNum - 1) { error, _ in
+                guard error == nil else {
+                    completion(.failure(NSError()))
+                    return
+                }
+                completion(.success(Void()))
+            }
+        }
+    }
+    
+    
+    public func addPublisher(uid: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let strongCurrentUserUID = currentUserUID else {
+            completion(.failure(NSError()))
+            return
+        }
+        reference.child("users").child(strongCurrentUserUID).child("publishers").getData() { [weak self] error, snapshot in
+            guard let strongSelf = self else { return }
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            var publishArray: [String] = []
+            if let publishers = snapshot.value as? [String] {
+                publishArray = publishers
+            }
+            publishArray.append(uid)
+            strongSelf.reference.child("users").child(strongCurrentUserUID).child("publishers").setValue(publishArray) { error, _ in
+                guard error == nil else {
+                    completion(.failure(NSError()))
+                    return
+                }
+                completion(.success(Void()))
+            }
+        }
+    }
+    
+    public func increaseSubscribersNumber(uid: String,  completion: @escaping (Result<Void, Error>) -> Void) {
+        reference.child("users").child(uid).child("subscribers").getData() { [weak self] error, snapshot in
+            guard let strongSelf = self else { return }
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            guard let subNum = snapshot.value as? Int else {
+                completion(.failure(NSError()))
+                return
+            }
+            strongSelf.reference.child("users").child(uid).child("subscribers").setValue(subNum + 1) { error, _ in
+                guard error == nil else {
+                    completion(.failure(NSError()))
+                    return
+                }
+                completion(.success(Void()))
+            }
+        }
+    }
+    
+    public func getPublishers(uid: String?, completion: @escaping (Result<DataSnapshot, Error>) -> Void) {
+        guard let strongCurrentUserUID = uid else {
+            completion(.failure(NSError()))
+            return
+        }
+        
+        reference.child("users").child(strongCurrentUserUID).child("publishers").getData() { error, snapshot in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            completion(.success(snapshot))
+        }
+    }
     
     public func addPost(postData: PostModel, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let keyPost = reference.child("posts").childByAutoId().key else {

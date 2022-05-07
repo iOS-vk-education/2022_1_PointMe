@@ -180,7 +180,8 @@ class MyAccountViewController: UIViewController, AlertMessages {
     
     @objc
     private func didTapEditButton() {
-        let viewController = SubAccountViewController()
+        let builder = SomeOneAccountBuilder()
+        let viewController = builder.build()
         navigationController?.pushViewController(viewController, animated: true)
     }
     

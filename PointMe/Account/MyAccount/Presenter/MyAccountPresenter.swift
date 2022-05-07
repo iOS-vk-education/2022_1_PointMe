@@ -47,6 +47,7 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
             }
         }
     }
+    
     func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)
     {
         model.getAccountInfoData() {[weak self] data in
@@ -89,7 +90,6 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
             }
             group.leave()
             group.notify(queue: .main) {
-                
                 completion(myAccountInfo, myAccountPosts)
             }
         }
