@@ -2,7 +2,7 @@ import UIKit
 
 final class MyAccountPresenter {
     weak var view: MyAccountViewControllerInput!
-    var model: MyAccountModelInput!
+    var model: MyAccountModelInput?
 }
 
 // MARK: - MyAccountModelOutput
@@ -18,7 +18,7 @@ extension MyAccountPresenter: MyAccountModelOutput {
 extension MyAccountPresenter: MyAccountViewControllerOutput {
 
     func userWantsToRemovePost(postKey: String, postKeys: [String], imageKey: [String]) {
-        model.removePostfromDatabase(postKeys: postKeys) { result in
+        model?.removePostfromDatabase(postKeys: postKeys) { result in
             switch result {
             case .failure(let error):
                 print("Holy cow removePostfromDatabase not done! (\(error))")
@@ -28,7 +28,7 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
         }
         for i in 0..<imageKey.count {
             if (imageKey[i] != "") {
-                model.removeImageFromStorage(imageKey: imageKey[i]) { result in
+                model?.removeImageFromStorage(imageKey: imageKey[i]) { result in
                     switch result {
                     case .failure(let error):
                         print("Holy cow removeImageFromStorage not done! (\(error))")
@@ -37,7 +37,7 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
                     }
                 }
             }
-            model.removePostFromPosts(postKey: postKey) { result in
+            model?.removePostFromPosts(postKey: postKey) { result in
                 switch result {
                 case .failure(let error):
                     print("Holy cow removePostFromPosts not done! (\(error))")
@@ -47,9 +47,9 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
             }
         }
     }
-    func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)
-    {
-        model.getAccountInfoData() {[weak self] data in
+    
+    func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void) {
+        model?.getAccountInfoData() {[weak self] data in
             guard let strongSelf = self else { return }
             let group = DispatchGroup()
             let lock = NSLock()
@@ -60,7 +60,7 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
             group.enter()
             if(myAccountInfo.userImageKey != "") {
                 group.enter()
-                strongSelf.model.getImage(destination: "avatars", postImageKey: myAccountInfo.userImageKey) { dataImage in
+                strongSelf.model?.getImage(destination: "avatars", postImageKey: myAccountInfo.userImageKey) { dataImage in
                     myAccountInfo.userImage = dataImage
                     group.leave()
                 }
@@ -68,14 +68,14 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
             if (myAccountInfo.postKeys != [""]) {
                 for i in 0..<myAccountInfo.postKeys.count {
                     group.enter()
-                    strongSelf.model.getAccountPostData(userName: myAccountInfo.userName,
+                    strongSelf.model?.getAccountPostData(userName: myAccountInfo.userName,
                                                         userImage: myAccountInfo.userImageKey,
                                                         postKey: myAccountInfo.postKeys[i]) { post in
                         lock.lock()
                         myAccountPosts.insert(post, at: i)
                         lock.unlock()
                         if (post.images[0] != "") {
-                            strongSelf.model.getImage(destination: "posts",postImageKey: post.images[0]) { dataImage in
+                            strongSelf.model?.getImage(destination: "posts",postImageKey: post.images[0]) { dataImage in
                                 lock.lock()
                                 myAccountPosts[i].mainImage = dataImage
                                 lock.unlock()

@@ -2,7 +2,7 @@ import Firebase
 
 final class MyAccountNetwork {
     
-    weak var presenter: MyAccountPresenter!
+    weak var presenter: MyAccountPresenter?
 }
 
 extension MyAccountNetwork: MyAccountModelInput {

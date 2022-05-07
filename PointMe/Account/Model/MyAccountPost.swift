@@ -19,8 +19,7 @@ struct MyAccountPost {
     
     var mark: Int
     
-    init(userName: String, userImage: String, snapshot: DataSnapshot)
-    {
+    init(userName: String, userImage: String, snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as? [String : AnyObject]
         
         self.userImage = userImage
