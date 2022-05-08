@@ -1,7 +1,7 @@
 import UIKit
 
 final class MyAccountPresenter {
-    weak var view: MyAccountViewControllerInput!
+    weak var view: MyAccountViewControllerInput?
     var model: MyAccountModelInput?
 }
 
