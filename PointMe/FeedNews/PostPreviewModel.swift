@@ -64,7 +64,7 @@ struct PostPreviewModel {
         
     var postDate: String {
         get {
-            String(postDateDay) + dates[postDateMonth]! + String(postDateYear) + " года"
+            String(postDateDay) + (dates[postDateMonth] ?? ("." + String(postDateMonth) + ".")) + String(postDateYear) + " года"
         }
     }
 }
