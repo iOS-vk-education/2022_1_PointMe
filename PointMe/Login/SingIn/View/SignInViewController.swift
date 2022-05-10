@@ -116,7 +116,7 @@ final class SignInViewController: UIViewController, AlertMessages {
     private lazy var signUpButtonLabel: UILabel = {
         let button: UILabel = UILabel()
         
-        button.text = "Зарегестрироваться"
+        button.text = "Зарегистрироваться"
         button.font = .textButtonTitle
         button.textColor = .textButtonColor
         button.textAlignment = .center
@@ -245,32 +245,36 @@ final class SignInViewController: UIViewController, AlertMessages {
             UIView.animate(withDuration: Constants.Buttons.durationAnimation) { [weak self] in
                 self?.signInButton.alpha = Constants.Buttons.identityOpacity
             } completion: { [weak self] _ in
-                //guard let self = self else { return }
-                self?.present((self?.loadingAlert)!, animated: true, completion: nil)
+                guard let self = self else {
+                    return
+                }
                 
-                let email = self?.textFieldEmail.text
-                let password = self?.textFieldPassword.text
+                self.present(self.loadingAlert, animated: true, completion: nil)
+                
+                let email = self.textFieldEmail.text
+                let password = self.textFieldPassword.text
 
-                self?.model.signInUser(email: email, password: password, completion: { result in
+                self.model.signInUser(email: email, password: password, completion: { result in
                     switch result {
                     case .success:
-                        self?.loadingAlert.dismiss(animated: true, completion: nil)
-                        self?.showInfoAlert(
+                        self.loadingAlert.dismiss(animated: true, completion: nil)
+                        self.showInfoAlert(
                             forTitleText: "Подтверждение",
                             forBodyText: "Вы успешно вошли!",
-                            viewController: self!,
+                            viewController: self,
                             action: {
-                                self?.presentTabBar()
+                                self.presentTabBar()
                             }
                         )
                         break
                     case .failure(_):
-                        self?.loadingAlert.dismiss(animated: true, completion: nil)
-                        self?.showInfoAlert(
-                            forTitleText: "Ошибка",
-                            forBodyText: "Введите корректные email и пароль (должен быть не менее 6 символов)!",
-                            viewController: self!
-                        )
+                        self.loadingAlert.dismiss(animated: true, completion: {
+                            self.showInfoAlert(
+                                forTitleText: "Ошибка",
+                                forBodyText: "Введите корректные email и пароль (должен быть не менее 6 символов)!",
+                                viewController: self
+                            )
+                        })
                         break
                     }
                 })

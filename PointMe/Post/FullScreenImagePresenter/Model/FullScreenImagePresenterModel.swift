@@ -3,15 +3,15 @@ import Foundation
 
 final class FullScreenImagePresenterModel {
     
-    private var arrayImageData: [String] = []
+    private var arrayImageData: [Data?] = []
     
     init() {}
     
-    func setImageData(imageData: [String]) {
+    func setImageData(imageData: [Data?]) {
         arrayImageData = imageData
     }
     
-    func getImageData(index: Int) -> String {
+    func getImageData(index: Int) -> Data? {
         return arrayImageData[index]
     }
     

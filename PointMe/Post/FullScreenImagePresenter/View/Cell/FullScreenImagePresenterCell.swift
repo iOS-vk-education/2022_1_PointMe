@@ -28,14 +28,16 @@ final class FullScreenImagePresenterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(imageName: String) {
+    func setup(imageData: Data?) {
         scrollView.delegate = self
         scrollView.minimumZoomScale = Constants.minimumZoomScale
         scrollView.maximumZoomScale = Constants.maximumZoomScale
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTap))
         imageView.addGestureRecognizer(gesture)
-        imageView.image = UIImage(named: imageName)
+        if let imageData = imageData {
+            imageView.image = UIImage(data: imageData)
+        }
         
         contentView.addSubview(scrollView)
         scrollView.addSubview(imageView)

@@ -151,6 +151,12 @@ final class PostViewController: UIViewController {
         
         view.backgroundColor = .backgroundPostViewController
         
+        if let standardAppearance = self.navigationController?.navigationBar.standardAppearance,
+            let scrollAppearance = self.navigationController?.navigationBar.scrollEdgeAppearance {
+            standardAppearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
+            scrollAppearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
+        }
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .navBarItemColor
         
         view.addSubview(scrollView)
@@ -173,7 +179,6 @@ final class PostViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -182,7 +187,21 @@ final class PostViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-    func setup() {
+    func setup(context: PostContext) {
+        model.fetchData(context: context) { [weak self] result in
+            switch result {
+            case .success():
+                print("debug: success fill data")
+                self?.fillData()
+                break
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    
+    func fillData() {
         usernameLabel.text = model.username
         dateLabel.text = model.date
         titleLabel.text = model.title
@@ -190,8 +209,16 @@ final class PostViewController: UIViewController {
         markLabel.text = "\(model.mark)/5"
         setupCircleArray()
         
+        photosCollectionView.reloadData()
+        
         let imageForButton: UIImage? = model.isChartPost ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
         chartButton.setBackgroundImage(imageForButton, for: .normal)
+        
+        if let dataAvatar = model.avatar {
+            userImageView.image = UIImage(data: dataAvatar)
+        }
+        
+        viewDidLayoutSubviews()
     }
     
     
@@ -227,14 +254,16 @@ final class PostViewController: UIViewController {
             .marginLeft(Constants.UserHeader.usernameLabelMarginLeft)
             .top(Constants.UserHeader.usernameLabelMarginTop)
             .height(Constants.UserHeader.usernameLabelHeight)
-            .sizeToFit(.height)
+            .width(200)
+            //.sizeToFit(.height)
         
         dateLabel.pin
             .after(of: userImageView)
             .marginLeft(Constants.UserHeader.dateLabelMarginLeft)
             .top(Constants.UserHeader.dateLabelMarginTop)
             .height(Constants.UserHeader.dateLabelHeight)
-            .sizeToFit(.height)
+            .width(200)
+            //.sizeToFit(.height)
         
         chartButton.pin
             .below(of: separatorView)
@@ -258,6 +287,7 @@ final class PostViewController: UIViewController {
             .height(Constants.Container.mapViewHeight)
         
         if model.isImagesExist {
+            
             photosCollectionView.pin
                 .below(of: mapView)
                 .marginTop(Constants.Container.photosCollectionViewMarginTop)
@@ -328,9 +358,23 @@ final class PostViewController: UIViewController {
     
     
     @objc private func didTapChartButton() {
-        model.toggleChartPost()
-        let imageForButton: UIImage? = model.isChartPost ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
-        chartButton.setBackgroundImage(imageForButton, for: .normal)
+        model.toggleChartPost(completion: { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success():
+                let imageForButton: UIImage? = self.model.isChartPost ?
+                    UIImage(systemName: "star.fill") :
+                    UIImage(systemName: "star")
+                self.chartButton.setBackgroundImage(imageForButton, for: .normal)
+                break
+            case .failure(_):
+                print("failure toggle button chart")
+                break
+            }
+        })
     }
 }
 
@@ -350,7 +394,7 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
             return UICollectionViewCell()
         }
         
-        cell.setup(urlImage: model.getDataImageByIndex(index: indexPath.item))
+        cell.setup(dataImage: model.getDataImageByIndex(index: indexPath.item))
         
         return cell
     }
@@ -377,7 +421,6 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         navigationController?.pushViewController(fullScreenImageViewController, animated: true)
     }
 }
-
 
 
 private extension PostViewController {

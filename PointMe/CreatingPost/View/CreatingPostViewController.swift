@@ -169,6 +169,9 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     }()
     
     
+    private let imagePicker = UIImagePickerController()
+    
+    
     private let containerView: UIView = UIView()
     
     
@@ -179,6 +182,9 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
         super.viewDidLoad()
         
         view.backgroundColor = .addPostScreenBackgroundColor
+        
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
         
         setupNavigationBar()
         
@@ -203,9 +209,10 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     
     private func setupNavigationBar() {
         self.title = "Добавить пост"
-        if let appearance = self.navigationController?.navigationBar.standardAppearance {
-            appearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
-            self.navigationController?.navigationBar.standardAppearance = appearance
+        if let standardAppearance = self.navigationController?.navigationBar.standardAppearance,
+            let scrollAppearance = self.navigationController?.navigationBar.scrollEdgeAppearance {
+            standardAppearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
+            scrollAppearance.titleTextAttributes = [.font: UIFont.standartTitleNavBar]
         }
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
@@ -434,10 +441,7 @@ extension CreatingPostViewController: UICollectionViewDelegateFlowLayout, UIColl
             return
         }
         
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
+        present(imagePicker, animated: true)
     }
 }
 

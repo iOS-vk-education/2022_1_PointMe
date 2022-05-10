@@ -3,6 +3,31 @@ import UIKit
 extension UIColor {
     static let defaultBackgroundColor: UIColor  = .init(red: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 1)
     
+    static let defaultWhiteColor: UIColor = .white
+    
+    static let numberOfImagesColor: UIColor = UIColor(
+        red: 0.0,
+        green: 0.0,
+        blue: 0.0,
+        alpha: 0.75
+    )
+    
+    static let defaultBlackColor: UIColor = UIColor(
+        red: 32 / 255,
+        green: 34 / 255,
+        blue: 37 / 255,
+        alpha: 1.0
+    )
+    
+    static let defaultRedColor: UIColor = UIColor(
+        red: 1.0 ,
+        green: 50 / 255,
+        blue: 50 / 255,
+        alpha: 1.0
+    )
+    
+    static let subscribedButtonColor: UIColor = .lightGray
+    
     static let authScreensBackgroundColor: UIColor = .white
     
     static let addPostScreenBackgroundColor: UIColor  = .white

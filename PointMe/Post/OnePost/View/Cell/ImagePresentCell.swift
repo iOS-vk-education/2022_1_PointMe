@@ -31,12 +31,14 @@ final class ImagePresentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(urlImage: String) {
+    func setup(dataImage: Data?) {
         
         contentView.backgroundColor = .clear
         contentView.addSubview(bodyView)
+        if let dataImage = dataImage {
+            imageView.image = UIImage(data: dataImage)
+        }
         
-        imageView.image = UIImage(named: urlImage)
         bodyView.addSubview(imageView)
     }
     

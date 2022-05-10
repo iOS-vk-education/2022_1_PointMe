@@ -76,7 +76,7 @@ extension FullScreenImagePresenterViewController: UICollectionViewDelegateFlowLa
         }
         
         cell.delegate = self
-        cell.setup(imageName: model.getImageData(index: indexPath.item))
+        cell.setup(imageData: model.getImageData(index: indexPath.item))
         
         return cell
     }
@@ -107,5 +107,5 @@ extension FullScreenImagePresenterViewController: FullScreenImagePresenterCellDe
 }
 
 struct FullScreenImagePresenterContext {
-    let imageData: [String]
+    let imageData: [Data?]
 }
