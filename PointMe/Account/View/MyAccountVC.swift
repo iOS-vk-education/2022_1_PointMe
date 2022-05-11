@@ -174,14 +174,6 @@ class MyAccountViewController: UIViewController, AlertMessages {
         button.tintColor = .defaultWhiteColor
         button.backgroundColor = .defaultBlackColor
         button.setTitle(Constants.Button.editText, for: .normal)
-        
-        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
-    }
-    
-    @objc
-    private func didTapEditButton() {
-        let viewController = SubAccountViewController()
-        navigationController?.pushViewController(viewController, animated: true)
     }
     
     private func setupSubscribersLabel() {
