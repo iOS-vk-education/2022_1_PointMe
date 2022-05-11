@@ -64,9 +64,10 @@
 		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
 		8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB127EB10C700BC11B5 /* ColorSet.swift */; };
 		8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB527EB12ED00BC11B5 /* TabBar.swift */; };
+		8767D796282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */; };
+		8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767D795282C07D700944CCA /* FavoritesModel.swift */; };
 		876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */; };
 		876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */; };
-		87918CBB2809DAE90071DDDB /* SubAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBA2809DAE90071DDDB /* SubAccountVC.swift */; };
 		87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */; };
 		87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */; };
 		87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */; };
@@ -136,9 +137,10 @@
 		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8744ACB127EB10C700BC11B5 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		8744ACB527EB12ED00BC11B5 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+FavoritesPostPreviewLoader.swift"; sourceTree = "<group>"; };
+		8767D795282C07D700944CCA /* FavoritesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesModel.swift; sourceTree = "<group>"; };
 		876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostDate.swift; sourceTree = "<group>"; };
 		876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountNetwork.swift; sourceTree = "<group>"; };
-		87918CBA2809DAE90071DDDB /* SubAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubAccountVC.swift; sourceTree = "<group>"; };
 		87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostCell.swift; sourceTree = "<group>"; };
 		87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPresenter.swift; sourceTree = "<group>"; };
 		87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewControllerIO.swift; sourceTree = "<group>"; };
@@ -529,6 +531,8 @@
 		873C6A0627EA49AE0004715E /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
+				8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */,
+				8767D795282C07D700944CCA /* FavoritesModel.swift */,
 				873C69FF27EA40630004715E /* FavoritesVC.swift */,
 			);
 			path = Favorites;
@@ -539,7 +543,6 @@
 			children = (
 				87EC0F41280EF638001627CE /* builder */,
 				87B7F413280AD5D9000CA15B /* Model */,
-				87918CBA2809DAE90071DDDB /* SubAccountVC.swift */,
 				87918CC12809E4B70071DDDB /* Presenter */,
 				87918CC02809E49B0071DDDB /* View */,
 			);
@@ -797,6 +800,7 @@
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
 				2C01DB27280B905C00F90C09 /* FullScreenImagePresenterViewController.swift in Sources */,
 				2C86F62A282733E200CFF536 /* FindUserCell.swift in Sources */,
+				8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */,
 				2C86F62B282733E200CFF536 /* FindUserModel.swift in Sources */,
 				2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */,
 				2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */,
@@ -810,6 +814,7 @@
 				2C8C691127FCFDC500EF3054 /* Logger.swift in Sources */,
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
 				7D4D9D88280F413F008C4250 /* FeedNewsFontSet.swift in Sources */,
+				8767D796282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift in Sources */,
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
 				7D4D9D85280F413F008C4250 /* FeedNewsColorSet.swift in Sources */,
 				2C86F62C282733E200CFF536 /* LoadFindUserData.swift in Sources */,
@@ -828,7 +833,6 @@
 				87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */,
 				7D4D9D86280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
-				87918CBB2809DAE90071DDDB /* SubAccountVC.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
 				2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */,
