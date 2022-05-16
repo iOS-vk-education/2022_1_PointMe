@@ -19,7 +19,6 @@ struct PostPreviewModel {
     
     var uid: String
     var postId: String
-    //var postDate: String
     var username: String
     var postImage: Data?
     var avatarData: Data?
@@ -33,13 +32,25 @@ struct PostPreviewModel {
     var postDateYear: Int
     var mark: Int
     
-    init(uid: String, postId: String, username: String, postDateDay: Int, postDateMonth: Int, postDateYear: Int, postImage: Data?, avatarData: Data?, keysImages: [String], countImages: Int, title: String, comment: String, location: String, mark: Int) {
+    init(uid: String,
+         postId: String,
+         username: String,
+         postDateDay: Int,
+         postDateMonth: Int,
+         postDateYear: Int,
+         postImage: Data?,
+         avatarData: Data?,
+         keysImages: [String],
+         countImages: Int,
+         title: String,
+         comment: String,
+         location: String,
+         mark: Int) {
         self.uid = uid
         self.postId = postId
         self.postDateDay = postDateDay
         self.postDateMonth = postDateMonth
         self.postDateYear = postDateYear
-        //self.postDate = String(postDateDay) + dates[postDateMonth]! + String(postDateYear) + " года"
         self.postImage = postImage
         self.numberOfImages = countImages
         self.title = title
@@ -50,56 +61,10 @@ struct PostPreviewModel {
         self.comment = comment
         self.username = username
     }
-    
-//    let avatarImage = avatarImage
-//    self.username = username
-//    self.postDate = String(postDateDay) + dates[postDateMonth]! + String(postDateYear) + " года"
-//    self.postImage = postImage
-//    self.numberOfImages = postImage.count
-//    self.title = title
-//    self.location = location
-//    self.mark = mark
-    
-//    init(username: String, postModel: PostModel, previewImageData: Data?) {
-//        self.postModel = postModel
-//        self.previewImageData = previewImageData
-//        self.username = username
-//    }
         
     var postDate: String {
         get {
-            String(postDateDay) + dates[postDateMonth]! + String(postDateYear) + " года"
+            String(postDateDay) + (dates[postDateMonth] ?? ("." + String(postDateMonth) + ".")) + String(postDateYear) + " года"
         }
     }
-//
-//    var avatarImage: String
-//    var username: String
-//    var postDate: String
-//    var postImage: [String]
-//    var numberOfImages: Int
-//    var title: String
-//    var location: String
-//    var mark: Int
-//
-//    init(avatarImage: String, username: String, postDateDay: Int, postDateMonth: Int, postDateYear: Int, postImage: [String], title: String, location: String, mark: Int) {
-//        self.avatarImage = avatarImage
-//        self.username = username
-//        self.postDate = String(postDateDay) + dates[postDateMonth]! + String(postDateYear) + " года"
-//        self.postImage = postImage
-//        self.numberOfImages = postImage.count
-//        self.title = title
-//        self.location = location
-//        self.mark = mark
-//    }
-    
-    //internal init(avatarImage: String? = nil, username: String, postDate: String, postImage: String? = nil, numberOfImages: //Int? = nil, title: String, location: String, mark: Int) {
-    //    self.avatarImage = avatarImage
-    //    self.username = username
-    //    self.postDate = postDate
-    //    self.postImage = postImage
-    //    self.numberOfImages = numberOfImages
-    //    self.title = title
-    //    self.location = location
-    //    self.mark = mark
-    //}
 }

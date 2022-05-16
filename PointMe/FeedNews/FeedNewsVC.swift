@@ -36,21 +36,10 @@ class FeedNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .defaultBackgroundColor
-        
-//        let appearance = UINavigationBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .white
-//        appearance.backIndicatorImage.withTintColor(.black)
-//        appearance.titleTextAttributes = [
-//            NSAttributedString.Key.font: UIFont.titleNavBar
-//        ]
-//        navigationController?.navigationBar.standardAppearance = appearance
-//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         title = "PointMe"
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(tapped))
         navigationController?.navigationBar.tintColor = .black
-        //navigationController?.navigationBar.barTintColor = UIColor.black
-        //title.
         
         setupNewsFeedTableView()
         registerCell()
@@ -83,11 +72,7 @@ class FeedNewsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         newsFeedTableView.pin
-            //.center()
-            //.height(500)
-            //.width(200)
-            .horizontally()
-            .vertically()
+            .all()
     }
     
     @objc private func tapped() {
@@ -110,7 +95,6 @@ class FeedNewsViewController: UIViewController {
     
     private func setupsCell() {
         newsFeedTableView.reloadData()
-        //newsFeedTableView.refreshControl?.endRefreshing()
     }
     
     private func setupRefreshControll() {
@@ -119,26 +103,24 @@ class FeedNewsViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(updateRequestData), for: .valueChanged)
 
         newsFeedTableView.refreshControl = refreshControl
-        //tableView.refreshControl = refreshControl
     }
     
     
     @objc func updateRequestData() {
         self.present(loadingAlert, animated: true, completion: nil)
-        model.getPosts { result in
+        model.getPosts { [weak self] result in
             switch result {
             case .success():
                 print("success download")
-                self.loadingAlert.dismiss(animated: true, completion: nil)
-                self.setupsCell()
+                self?.loadingAlert.dismiss(animated: true, completion: nil)
+                self?.setupsCell()
                 break
             case .failure(_):
                 print("fail download!!!!")
-                self.loadingAlert.dismiss(animated: true, completion: nil)
+                self?.loadingAlert.dismiss(animated: true, completion: nil)
                 break
             }
-            //self.loadingAlert.dismiss(animated: true, completion: nil)
-            self.newsFeedTableView.refreshControl?.endRefreshing()
+            self?.newsFeedTableView.refreshControl?.endRefreshing()
         }
     }
     
@@ -169,14 +151,17 @@ extension FeedNewsViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.backgroundColor = .defaultBackgroundColor
         cell.delegateTapButton = self
+        cell.delegateTapAvatar = self
         return cell
-        //PostPreviewCell().configure(post: posts[indexPath.row])
     }
 }
 
 extension FeedNewsViewController: PostPreviewButtonTapDelegate {
     func didTapOpenButton(sender: UITableViewCell) {
-        let indexPath = newsFeedTableView.indexPath(for: sender)!
+        guard let indexPath = newsFeedTableView.indexPath(for: sender) else {
+            print("cannot find indexPath for cell")
+            return
+        }
         let onePostViewController: PostViewController = PostViewController()
         let data = model.getPostPreviewModelByIndex(index: indexPath.row)
         
@@ -190,12 +175,19 @@ extension FeedNewsViewController: PostPreviewButtonTapDelegate {
             dateYear: data.postDateYear,
             title: data.title,
             comment: data.comment,
-            mark: data.mark
+            mark: data.mark,
+            uid: data.uid
         ))
         
         navigationController?.pushViewController(onePostViewController, animated: true)
     }
-    
-    
+}
+
+extension FeedNewsViewController: TapAvatarDelegate {
+    func didTapAvatar(uid: String) {
+        let builder = SomeOneAccountBuilder()
+        let viewController = builder.build(uid: uid)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 

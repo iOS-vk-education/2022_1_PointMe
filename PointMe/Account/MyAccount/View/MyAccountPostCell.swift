@@ -72,7 +72,7 @@ final class MyAccountPostCell: UITableViewCell {
         if let imageData = data.userImageData {
             userImage.image = UIImage(data: imageData)
         } else {
-            userImage.image = UIImage(systemName: "person")
+            userImage.image = UIImage(named: "avatar")
         }
         userName.text = data.userName
         dateLabel.text = "\(data.date.day) \(Constants.Date.month[data.date.month]!) \(data.date.year) года"
@@ -134,6 +134,7 @@ final class MyAccountPostCell: UITableViewCell {
         userImage.layer.masksToBounds = true
         userImage.layer.borderWidth = Constants.UserImage.borderWidth
         userImage.tintColor = .defaultBlackColor
+        userImage.contentMode = .scaleAspectFill
 
         headViewContainer.backgroundColor = .defaultWhiteColor
         
@@ -155,6 +156,7 @@ final class MyAccountPostCell: UITableViewCell {
         
         mainImage.layer.cornerRadius = Constants.MainImage.cornerRadius
         mainImage.layer.masksToBounds = true
+        mainImage.contentMode = .scaleAspectFill
         
         numberOfImagesLabel.layer.cornerRadius = Constants.NumberOfImagesLabel.cornerRadius
         numberOfImagesLabel.textColor = .defaultWhiteColor

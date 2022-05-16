@@ -7,7 +7,7 @@ final class SomeOneAccountNetwork {
 
 extension SomeOneAccountNetwork: SomeOneAccountModelInput {
     
-    func getUserPublishers(uid: String?, completion: @escaping (DataSnapshot) -> Void) {
+    func getUserPublishers(uid: String, completion: @escaping (DataSnapshot) -> Void) {
         DatabaseManager.shared.getPublishers(uid: uid) { result in
             switch result {
             case .failure(let error):
@@ -18,7 +18,7 @@ extension SomeOneAccountNetwork: SomeOneAccountModelInput {
         }
     }
     
-    func getAccountInfoData(uid: String?, completion: @escaping (MyAccountInfo) -> Void) {
+    func getAccountInfoData(uid: String, completion: @escaping (MyAccountInfo) -> Void) {
         DatabaseManager.shared.getAccountInfo(uid: uid) { result in
             switch result {
             case .failure(let error):

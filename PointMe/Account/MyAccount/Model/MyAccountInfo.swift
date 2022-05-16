@@ -2,7 +2,7 @@ import Firebase
 
 struct MyAccountInfo {
     
-    var uid: String?
+    var uid: String
     
     let userName: String
     let userImageKey: String
@@ -14,7 +14,7 @@ struct MyAccountInfo {
     let publishers: [String]
     let numberOfSubscriptions: Int
     
-    init(snapshot: DataSnapshot) {
+    init(snapshot: DataSnapshot, uid: String) {
         let snapshotValue = snapshot.value as? [String : AnyObject]
         
         userName = snapshotValue?["username"] as? String ?? ""
@@ -35,6 +35,7 @@ struct MyAccountInfo {
             publishers = [""]
             numberOfSubscriptions = 0
         }
+        self.uid = uid
     }
     
     init(userName: String = "",
@@ -42,7 +43,9 @@ struct MyAccountInfo {
          postKeys: [String] = [""],
          numberOfSubscribers: Int = 0,
          numberOfSubscriptions: Int = 0,
-         publishers:[String] = [""]) {
+         publishers: [String] = [""],
+         uid: String = "") {
+        self.uid = uid
         self.userName = userName
         self.userImageKey = userImageKey
         

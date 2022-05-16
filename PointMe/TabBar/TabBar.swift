@@ -2,12 +2,6 @@ import UIKit
 
 final class TabBarController: UITabBarController {
     
-    private let vc1 = UINavigationController(rootViewController: FeedNewsViewController())
-    private let vc2 = UINavigationController(rootViewController: FindViewController())
-    private let vc3 = UINavigationController(rootViewController: MapViewController())
-    private let vc4 = UINavigationController(rootViewController: FavoritesViewController())
-    private var vc5 = UINavigationController(rootViewController: MyAccountViewController())
-    
     private let images = ["newspaper", "magnifyingglass", "map", "star", "person"]
     private let titles = ["Новости", "Поиск", "Карта", "Избранные", "Аккаунт"]
     
@@ -20,13 +14,18 @@ final class TabBarController: UITabBarController {
     private func setupTabBar() {
         let builder = MyAccountBuilder()
         let viewController = builder.build()
-        vc5 = UINavigationController(rootViewController: viewController)
         
-        vc1.title = titles[0]
-        vc2.title = titles[1]
-        vc3.title = titles[2]
-        vc4.title = titles[3]
-        vc5.title = titles[4]
+        let vc1 = UINavigationController(rootViewController: FeedNewsViewController())
+        let vc2 = UINavigationController(rootViewController: FindViewController())
+        let vc3 = UINavigationController(rootViewController: MapViewController())
+        let vc4 = UINavigationController(rootViewController: FavoritesViewController())
+        let vc5 = UINavigationController(rootViewController: viewController)
+        
+        vc1.tabBarItem.title = titles[0]
+        vc2.tabBarItem.title = titles[1]
+        vc3.tabBarItem.title = titles[2]
+        vc4.tabBarItem.title = titles[3]
+        vc5.tabBarItem.title = titles[4]
         
         setViewControllers([vc1, vc2, vc3, vc4, vc5], animated: false)
         
@@ -36,7 +35,11 @@ final class TabBarController: UITabBarController {
         
         for i in 0..<items.count {
             items[i].image = UIImage(systemName: images[i])
-            items[i].selectedImage = UIImage(systemName: images[i] + ".fill")
+            if (i != 1) {
+                items[i].selectedImage = UIImage(systemName: images[i] + ".fill")
+            } else {
+                items[i].selectedImage = UIImage(systemName: images[i], withConfiguration: UIImage.SymbolConfiguration(weight: .bold))
+            }
         }
         
         tabBar.tintColor = .black

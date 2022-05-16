@@ -5,7 +5,7 @@ final class PostPreviewCell: UITableViewCell {
     
     // MARK: - Private properties
     
-    private let avatarImageView = UIImageView()
+    private let avatarImageButton = UIButton()
     private let usernameLabel = UILabel()
     private let postDateLabel = UILabel()
     private let lineView = UIView()
@@ -17,18 +17,21 @@ final class PostPreviewCell: UITableViewCell {
     private let titleLabel = UILabel()
     private let locationImageView = UIImageView()
     private let locationLabel = UILabel()
-    private let markImageView1 = UIImageView()
-    private let markImageView2 = UIImageView()
-    private let markImageView3 = UIImageView()
-    private let markImageView4 = UIImageView()
-    private let markImageView5 = UIImageView()
+    private let markImageView: [UIImageView] = [UIImageView(),
+                                                UIImageView(),
+                                                UIImageView(),
+                                                UIImageView(),
+                                                UIImageView()]
     private let markLabel = UILabel()
     private let containerMarkView = UIView()
     private let openReviewButton = UIButton(type: .system)
     private let containerPostContentView = UIView()
     private let containerPublicationContentView = UIView()
     private let model: PostPreviewCellModel = PostPreviewCellModel()
+    
+    private var uid: String = ""
     var delegateTapButton: PostPreviewButtonTapDelegate? = nil
+    var delegateTapAvatar: TapAvatarDelegate? = nil
     
     // MARK: - Lifecycle
     
@@ -52,11 +55,9 @@ final class PostPreviewCell: UITableViewCell {
         locationLabel.text = nil
         markLabel.text = nil
         
-        markImageView1.image = UIImage(systemName: "circle")
-        markImageView2.image = UIImage(systemName: "circle")
-        markImageView3.image = UIImage(systemName: "circle")
-        markImageView4.image = UIImage(systemName: "circle")
-        markImageView5.image = UIImage(systemName: "circle")
+        markImageView.forEach {
+            $0.image = UIImage(systemName: "circle")
+        }
     }
     
     override func layoutSubviews() {
@@ -66,22 +67,21 @@ final class PostPreviewCell: UITableViewCell {
             .horizontally()
             .height(Constants.ContainerPublicationInformationView.containerPublicationInformationViewHeight)
          
-        avatarImageView.pin
-            .top(Constants.ContainerPublicationInformationView.avatarImageViewTop)
-            .left(Constants.ContainerPublicationInformationView.avatarImageViewLeft)
-            .width(Constants.ContainerPublicationInformationView.avatarImageViewSize.width)
-            .height(Constants.ContainerPublicationInformationView.avatarImageViewSize.height)
+        avatarImageButton.pin
+            .top(Constants.ContainerPublicationInformationView.avatarImageButtonTop)
+            .left(Constants.ContainerPublicationInformationView.avatarImageButtonLeft)
+            .width(Constants.ContainerPublicationInformationView.avatarImageButtonSize.width)
+            .height(Constants.ContainerPublicationInformationView.avatarImageButtonSize.height)
         
         usernameLabel.pin
-            .top()
-            .right()
-            .after(of: avatarImageView)
+            .topRight()
+            .after(of: avatarImageButton)
             .margin(Constants.ContainerPublicationInformationView.usernameLabelMargin)
             .height(Constants.ContainerPublicationInformationView.usernameLabelHeight)
         
         postDateLabel.pin
             .below(of: usernameLabel)
-            .after(of: avatarImageView)
+            .after(of: avatarImageButton)
             .right(Constants.ContainerPublicationInformationView.postDateLabelRight)
             .marginLeft(Constants.ContainerPublicationInformationView.postDateLabelMarginLeft)
             .height(Constants.ContainerPublicationInformationView.postDateLabelHeight)
@@ -92,40 +92,39 @@ final class PostPreviewCell: UITableViewCell {
             .height(Constants.ContainerPublicationInformationView.lineViewHeight)
         
 
-        
-        markImageView1.pin
+        markImageView[0].pin
             .top(Constants.ContainerMarkView.markImageViewTop)
             .left()
             .height(Constants.ContainerMarkView.markImageViewSize.height)
             .width(Constants.ContainerMarkView.markImageViewSize.width)
         
-        markImageView2.pin
+        markImageView[1].pin
             .top(Constants.ContainerMarkView.markImageViewTop)
-            .after(of: markImageView1)
+            .after(of: markImageView[0])
             .height(Constants.ContainerMarkView.markImageViewSize.height)
             .width(Constants.ContainerMarkView.markImageViewSize.width)
         
-        markImageView3.pin
+        markImageView[2].pin
             .top(Constants.ContainerMarkView.markImageViewTop)
-            .after(of: markImageView2)
+            .after(of: markImageView[1])
             .height(Constants.ContainerMarkView.markImageViewSize.height)
             .width(Constants.ContainerMarkView.markImageViewSize.width)
         
-        markImageView4.pin
+        markImageView[3].pin
             .top(Constants.ContainerMarkView.markImageViewTop)
-            .after(of: markImageView3)
+            .after(of: markImageView[2])
             .height(Constants.ContainerMarkView.markImageViewSize.height)
             .width(Constants.ContainerMarkView.markImageViewSize.width)
         
-        markImageView5.pin
+        markImageView[4].pin
             .top(Constants.ContainerMarkView.markImageViewTop)
-            .after(of: markImageView4)
+            .after(of: markImageView[3])
             .height(Constants.ContainerMarkView.markImageViewSize.height)
             .width(Constants.ContainerMarkView.markImageViewSize.width)
         
         markLabel.pin
             .top()
-            .after(of: markImageView5)
+            .after(of: markImageView[4])
             .marginLeft(Constants.ContainerMarkView.markLabelMarginLeft)
             .height(Constants.ContainerMarkView.markLabelSize.height)
             .width(Constants.ContainerMarkView.markLabelSize.width)
@@ -163,13 +162,11 @@ final class PostPreviewCell: UITableViewCell {
                 .marginTop(Constants.WithoutImage.ContainerPostContentView.locationLabelMarginTop)
                 .marginLeft(Constants.WithoutImage.ContainerPostContentView.locationLabelMarginLeft)
                 .right(containerPublicationContentView.frame.width/2-10)
-                //.marginRight(10)
                 .height(Constants.WithoutImage.ContainerPostContentView.locationLabelHeight)
             
             containerMarkView.pin
                 .below(of: titleLabel)
                 .marginTop(Constants.WithoutImage.ContainerPostContentView.containerMarkViewMarginTop)
-                //.after(of: locationLabel)
                 .left(containerPublicationContentView.frame.width/2)
                 .right()
                 .height(Constants.WithoutImage.ContainerPostContentView.containerMarkViewHeight)
@@ -254,16 +251,16 @@ final class PostPreviewCell: UITableViewCell {
     // MARK: - Private
     
     private func setupViews() {
-        [avatarImageView, usernameLabel, postDateLabel, lineView].forEach {
+        [avatarImageButton, usernameLabel, postDateLabel, lineView].forEach {
             containerPublicationInformationView.addSubview($0)
         }
-        addSubview(containerPublicationInformationView)
+        contentView.addSubview(containerPublicationInformationView)
         
         [postImageView, numberOfPhotosView, numberOfPhotosLabel].forEach {
             containerImageView.addSubview($0)
         }
 
-        [markImageView1, markImageView2, markImageView3, markImageView4, markImageView5, markLabel].forEach {
+        [markImageView[0], markImageView[1], markImageView[2], markImageView[3], markImageView[4], markLabel].forEach {
             containerMarkView.addSubview($0)
         }
 
@@ -287,10 +284,12 @@ final class PostPreviewCell: UITableViewCell {
         postDateLabel.font = .postDateLabelFont
         postDateLabel.textColor = .postDateLabelColor
         containerPublicationInformationView.backgroundColor = .containerPublicationInformationViewColor
-        avatarImageView.layer.cornerRadius = 25
-        avatarImageView.clipsToBounds = true
-        avatarImageView.contentMode = .scaleAspectFill
-        avatarImageView.image = UIImage(systemName: "person.crop.circle")
+        avatarImageButton.layer.cornerRadius = 25
+        avatarImageButton.clipsToBounds = true
+        avatarImageButton.contentMode = .scaleAspectFill
+        avatarImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
+        avatarImageButton.addTarget(self, action: #selector(avatarTap), for: .touchUpInside)
+        
         
         containerImageView.layer.cornerRadius = 10
         postImageView.layer.masksToBounds = true
@@ -320,9 +319,16 @@ final class PostPreviewCell: UITableViewCell {
         containerPublicationContentView.backgroundColor = .containerPublicationContentViewColor
     }
     
+    @objc
+    func avatarTap() {
+        delegateTapAvatar?.didTapAvatar(uid: uid)
+    }
+    
     func configure(post: PostPreviewModel) {
+        uid = post.uid
+        
         if let avatarData = post.avatarData {
-            avatarImageView.image = UIImage(data: avatarData)
+            avatarImageButton.setImage(UIImage(data: avatarData), for: .normal)
         }
         
         usernameLabel.text = post.username
@@ -331,11 +337,8 @@ final class PostPreviewCell: UITableViewCell {
         if let previewPostImage = post.postImage {
             postImageView.image = UIImage(data: previewPostImage)
         }
-        
 
         titleLabel.numberOfLines = 2
-
-
 
         if post.numberOfImages != 0 {
             numberOfPhotosLabel.text = String(post.numberOfImages) + " фото"
@@ -345,59 +348,16 @@ final class PostPreviewCell: UITableViewCell {
         titleLabel.text = post.title
         locationLabel.text = post.location
         
-        
-        markImageView1.image = UIImage(systemName: "circle")
-        markImageView1.contentMode = .scaleAspectFill
-        markImageView1.tintColor = .markImageViewColor
-        markImageView2.image = UIImage(systemName: "circle")
-        markImageView2.contentMode = .scaleAspectFill
-        markImageView2.tintColor = .markImageViewColor
-        markImageView3.image = UIImage(systemName: "circle")
-        markImageView3.contentMode = .scaleAspectFill
-        markImageView3.tintColor = .markImageViewColor
-        markImageView4.image = UIImage(systemName: "circle")
-        markImageView4.contentMode = .scaleAspectFill
-        markImageView4.tintColor = .markImageViewColor
-        markImageView5.image = UIImage(systemName: "circle")
-        markImageView5.contentMode = .scaleAspectFill
-        markImageView5.tintColor = .markImageViewColor
+        markImageView.forEach {
+            $0.image = UIImage(systemName: "circle")
+            $0.tintColor = .markImageViewColor
+        }
         markLabel.text = String(post.mark) + "/5"
 
         if post.mark != 0 {
-            if post.mark == 1 {
-                markImageView1.image = UIImage(systemName: "circle.fill")
+            for i in 0..<post.mark {
+                markImageView[i].image = UIImage(systemName: "circle.fill")
             }
-            else {
-                if post.mark == 2 {
-                    markImageView1.image = UIImage(systemName: "circle.fill")
-                    markImageView2.image = UIImage(systemName: "circle.fill")
-                }
-                else {
-                    if post.mark == 3 {
-                        markImageView1.image = UIImage(systemName: "circle.fill")
-                        markImageView2.image = UIImage(systemName: "circle.fill")
-                        markImageView3.image = UIImage(systemName: "circle.fill")
-                    }
-                    else {
-                        if post.mark == 4 {
-                            markImageView1.image = UIImage(systemName: "circle.fill")
-                            markImageView2.image = UIImage(systemName: "circle.fill")
-                            markImageView3.image = UIImage(systemName: "circle.fill")
-                            markImageView4.image = UIImage(systemName: "circle.fill")
-                        }
-                        else {
-                            if post.mark == 5 {
-                                markImageView1.image = UIImage(systemName: "circle.fill")
-                                markImageView2.image = UIImage(systemName: "circle.fill")
-                                markImageView3.image = UIImage(systemName: "circle.fill")
-                                markImageView4.image = UIImage(systemName: "circle.fill")
-                                markImageView5.image = UIImage(systemName: "circle.fill")
-                            }
-                        }
-                    }
-                }
-            }
-
         }
     }
     
@@ -413,9 +373,9 @@ private extension PostPreviewCell {
         struct ContainerPublicationInformationView {
             static let containerPublicationInformationViewHeight: CGFloat = 71
             
-            static let avatarImageViewTop: CGFloat = 10
-            static let avatarImageViewLeft: CGFloat = 10
-            static let avatarImageViewSize: CGSize = CGSize(width: 50, height: 50)
+            static let avatarImageButtonTop: CGFloat = 10
+            static let avatarImageButtonLeft: CGFloat = 10
+            static let avatarImageButtonSize: CGSize = CGSize(width: 50, height: 50)
             
             static let usernameLabelMargin: CGFloat = 10
             static let usernameLabelHeight: CGFloat = 30

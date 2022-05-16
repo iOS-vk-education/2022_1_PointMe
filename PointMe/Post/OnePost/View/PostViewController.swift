@@ -4,18 +4,30 @@ import PinLayout
 
 final class PostViewController: UIViewController {
     
-    private lazy var userImageView: UIImageView = {
-        let userImageView: UIImageView = UIImageView()
+    private lazy var userImageButton: UIButton = {
+        let userImageButton: UIButton = UIButton()
         
-        userImageView.layer.masksToBounds = true
-        userImageView.contentMode = .scaleAspectFill
-        userImageView.layer.cornerRadius = Constants.UserHeader.userImageSize.width / 2
-        userImageView.layer.borderWidth = Constants.UserHeader.userImageBorderWidth
-        userImageView.layer.borderColor = UIColor.userImageBorderColor.cgColor
+        userImageButton.layer.masksToBounds = true
+        userImageButton.contentMode = .scaleAspectFill
+        userImageButton.layer.cornerRadius = Constants.UserHeader.userImageSize.width / 2
+        userImageButton.layer.borderWidth = Constants.UserHeader.userImageBorderWidth
+        userImageButton.layer.borderColor = UIColor.userImageBorderColor.cgColor
+        userImageButton.addTarget(self, action: #selector(userImageTap), for: .touchUpInside)
         
-        return userImageView
+        return userImageButton
     }()
     
+    var delegateUserImage: TapAvatarDelegate?
+    private var uid: String = ""
+    
+    @objc
+    private func userImageTap() {
+        if(uid != DatabaseManager.shared.currentUserUID) {
+            let builder = SomeOneAccountBuilder()
+            let viewController = builder.build(uid: uid)
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
     
     private lazy var usernameLabel: UILabel = {
         let label: UILabel = UILabel()
@@ -162,7 +174,7 @@ final class PostViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         
-        [titleLabel, mapView, chartButton, userImageView, usernameLabel, dateLabel, separatorView, commentLabel, markLabel].forEach {
+        [titleLabel, mapView, chartButton, userImageButton, usernameLabel, dateLabel, separatorView, commentLabel, markLabel].forEach {
             containerView.addSubview($0)
         }
         
@@ -174,28 +186,26 @@ final class PostViewController: UIViewController {
             containerView.addSubview($0)
         }
         
-        userImageView.image = UIImage(named: "avatar")
+        userImageButton.setImage(UIImage(named: "avatar"), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
-        //tabBarController?.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         tabBarController?.tabBar.isHidden = false
-        //tabBarController?.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func setup(context: PostContext) {
-        print("debug: context: \(context)")
-        model.fetchData(context: context) { result in
+        uid = context.uid
+        model.fetchData(context: context) { [weak self] result in
             switch result {
             case .success():
                 print("debug: success fill data")
-                self.fillData()
+                self?.fillData()
                 break
             case .failure(_):
                 break
@@ -218,7 +228,7 @@ final class PostViewController: UIViewController {
         chartButton.setBackgroundImage(imageForButton, for: .normal)
         
         if let dataAvatar = model.avatar {
-            userImageView.image = UIImage(data: dataAvatar)
+            userImageButton.setImage(UIImage(data: dataAvatar), for: .normal)
         }
         
         viewDidLayoutSubviews()
@@ -241,19 +251,19 @@ final class PostViewController: UIViewController {
         containerView.pin
             .horizontally()
         
-        userImageView.pin
+        userImageButton.pin
             .top(Constants.UserHeader.userImageMarginTop)
             .left(Constants.UserHeader.userImageMarginLeft)
             .size(Constants.UserHeader.userImageSize)
         
         separatorView.pin
-            .below(of: userImageView)
+            .below(of: userImageButton)
             .marginTop(Constants.UserHeader.separatorMarginTop)
             .height(Constants.UserHeader.separatorWidth)
             .horizontally()
         
         usernameLabel.pin
-            .after(of: userImageView)
+            .after(of: userImageButton)
             .marginLeft(Constants.UserHeader.usernameLabelMarginLeft)
             .top(Constants.UserHeader.usernameLabelMarginTop)
             .height(Constants.UserHeader.usernameLabelHeight)
@@ -261,7 +271,7 @@ final class PostViewController: UIViewController {
             //.sizeToFit(.height)
         
         dateLabel.pin
-            .after(of: userImageView)
+            .after(of: userImageButton)
             .marginLeft(Constants.UserHeader.dateLabelMarginLeft)
             .top(Constants.UserHeader.dateLabelMarginTop)
             .height(Constants.UserHeader.dateLabelHeight)
@@ -381,7 +391,6 @@ final class PostViewController: UIViewController {
     }
 }
 
-
 extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return model.countDataImages
@@ -424,21 +433,6 @@ extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         navigationController?.pushViewController(fullScreenImageViewController, animated: true)
     }
 }
-
-
-struct PostContext {
-    let idPost: String
-    let keysImages: [String]
-    let avatarImage: Data?
-    let username: String
-    let dateDay: Int
-    let dateMonth: Int
-    let dateYear: Int
-    let title: String
-    let comment: String
-    let mark: Int
-}
-
 
 private extension PostViewController {
     struct Constants {
@@ -512,6 +506,3 @@ private extension PostViewController {
         }
     }
 }
-
-
-

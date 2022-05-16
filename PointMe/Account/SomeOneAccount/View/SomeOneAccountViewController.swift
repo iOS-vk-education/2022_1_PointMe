@@ -31,11 +31,10 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        someOneAccountInfo.uid = "GPPDuOVlTBQo7wtxpJeVc5ZAWro2"
-        
         fetchData()
         
         setupHeaderViewContainer()
+        
         setupImage()
         setupUserName()
         setupButton()
@@ -75,11 +74,7 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     }
     
     private func checkSubscription() {
-        
-        guard let strongUID = someOneAccountInfo.uid else { return }
-        
-        output?.userWantsToCheckSubscription(uid: DatabaseManager.shared.currentUserUID,
-                                             destinationUID: strongUID) { [weak self] result in
+        output?.userWantsToCheckSubscription(destinationUID: someOneAccountInfo.uid) { [weak self] result in
             guard let strongSelf = self else { return }
             strongSelf.isSubscribed = result
             strongSelf.configureButton()
@@ -163,14 +158,14 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
         if let image = someOneAccountInfo.userImage {
             userPhoto.image = UIImage(data: image)
         } else {
-            userPhoto.tintColor = .defaultBlackColor
-            userPhoto.image = UIImage(systemName: "person")
+            userPhoto.image = UIImage(named: "avatar")
         }
     }
     
     private func setupImage() {
         userPhoto.layer.cornerRadius = Constants.Photo.radius
         userPhoto.layer.masksToBounds = true
+        userPhoto.contentMode = .scaleAspectFill
         userPhoto.layer.borderWidth = Constants.Photo.borderWidth
         userPhoto.tintColor = .defaultBlackColor
     }
@@ -206,15 +201,14 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     
     @objc
         private func didTapButtonSubscribe() {
-            guard let strongUID = someOneAccountInfo.uid else { return }
             if isSubscribed == false {
-                output?.userWantsToBecomeSubscribe(uid: strongUID)
+                output?.userWantsToBecomeSubscribe(uid: someOneAccountInfo.uid)
                 button.setTitle(Constants.Button.subscribedText, for: .normal)
                 button.backgroundColor = .lightGray
                 button.tintColor = .black
                 isSubscribed = true
             } else {
-                output?.userWantsToDismissSubscribe(uid: strongUID)
+                output?.userWantsToDismissSubscribe(uid: someOneAccountInfo.uid)
                 button.setTitle(Constants.Button.subscribeText, for: .normal)
                 button.backgroundColor = .defaultRedColor
                 button.tintColor = .white
@@ -238,12 +232,14 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     private func setupSubscribersAndSubscriptions() {
         subscriptionsLabel.text = "Подписки: " + String(someOneAccountInfo.numberOfSubscriptions)
         subscribersLabel.text = "Подписчики: " + String(someOneAccountInfo.numberOfSubscribers)
-        
     }
     
     private func setupNavigationBar() {
         guard let navBar = navigationController?.navigationBar else { return }
-        navBar.isHidden = true
+        navBar.tintColor = .defaultBlackColor
+        navBar.setBackgroundImage(UIImage(), for: .default)
+        navBar.isTranslucent = true
+        navBar.shadowImage = UIImage()
     }
     
     private func setupHeaderViewContainer() {
@@ -259,7 +255,7 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
         refreshControl.addTarget(self, action: #selector(fetchData), for: .valueChanged)
         tableView.refreshControl = refreshControl
         
-        tableView.register(MyAccountPostCell.self, forCellReuseIdentifier: "MyAccountPostCell")
+        tableView.register(SomeOneAccountPostCell.self, forCellReuseIdentifier: "SomeOneAccountPostCell")
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = .defaultBackgroundColor
@@ -282,18 +278,18 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
 extension SomeOneAccountViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if someOneAccountPostData[indexPath.row].mainImage != nil {
-            return (MyAccountPostCell.Constants.Header.height
-                        + MyAccountPostCell.Constants.Display.blockWidth
-                        + 2 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding
+            return (SomeOneAccountPostCell.Constants.Header.height
+                        + SomeOneAccountPostCell.Constants.Display.blockWidth
+                        + 2 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding
                         + 8)
         } else {
-            return (MyAccountPostCell.Constants.Header.height
-                        + MyAccountPostCell.Constants.SeparatorLine.height
-                        + MyAccountPostCell.Constants.MainTitleLabel.fontSize
-                        + 4 * MyAccountPostCell.Constants.DefaultPadding.topBottomPadding
-                        + MyAccountPostCell.Constants.AddressLabel.fontSize
-                        + MyAccountPostCell.Constants.HeaderLine.width
-                        + MyAccountPostCell.Constants.OpenButton.height
+            return (SomeOneAccountPostCell.Constants.Header.height
+                        + SomeOneAccountPostCell.Constants.SeparatorLine.height
+                        + SomeOneAccountPostCell.Constants.MainTitleLabel.fontSize
+                        + 4 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding
+                        + SomeOneAccountPostCell.Constants.AddressLabel.fontSize
+                        + SomeOneAccountPostCell.Constants.HeaderLine.width
+                        + SomeOneAccountPostCell.Constants.OpenButton.height
             )
         }
     }
@@ -305,7 +301,7 @@ extension SomeOneAccountViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAccountPostCell") as? MyAccountPostCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SomeOneAccountPostCell") as? SomeOneAccountPostCell
         guard let strongCell = cell else { return UITableViewCell() }
         someOneAccountPostData[indexPath.row].userImageData = someOneAccountInfo.userImage
         cell?.configure(data: someOneAccountPostData[indexPath.row])
@@ -328,7 +324,6 @@ extension SomeOneAccountViewController: CellTapButtonDelegate {
         let indexPath = tableView.indexPath(for: sender)!
         let postViewController: PostViewController = PostViewController()
         let title = someOneAccountPostData[indexPath.row].mainTitle + " " + someOneAccountPostData[indexPath.row].address
-        //myAccountPostData[indexPath.row].
         postViewController.setup(context: PostContext(
             idPost: someOneAccountInfo.postKeys[indexPath.row],
             keysImages: someOneAccountPostData[indexPath.row].images,
@@ -339,7 +334,8 @@ extension SomeOneAccountViewController: CellTapButtonDelegate {
             dateYear: someOneAccountPostData[indexPath.row].date.year,
             title: title,
             comment: someOneAccountPostData[indexPath.row].comment,
-            mark: someOneAccountPostData[indexPath.row].mark
+            mark: someOneAccountPostData[indexPath.row].mark,
+            uid: someOneAccountInfo.uid
         ))
         navigationController?.pushViewController(postViewController, animated: true)
     }
@@ -393,7 +389,6 @@ private extension SomeOneAccountViewController {
             static let fontSize: CGFloat = 18
             static let width: CGFloat = 200
             static let topPadding: CGFloat = 6
-            
         }
         
         struct AccountInfo {

@@ -142,7 +142,6 @@ class MyAccountViewController: UIViewController, AlertMessages {
         if let image = myAccountInfo.userImage {
             userPhoto.image = UIImage(data: image)
         } else {
-            userPhoto.tintColor = .defaultBlackColor
             userPhoto.image = UIImage(systemName: "person")
         }
     }
@@ -150,6 +149,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
     private func setupImage() {
         userPhoto.layer.cornerRadius = Constants.Photo.radius
         userPhoto.layer.masksToBounds = true
+        userPhoto.contentMode = .scaleAspectFill
         userPhoto.layer.borderWidth = Constants.Photo.borderWidth
         userPhoto.tintColor = .defaultBlackColor
     }
@@ -175,14 +175,6 @@ class MyAccountViewController: UIViewController, AlertMessages {
         button.backgroundColor = .defaultBlackColor
         button.setTitle(Constants.Button.editText, for: .normal)
         
-        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
-    }
-    
-    @objc
-    private func didTapEditButton() {
-        let builder = SomeOneAccountBuilder()
-        let viewController = builder.build()
-        navigationController?.pushViewController(viewController, animated: true)
     }
     
     private func setupSubscribersLabel() {
@@ -310,7 +302,6 @@ extension MyAccountViewController: CellTapButtonDelegate {
         let indexPath = tableView.indexPath(for: sender)!
         let postViewController: PostViewController = PostViewController()
         let title = myAccountPostData[indexPath.row].mainTitle + " " + myAccountPostData[indexPath.row].address
-        //myAccountPostData[indexPath.row].
         postViewController.setup(context: PostContext(
             idPost: myAccountInfo.postKeys[indexPath.row],
             keysImages: myAccountPostData[indexPath.row].images,
@@ -321,7 +312,8 @@ extension MyAccountViewController: CellTapButtonDelegate {
             dateYear: myAccountPostData[indexPath.row].date.year,
             title: title,
             comment: myAccountPostData[indexPath.row].comment,
-            mark: myAccountPostData[indexPath.row].mark
+            mark: myAccountPostData[indexPath.row].mark,
+            uid: myAccountInfo.uid
         ))
         navigationController?.pushViewController(postViewController, animated: true)
     }

@@ -1,12 +1,12 @@
 import Foundation
 import UIKit
 
-class FeedNewsModel {
+class FavoritesModel {
     
     private var posts: [PostPreviewModel] = []
     
     func getPosts(completion: @escaping (Result<Void, Error>) -> Void) {
-        DatabaseManager.shared.getDataPosts { [weak self] result in
+        DatabaseManager.shared.getDataFavoritePosts { [weak self] result in
             switch result {
             case .success(let postsArray):
                 print(9, postsArray)
@@ -16,6 +16,7 @@ class FeedNewsModel {
                 break
             case .failure(let error):
                 print("debug: error getPosts")
+                self?.posts = []
                 completion(.failure(error))
                 break
             }

@@ -69,7 +69,7 @@ final class SomeOneAccountPostCell: UITableViewCell {
         if let imageData = data.userImageData {
             userImage.image = UIImage(data: imageData)
         } else {
-            userImage.image = UIImage(systemName: "person")
+            userImage.image = UIImage(named: "avatar")
         }
         userName.text = data.userName
         dateLabel.text = "\(data.date.day) \(Constants.Date.month[data.date.month]!) \(data.date.year) года"
@@ -131,6 +131,7 @@ final class SomeOneAccountPostCell: UITableViewCell {
         userImage.layer.masksToBounds = true
         userImage.layer.borderWidth = Constants.UserImage.borderWidth
         userImage.tintColor = .defaultBlackColor
+        userImage.contentMode = .scaleAspectFill
 
         headViewContainer.backgroundColor = .defaultWhiteColor
         
@@ -148,6 +149,7 @@ final class SomeOneAccountPostCell: UITableViewCell {
         
         mainImage.layer.cornerRadius = Constants.MainImage.cornerRadius
         mainImage.layer.masksToBounds = true
+        mainImage.contentMode = .scaleAspectFill
         
         numberOfImagesLabel.layer.cornerRadius = Constants.NumberOfImagesLabel.cornerRadius
         numberOfImagesLabel.textColor = .defaultWhiteColor
@@ -318,7 +320,7 @@ final class SomeOneAccountPostCell: UITableViewCell {
             .right()
             .marginLeft(Constants.ScoreImage.betweenPadding)
     }
-    
+
     private func setupScoreImage() {
         for _ in 0...4 {
             let temp = UIView()
@@ -353,6 +355,11 @@ extension SomeOneAccountPostCell {
             static let cornerRadius: CGFloat = 8
             static let fontSize: CGFloat = 14
             static let height: CGFloat = 40
+        }
+        
+        struct DeleteButton {
+            static let sideSize: CGFloat = 18
+            static let rigthPadding: CGFloat = 20
         }
         
         struct NumberOfImagesLabel {

@@ -2,7 +2,7 @@ import Firebase
 
 final class MyAccountNetwork {
     
-    weak var presenter: MyAccountPresenter!
+    weak var presenter: MyAccountPresenter?
 }
 
 extension MyAccountNetwork: MyAccountModelInput {
@@ -25,7 +25,11 @@ extension MyAccountNetwork: MyAccountModelInput {
     }
     
     func getAccountInfoData(completion: @escaping (MyAccountInfo) -> Void) {
-        DatabaseManager.shared.getAccountInfo(uid: DatabaseManager.shared.currentUserUID) { result in
+        guard let strongUID = DatabaseManager.shared.currentUserUID else {
+            print("no currentUserID")
+            return
+        }
+        DatabaseManager.shared.getAccountInfo(uid: strongUID) { result in
             switch result {
             case .failure(let error):
                 print("Error getAccountInfoData \(error)")
