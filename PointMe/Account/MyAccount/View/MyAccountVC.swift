@@ -167,7 +167,6 @@ class MyAccountViewController: UIViewController, AlertMessages {
         button.tintColor = .defaultWhiteColor
         button.backgroundColor = .defaultBlackColor
         button.setTitle(Constants.Button.editText, for: .normal)
-        
     }
     
     private func setupSubscribersLabel() {
