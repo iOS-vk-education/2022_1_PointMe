@@ -278,19 +278,16 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
 extension SomeOneAccountViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if someOneAccountPostData[indexPath.row].mainImage != nil {
-            return (SomeOneAccountPostCell.Constants.Header.height
-                        + SomeOneAccountPostCell.Constants.Display.blockWidth
-                        + 2 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding
+            return (SomeOneAccountPostCell.Constants.Header.height + SomeOneAccountPostCell.Constants.Display.blockWidth + 2 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding
                         + 8)
         } else {
-            return (SomeOneAccountPostCell.Constants.Header.height
-                        + SomeOneAccountPostCell.Constants.SeparatorLine.height
-                        + SomeOneAccountPostCell.Constants.MainTitleLabel.fontSize
-                        + 4 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding
-                        + SomeOneAccountPostCell.Constants.AddressLabel.fontSize
-                        + SomeOneAccountPostCell.Constants.HeaderLine.width
-                        + SomeOneAccountPostCell.Constants.OpenButton.height
-            )
+            return (SomeOneAccountPostCell.Constants.Header.height +
+                        SomeOneAccountPostCell.Constants.SeparatorLine.height +
+                        SomeOneAccountPostCell.Constants.MainTitleLabel.fontSize +
+                        4 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding +
+                        SomeOneAccountPostCell.Constants.AddressLabel.fontSize +
+                        SomeOneAccountPostCell.Constants.HeaderLine.width +
+                        SomeOneAccountPostCell.Constants.OpenButton.height)
         }
     }
 }
@@ -321,7 +318,7 @@ extension SomeOneAccountViewController: SomeOneAccountViewControllerInput {
 
 extension SomeOneAccountViewController: CellTapButtonDelegate {
     func didTapOpen(sender: UITableViewCell) {
-        let indexPath = tableView.indexPath(for: sender)!
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
         let postViewController: PostViewController = PostViewController()
         let title = someOneAccountPostData[indexPath.row].mainTitle + " " + someOneAccountPostData[indexPath.row].address
         postViewController.setup(context: PostContext(
