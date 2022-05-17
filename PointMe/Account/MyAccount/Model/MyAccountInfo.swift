@@ -2,6 +2,8 @@ import Firebase
 
 struct MyAccountInfo {
     
+    var uid: String
+    
     let userName: String
     let userImageKey: String
     var userImage: Data?
@@ -9,9 +11,10 @@ struct MyAccountInfo {
     var postKeys: [String]
     
     let numberOfSubscribers: Int
+    let publishers: [String]
     let numberOfSubscriptions: Int
     
-    init(snapshot: DataSnapshot) {
+    init(snapshot: DataSnapshot, uid: String) {
         let snapshotValue = snapshot.value as? [String : AnyObject]
         
         userName = snapshotValue?["username"] as? String ?? ""
@@ -26,19 +29,30 @@ struct MyAccountInfo {
         numberOfSubscribers = snapshotValue?["subscribers"] as? Int ?? 0
         
         if let strongValue = snapshotValue?["publishers"] as? [String] {
+            publishers = strongValue
             numberOfSubscriptions = strongValue.count
         } else {
+            publishers = [""]
             numberOfSubscriptions = 0
         }
+        self.uid = uid
     }
     
-    init(userName: String = "", userImageKey: String = "", postKeys: [String] = [""], numberOfSubscribers: Int = 0, numberOfSubscriptions: Int = 0) {
+    init(userName: String = "",
+         userImageKey: String = "",
+         postKeys: [String] = [""],
+         numberOfSubscribers: Int = 0,
+         numberOfSubscriptions: Int = 0,
+         publishers: [String] = [""],
+         uid: String = "") {
+        self.uid = uid
         self.userName = userName
         self.userImageKey = userImageKey
         
         self.postKeys = postKeys
         
         self.numberOfSubscribers = numberOfSubscribers
+        self.publishers = publishers
         self.numberOfSubscriptions = numberOfSubscriptions
     }
 }

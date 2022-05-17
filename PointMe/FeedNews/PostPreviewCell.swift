@@ -5,7 +5,7 @@ final class PostPreviewCell: UITableViewCell {
     
     // MARK: - Private properties
     
-    private let avatarImageView = UIImageView()
+    private let avatarImageButton = UIButton()
     private let usernameLabel = UILabel()
     private let postDateLabel = UILabel()
     private let lineView = UIView()
@@ -28,7 +28,10 @@ final class PostPreviewCell: UITableViewCell {
     private let containerPostContentView = UIView()
     private let containerPublicationContentView = UIView()
     private let model: PostPreviewCellModel = PostPreviewCellModel()
+    
+    private var uid: String = ""
     var delegateTapButton: PostPreviewButtonTapDelegate? = nil
+    var delegateTapAvatar: TapAvatarDelegate? = nil
     
     // MARK: - Lifecycle
     
@@ -64,21 +67,21 @@ final class PostPreviewCell: UITableViewCell {
             .horizontally()
             .height(Constants.ContainerPublicationInformationView.containerPublicationInformationViewHeight)
          
-        avatarImageView.pin
-            .top(Constants.ContainerPublicationInformationView.avatarImageViewTop)
-            .left(Constants.ContainerPublicationInformationView.avatarImageViewLeft)
-            .width(Constants.ContainerPublicationInformationView.avatarImageViewSize.width)
-            .height(Constants.ContainerPublicationInformationView.avatarImageViewSize.height)
+        avatarImageButton.pin
+            .top(Constants.ContainerPublicationInformationView.avatarImageButtonTop)
+            .left(Constants.ContainerPublicationInformationView.avatarImageButtonLeft)
+            .width(Constants.ContainerPublicationInformationView.avatarImageButtonSize.width)
+            .height(Constants.ContainerPublicationInformationView.avatarImageButtonSize.height)
         
         usernameLabel.pin
             .topRight()
-            .after(of: avatarImageView)
+            .after(of: avatarImageButton)
             .margin(Constants.ContainerPublicationInformationView.usernameLabelMargin)
             .height(Constants.ContainerPublicationInformationView.usernameLabelHeight)
         
         postDateLabel.pin
             .below(of: usernameLabel)
-            .after(of: avatarImageView)
+            .after(of: avatarImageButton)
             .right(Constants.ContainerPublicationInformationView.postDateLabelRight)
             .marginLeft(Constants.ContainerPublicationInformationView.postDateLabelMarginLeft)
             .height(Constants.ContainerPublicationInformationView.postDateLabelHeight)
@@ -248,10 +251,10 @@ final class PostPreviewCell: UITableViewCell {
     // MARK: - Private
     
     private func setupViews() {
-        [avatarImageView, usernameLabel, postDateLabel, lineView].forEach {
+        [avatarImageButton, usernameLabel, postDateLabel, lineView].forEach {
             containerPublicationInformationView.addSubview($0)
         }
-        addSubview(containerPublicationInformationView)
+        contentView.addSubview(containerPublicationInformationView)
         
         [postImageView, numberOfPhotosView, numberOfPhotosLabel].forEach {
             containerImageView.addSubview($0)
@@ -281,10 +284,12 @@ final class PostPreviewCell: UITableViewCell {
         postDateLabel.font = .postDateLabelFont
         postDateLabel.textColor = .postDateLabelColor
         containerPublicationInformationView.backgroundColor = .containerPublicationInformationViewColor
-        avatarImageView.layer.cornerRadius = 25
-        avatarImageView.clipsToBounds = true
-        avatarImageView.contentMode = .scaleAspectFill
-        avatarImageView.image = UIImage(systemName: "person.crop.circle")
+        avatarImageButton.layer.cornerRadius = 25
+        avatarImageButton.clipsToBounds = true
+        avatarImageButton.contentMode = .scaleAspectFill
+        avatarImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
+        avatarImageButton.addTarget(self, action: #selector(avatarTap), for: .touchUpInside)
+        
         
         containerImageView.layer.cornerRadius = 10
         postImageView.layer.masksToBounds = true
@@ -314,9 +319,16 @@ final class PostPreviewCell: UITableViewCell {
         containerPublicationContentView.backgroundColor = .containerPublicationContentViewColor
     }
     
+    @objc
+    func avatarTap() {
+        delegateTapAvatar?.didTapAvatar(uid: uid)
+    }
+    
     func configure(post: PostPreviewModel) {
+        uid = post.uid
+        
         if let avatarData = post.avatarData {
-            avatarImageView.image = UIImage(data: avatarData)
+            avatarImageButton.setImage(UIImage(data: avatarData), for: .normal)
         }
         
         usernameLabel.text = post.username
@@ -361,9 +373,9 @@ private extension PostPreviewCell {
         struct ContainerPublicationInformationView {
             static let containerPublicationInformationViewHeight: CGFloat = 71
             
-            static let avatarImageViewTop: CGFloat = 10
-            static let avatarImageViewLeft: CGFloat = 10
-            static let avatarImageViewSize: CGSize = CGSize(width: 50, height: 50)
+            static let avatarImageButtonTop: CGFloat = 10
+            static let avatarImageButtonLeft: CGFloat = 10
+            static let avatarImageButtonSize: CGSize = CGSize(width: 50, height: 50)
             
             static let usernameLabelMargin: CGFloat = 10
             static let usernameLabelHeight: CGFloat = 30

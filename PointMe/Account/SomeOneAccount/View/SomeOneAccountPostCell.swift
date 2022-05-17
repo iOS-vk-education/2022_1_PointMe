@@ -1,7 +1,7 @@
 import UIKit
 import PinLayout
 
-final class MyAccountPostCell: UITableViewCell {
+final class SomeOneAccountPostCell: UITableViewCell {
     
     
     private let headViewContainer: UIView = UIView()
@@ -11,7 +11,6 @@ final class MyAccountPostCell: UITableViewCell {
     private let userName: UILabel = UILabel()
     private let dateLabel: UILabel = UILabel()
     private let headerLine: UIView = UIView()
-    private let deleteButton: UIButton = UIButton(type: .system)
     
     private let mainImageContainer: UIView = UIView()
     private let descriptionViewContainer: UIView = UIView()
@@ -30,8 +29,6 @@ final class MyAccountPostCell: UITableViewCell {
     
     private var scoreImage: [UIView] = []
     private let scoreLabel: UILabel = UILabel()
-    
-    var delegate: CellDeleteDelegate?
     
     var openDelegate: CellTapButtonDelegate?
     
@@ -72,7 +69,7 @@ final class MyAccountPostCell: UITableViewCell {
         if let imageData = data.userImageData {
             userImage.image = UIImage(data: imageData)
         } else {
-            userImage.image = UIImage(systemName: "person")
+            userImage.image = UIImage(named: "avatar")
         }
         userName.text = data.userName
         dateLabel.text = "\(data.date.day) \(Constants.Date.month[data.date.month]!) \(data.date.year) года"
@@ -93,7 +90,7 @@ final class MyAccountPostCell: UITableViewCell {
     }
     
     private func configureView() {
-        [userImage, userName, dateLabel, headerLine, deleteButton].forEach {
+        [userImage, userName, dateLabel, headerLine].forEach {
             headViewContainer.addSubview($0)
         }
         
@@ -134,6 +131,7 @@ final class MyAccountPostCell: UITableViewCell {
         userImage.layer.masksToBounds = true
         userImage.layer.borderWidth = Constants.UserImage.borderWidth
         userImage.tintColor = .defaultBlackColor
+        userImage.contentMode = .scaleAspectFill
 
         headViewContainer.backgroundColor = .defaultWhiteColor
         
@@ -147,14 +145,11 @@ final class MyAccountPostCell: UITableViewCell {
         dateLabel.font = .postDateLabel
         dateLabel.textAlignment = .left
         
-        deleteButton.setBackgroundImage(UIImage(systemName: "xmark"), for: .normal)
-        deleteButton.tintColor = .defaultBlackColor
-        deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
-        
         headerLine.backgroundColor = .defaultBlackColor
         
         mainImage.layer.cornerRadius = Constants.MainImage.cornerRadius
         mainImage.layer.masksToBounds = true
+        mainImage.contentMode = .scaleAspectFill
         
         numberOfImagesLabel.layer.cornerRadius = Constants.NumberOfImagesLabel.cornerRadius
         numberOfImagesLabel.textColor = .defaultWhiteColor
@@ -217,12 +212,6 @@ final class MyAccountPostCell: UITableViewCell {
             .vCenter((Constants.UserName.betweenPadding + Constants.Date.fontSize) / 2)
             .marginLeft(Constants.UserName.leftPadding)
             .right()
-        
-        deleteButton.pin
-            .right(Constants.DeleteButton.rigthPadding)
-            .vCenter()
-            .height(Constants.DeleteButton.sideSize)
-            .width(Constants.DeleteButton.sideSize)
         
         headerLine.pin
             .horizontally()
@@ -331,12 +320,7 @@ final class MyAccountPostCell: UITableViewCell {
             .right()
             .marginLeft(Constants.ScoreImage.betweenPadding)
     }
-    
-    @objc
-    private func tapDeleteButton() {
-        delegate?.deleteCell(sender: self)
-    }
-    
+
     private func setupScoreImage() {
         for _ in 0...4 {
             let temp = UIView()
@@ -361,7 +345,7 @@ final class MyAccountPostCell: UITableViewCell {
 
 // MARK: - Constants
 
-extension MyAccountPostCell {
+extension SomeOneAccountPostCell {
     struct Constants {
         struct Header {
             static let height: CGFloat = 70

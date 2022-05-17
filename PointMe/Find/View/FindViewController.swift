@@ -110,7 +110,9 @@ extension FindViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let userData = model.getUserDataTupleByIndex(index: indexPath.row, isFiltered: isFiltering)
-        // MARK: переход на экран юзера
+        let builder = SomeOneAccountBuilder()
+        let viewController = builder.build(uid: userData.uid)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

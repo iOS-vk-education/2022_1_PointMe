@@ -68,9 +68,17 @@
 		8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767D795282C07D700944CCA /* FavoritesModel.swift */; };
 		876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */; };
 		876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */; };
+		87918CBB2809DAE90071DDDB /* SomeOneAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBA2809DAE90071DDDB /* SomeOneAccountViewController.swift */; };
 		87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */; };
 		87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */; };
 		87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */; };
+		87B033EC281D5A5900F8BBEC /* SomeOneAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033EB281D5A5900F8BBEC /* SomeOneAccountPresenter.swift */; };
+		87B033F1281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033F0281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift */; };
+		87B033F5281D5E2900F8BBEC /* SomeOneAccountModelIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033F4281D5E2900F8BBEC /* SomeOneAccountModelIO.swift */; };
+		87B033F8281D5E5600F8BBEC /* SomeOneAccountNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033F7281D5E5600F8BBEC /* SomeOneAccountNetwork.swift */; };
+		87B033FD281D601B00F8BBEC /* SomeOneAccountBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033FC281D601B00F8BBEC /* SomeOneAccountBuilder.swift */; };
+		87B03401281D817200F8BBEC /* SomeOneAccountPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B03400281D817200F8BBEC /* SomeOneAccountPostCell.swift */; };
+		87B164732831874A008A1954 /* PostPreviewButtonTapAvatarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B164722831874A008A1954 /* PostPreviewButtonTapAvatarDelegate.swift */; };
 		87B7F415280AD5F6000CA15B /* MyAccountModelIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B7F414280AD5F6000CA15B /* MyAccountModelIO.swift */; };
 		87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B7F417280ADEAC000CA15B /* MyAccountPost.swift */; };
 		87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EC0F3B280EAF55001627CE /* MyAccountInfo.swift */; };
@@ -141,9 +149,17 @@
 		8767D795282C07D700944CCA /* FavoritesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesModel.swift; sourceTree = "<group>"; };
 		876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostDate.swift; sourceTree = "<group>"; };
 		876B16B3280DBC21001B08D1 /* MyAccountNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountNetwork.swift; sourceTree = "<group>"; };
+		87918CBA2809DAE90071DDDB /* SomeOneAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountViewController.swift; sourceTree = "<group>"; };
 		87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostCell.swift; sourceTree = "<group>"; };
 		87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPresenter.swift; sourceTree = "<group>"; };
 		87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewControllerIO.swift; sourceTree = "<group>"; };
+		87B033EB281D5A5900F8BBEC /* SomeOneAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountPresenter.swift; sourceTree = "<group>"; };
+		87B033F0281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountViewControllerIO.swift; sourceTree = "<group>"; };
+		87B033F4281D5E2900F8BBEC /* SomeOneAccountModelIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountModelIO.swift; sourceTree = "<group>"; };
+		87B033F7281D5E5600F8BBEC /* SomeOneAccountNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountNetwork.swift; sourceTree = "<group>"; };
+		87B033FC281D601B00F8BBEC /* SomeOneAccountBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountBuilder.swift; sourceTree = "<group>"; };
+		87B03400281D817200F8BBEC /* SomeOneAccountPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountPostCell.swift; sourceTree = "<group>"; };
+		87B164722831874A008A1954 /* PostPreviewButtonTapAvatarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreviewButtonTapAvatarDelegate.swift; sourceTree = "<group>"; };
 		87B7F414280AD5F6000CA15B /* MyAccountModelIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountModelIO.swift; sourceTree = "<group>"; };
 		87B7F417280ADEAC000CA15B /* MyAccountPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPost.swift; sourceTree = "<group>"; };
 		87EC0F3B280EAF55001627CE /* MyAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountInfo.swift; sourceTree = "<group>"; };
@@ -541,10 +557,8 @@
 		873C6A0727EA49B00004715E /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				87EC0F41280EF638001627CE /* builder */,
-				87B7F413280AD5D9000CA15B /* Model */,
-				87918CC12809E4B70071DDDB /* Presenter */,
-				87918CC02809E49B0071DDDB /* View */,
+				87B033E7281D589200F8BBEC /* SomeOneAccount */,
+				87B033E6281D585300F8BBEC /* MyAccount */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -583,6 +597,7 @@
 				2C1C0B79280F7FA7007E436D /* PostPreviewCellModel.swift */,
 				2C1C0B8028102A15007E436D /* PostPreviewButtonTapDelegate.swift */,
 				2C1C0B8228102CBF007E436D /* FeedNewsVC.swift */,
+				87B164722831874A008A1954 /* PostPreviewButtonTapAvatarDelegate.swift */,
 			);
 			path = FeedNews;
 			sourceTree = "<group>";
@@ -629,6 +644,63 @@
 				87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		87B033E6281D585300F8BBEC /* MyAccount */ = {
+			isa = PBXGroup;
+			children = (
+				87918CC12809E4B70071DDDB /* Presenter */,
+				87918CC02809E49B0071DDDB /* View */,
+				87EC0F41280EF638001627CE /* builder */,
+				87B7F413280AD5D9000CA15B /* Model */,
+			);
+			path = MyAccount;
+			sourceTree = "<group>";
+		};
+		87B033E7281D589200F8BBEC /* SomeOneAccount */ = {
+			isa = PBXGroup;
+			children = (
+				87B033F3281D5E1B00F8BBEC /* Model */,
+				87B033EA281D5A0C00F8BBEC /* View */,
+				87B033E9281D5A0000F8BBEC /* Presenter */,
+				87B033E8281D59F700F8BBEC /* Builder */,
+			);
+			path = SomeOneAccount;
+			sourceTree = "<group>";
+		};
+		87B033E8281D59F700F8BBEC /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				87B033FC281D601B00F8BBEC /* SomeOneAccountBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		87B033E9281D5A0000F8BBEC /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				87B033EB281D5A5900F8BBEC /* SomeOneAccountPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		87B033EA281D5A0C00F8BBEC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87918CBA2809DAE90071DDDB /* SomeOneAccountViewController.swift */,
+				87B033F0281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift */,
+				87B03400281D817200F8BBEC /* SomeOneAccountPostCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		87B033F3281D5E1B00F8BBEC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				87B033F4281D5E2900F8BBEC /* SomeOneAccountModelIO.swift */,
+				87B033F7281D5E5600F8BBEC /* SomeOneAccountNetwork.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		87B7F413280AD5D9000CA15B /* Model */ = {
@@ -777,12 +849,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87B033FD281D601B00F8BBEC /* SomeOneAccountBuilder.swift in Sources */,
 				7D4D9D8A280F413F008C4250 /* FeedNewsError.swift in Sources */,
 				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
 				2CA6DE5E281F3F1600292E0B /* PostContext.swift in Sources */,
 				2C1C0B7C280F979C007E436D /* CellTapButtonDelegate.swift in Sources */,
 				873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */,
 				87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */,
+				87B033F1281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
 				876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */,
 				2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */,
@@ -791,6 +865,7 @@
 				87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */,
 				87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */,
 				7D4D9D87280F413F008C4250 /* FeedNewsModel.swift in Sources */,
+				87B033F8281D5E5600F8BBEC /* SomeOneAccountNetwork.swift in Sources */,
 				7D4D9D84280F413F008C4250 /* PostPreviewModel.swift in Sources */,
 				7D4D9D8B280F413F008C4250 /* PostPreviewCell.swift in Sources */,
 				2C1C0B8328102CBF007E436D /* FeedNewsVC.swift in Sources */,
@@ -798,11 +873,13 @@
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C86F629282733E200CFF536 /* FindViewController.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
+				87B033F5281D5E2900F8BBEC /* SomeOneAccountModelIO.swift in Sources */,
 				2C01DB27280B905C00F90C09 /* FullScreenImagePresenterViewController.swift in Sources */,
 				2C86F62A282733E200CFF536 /* FindUserCell.swift in Sources */,
 				8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */,
 				2C86F62B282733E200CFF536 /* FindUserModel.swift in Sources */,
 				2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */,
+				87B033EC281D5A5900F8BBEC /* SomeOneAccountPresenter.swift in Sources */,
 				2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */,
 				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
 				2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */,
@@ -818,11 +895,13 @@
 				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
 				7D4D9D85280F413F008C4250 /* FeedNewsColorSet.swift in Sources */,
 				2C86F62C282733E200CFF536 /* LoadFindUserData.swift in Sources */,
+				87B164732831874A008A1954 /* PostPreviewButtonTapAvatarDelegate.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
 				2C1C0B7A280F7FA7007E436D /* PostPreviewCellModel.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2C01DB1F280B59A300F90C09 /* PostViewController.swift in Sources */,
 				8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */,
+				87B03401281D817200F8BBEC /* SomeOneAccountPostCell.swift in Sources */,
 				2C1C0B7E28101A42007E436D /* UserPreviewModel.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				2C1C0B8128102A15007E436D /* PostPreviewButtonTapDelegate.swift in Sources */,
@@ -833,6 +912,7 @@
 				87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */,
 				7D4D9D86280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
+				87918CBB2809DAE90071DDDB /* SomeOneAccountViewController.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
 				2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */,

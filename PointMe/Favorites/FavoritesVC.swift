@@ -171,7 +171,8 @@ extension FavoritesViewController: PostPreviewButtonTapDelegate {
             dateYear: data.postDateYear,
             title: data.title,
             comment: data.comment,
-            mark: data.mark
+            mark: data.mark,
+            uid: data.uid
         ))
         
         navigationController?.pushViewController(onePostViewController, animated: true)

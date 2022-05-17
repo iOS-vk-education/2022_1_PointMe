@@ -8,39 +8,28 @@ final class MyAccountNetwork {
 extension MyAccountNetwork: MyAccountModelInput {
     func removePostfromDatabase(postKeys: [String], completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removePostFromUserPosts(postKeys: postKeys) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success():
-                completion(.success(Void()))
-            }
+            completion(result)
         }
     }
     
     func removePostFromPosts(postKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removePostFromPosts(postKey: postKey) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success():
-                completion(.success(Void()))
-            }
+            completion(result)
         }
     }
     
     func removeImageFromStorage(imageKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removeImageFromStorage(imageKey: imageKey) { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success():
-                completion(.success(Void()))
-            }
+            completion(result)
         }
     }
     
     func getAccountInfoData(completion: @escaping (MyAccountInfo) -> Void) {
-        DatabaseManager.shared.getMyAccountInfo() { result in
+        guard let strongUID = DatabaseManager.shared.currentUserUID else {
+            print("no currentUserID")
+            return
+        }
+        DatabaseManager.shared.getAccountInfo(uid: strongUID) { result in
             switch result {
             case .failure(let error):
                 print("Error getAccountInfoData \(error)")

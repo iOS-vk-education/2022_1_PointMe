@@ -12,4 +12,5 @@ struct PostContext {
     let title: String
     let comment: String
     let mark: Int
+    let uid: String
 }

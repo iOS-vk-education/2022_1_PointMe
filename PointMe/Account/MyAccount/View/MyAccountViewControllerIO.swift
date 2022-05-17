@@ -2,10 +2,10 @@ import Foundation
 
 
 protocol MyAccountViewControllerInput: AnyObject {
-    func reloadTableView()
+    func reloadTableView(accountInfo: MyAccountInfo, accountPosts: [MyAccountPost])
 }
 
 protocol MyAccountViewControllerOutput: AnyObject {
-    func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)
+    func userWantsToViewMyAccountInfo()
     func userWantsToRemovePost(postKey: String, postKeys: [String], imageKey: [String])
 }

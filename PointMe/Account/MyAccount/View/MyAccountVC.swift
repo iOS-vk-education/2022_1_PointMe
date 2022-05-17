@@ -45,14 +45,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
     
     @objc
     func fetchData() {
-        output?.userWantsToViewMyAccountInfo() { [weak self] accountInfo, accountPosts in
-            guard let strongSelf = self else { return }
-            strongSelf.myAccountInfo = accountInfo
-            strongSelf.myAccountPostData = accountPosts
-            strongSelf.configure()
-            strongSelf.tableView.reloadData()
-            strongSelf.tableView.refreshControl?.endRefreshing()
-        }
+        output?.userWantsToViewMyAccountInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,7 +135,6 @@ class MyAccountViewController: UIViewController, AlertMessages {
         if let image = myAccountInfo.userImage {
             userPhoto.image = UIImage(data: image)
         } else {
-            userPhoto.tintColor = .defaultBlackColor
             userPhoto.image = UIImage(systemName: "person")
         }
     }
@@ -150,6 +142,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
     private func setupImage() {
         userPhoto.layer.cornerRadius = Constants.Photo.radius
         userPhoto.layer.masksToBounds = true
+        userPhoto.contentMode = .scaleAspectFill
         userPhoto.layer.borderWidth = Constants.Photo.borderWidth
         userPhoto.tintColor = .defaultBlackColor
     }
@@ -272,7 +265,13 @@ extension MyAccountViewController: UITableViewDataSource {
 // MARK: - MyAccountViewControllerInput
 
 extension MyAccountViewController: MyAccountViewControllerInput {
-    func reloadTableView() {
+    func reloadTableView(accountInfo: MyAccountInfo, accountPosts: [MyAccountPost]) {
+        myAccountInfo = accountInfo
+        myAccountPostData = accountPosts
+        configure()
+        
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
     }
 }
 
@@ -301,7 +300,6 @@ extension MyAccountViewController: CellTapButtonDelegate {
         let indexPath = tableView.indexPath(for: sender)!
         let postViewController: PostViewController = PostViewController()
         let title = myAccountPostData[indexPath.row].mainTitle + " " + myAccountPostData[indexPath.row].address
-        //myAccountPostData[indexPath.row].
         postViewController.setup(context: PostContext(
             idPost: myAccountInfo.postKeys[indexPath.row],
             keysImages: myAccountPostData[indexPath.row].images,
@@ -312,7 +310,8 @@ extension MyAccountViewController: CellTapButtonDelegate {
             dateYear: myAccountPostData[indexPath.row].date.year,
             title: title,
             comment: myAccountPostData[indexPath.row].comment,
-            mark: myAccountPostData[indexPath.row].mark
+            mark: myAccountPostData[indexPath.row].mark,
+            uid: myAccountInfo.uid
         ))
         navigationController?.pushViewController(postViewController, animated: true)
     }

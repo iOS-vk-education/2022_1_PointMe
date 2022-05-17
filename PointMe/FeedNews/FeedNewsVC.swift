@@ -36,8 +36,8 @@ class FeedNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .defaultBackgroundColor
-
         title = "PointMe"
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(tapped))
         navigationController?.navigationBar.tintColor = .black
         
@@ -151,6 +151,7 @@ extension FeedNewsViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.backgroundColor = .defaultBackgroundColor
         cell.delegateTapButton = self
+        cell.delegateTapAvatar = self
         return cell
     }
 }
@@ -174,12 +175,19 @@ extension FeedNewsViewController: PostPreviewButtonTapDelegate {
             dateYear: data.postDateYear,
             title: data.title,
             comment: data.comment,
-            mark: data.mark
+            mark: data.mark,
+            uid: data.uid
         ))
         
         navigationController?.pushViewController(onePostViewController, animated: true)
     }
-    
-    
+}
+
+extension FeedNewsViewController: TapAvatarDelegate {
+    func didTapAvatar(uid: String) {
+        let builder = SomeOneAccountBuilder()
+        let viewController = builder.build(uid: uid)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
