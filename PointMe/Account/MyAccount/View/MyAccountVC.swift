@@ -45,14 +45,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
     
     @objc
     func fetchData() {
-        output?.userWantsToViewMyAccountInfo() { [weak self] accountInfo, accountPosts in
-            guard let strongSelf = self else { return }
-            strongSelf.myAccountInfo = accountInfo
-            strongSelf.myAccountPostData = accountPosts
-            strongSelf.configure()
-            strongSelf.tableView.reloadData()
-            strongSelf.tableView.refreshControl?.endRefreshing()
-        }
+        output?.userWantsToViewMyAccountInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -273,7 +266,13 @@ extension MyAccountViewController: UITableViewDataSource {
 // MARK: - MyAccountViewControllerInput
 
 extension MyAccountViewController: MyAccountViewControllerInput {
-    func reloadTableView() {
+    func reloadTableView(accountInfo: MyAccountInfo, accountPosts: [MyAccountPost]) {
+        myAccountInfo = accountInfo
+        myAccountPostData = accountPosts
+        configure()
+        
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
     }
 }
 

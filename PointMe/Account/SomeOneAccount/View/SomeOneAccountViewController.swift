@@ -49,18 +49,8 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     
     @objc
     func fetchData() {
-
-        output?.userWantsToViewAccountInfo(uid: someOneAccountInfo.uid) { [weak self] accountInfo, accountPosts in
-            guard let strongSelf = self else { return }
-            let uid = strongSelf.someOneAccountInfo.uid
-            strongSelf.someOneAccountInfo = accountInfo
-            strongSelf.someOneAccountInfo.uid = uid
-            strongSelf.someOneAccountPostData = accountPosts
-            strongSelf.configure()
-            strongSelf.tableView.reloadData()
-            strongSelf.tableView.refreshControl?.endRefreshing()
-        }
         checkSubscription()
+        output?.userWantsToViewAccountInfo(uid: someOneAccountInfo.uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,11 +64,7 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     }
     
     private func checkSubscription() {
-        output?.userWantsToCheckSubscription(destinationUID: someOneAccountInfo.uid) { [weak self] result in
-            guard let strongSelf = self else { return }
-            strongSelf.isSubscribed = result
-            strongSelf.configureButton()
-        }
+        output?.userWantsToCheckSubscription(destinationUID: someOneAccountInfo.uid)
     }
     
     private func configure() {
@@ -310,7 +296,20 @@ extension SomeOneAccountViewController: UITableViewDataSource {
 // MARK: - SomeOneAccountViewController
 
 extension SomeOneAccountViewController: SomeOneAccountViewControllerInput {
-    func reloadTableView() {
+    func reloadTableView(accountInfo: MyAccountInfo, accountPosts: [MyAccountPost]) {
+        
+        someOneAccountInfo = accountInfo
+        someOneAccountPostData = accountPosts
+        
+        configure()
+        
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
+    }
+    
+    func fetchSubscription(isSubscribed: Bool) {
+        self.isSubscribed = isSubscribed
+        configureButton()
     }
 }
 

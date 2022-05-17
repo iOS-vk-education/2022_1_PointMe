@@ -2,12 +2,13 @@ import Foundation
 
 
 protocol SomeOneAccountViewControllerInput: AnyObject {
-    func reloadTableView()
+    func reloadTableView(accountInfo: MyAccountInfo, accountPosts: [MyAccountPost])
+    func fetchSubscription(isSubscribed: Bool)
 }
 
 protocol SomeOneAccountViewControllerOutput: AnyObject {
-    func userWantsToViewAccountInfo(uid: String, completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)
+    func userWantsToViewAccountInfo(uid: String)
     func userWantsToBecomeSubscribe(uid: String)
     func userWantsToDismissSubscribe(uid: String)
-    func userWantsToCheckSubscription(destinationUID: String, completion: @escaping (Bool) -> Void)
+    func userWantsToCheckSubscription(destinationUID: String)
 }

@@ -311,54 +311,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "71DBD653-7689-47E5-B9DE-8D21890D425D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PointMe/Account/MyAccount/View/MyAccountVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "fetchData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "71DBD653-7689-47E5-B9DE-8D21890D425D - 4e41522975990813"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PointMe.MyAccountViewController.fetchData() -&gt; ()"
-                  moduleName = "PointMe"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pgs/2022_1_PointMe/PointMe/Account/MyAccount/View/MyAccountVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  uuid = "71DBD653-7689-47E5-B9DE-8D21890D425D - 52dab56b37394ae2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (PointMe.MyAccountInfo, Swift.Array&lt;PointMe.MyAccountPost&gt;) -&gt; () in PointMe.MyAccountViewController.fetchData() -&gt; ()"
-                  moduleName = "PointMe"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pgs/2022_1_PointMe/PointMe/Account/MyAccount/View/MyAccountVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "142">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "5B4F3450-A03A-4D0B-A57F-7CE4256C1CA6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -369,38 +321,6 @@
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "getAccountInfoData(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BCE29A50-AC5D-43D5-8B1E-3E26687855A1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PointMe/Account/MyAccount/View/MyAccountVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "fetchData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "92A2A64E-B935-4020-8072-4846637818F8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PointMe/Account/MyAccount/View/MyAccountVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "fetchData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

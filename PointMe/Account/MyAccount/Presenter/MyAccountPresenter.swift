@@ -48,7 +48,7 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
         }
     }
     
-    func userWantsToViewMyAccountInfo(completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void) {
+    func userWantsToViewMyAccountInfo() {
         model?.getAccountInfoData() {[weak self] data in
             guard let strongSelf = self else { return }
             let group = DispatchGroup()
@@ -89,7 +89,7 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
             }
             group.leave()
             group.notify(queue: .main) {
-                completion(myAccountInfo, myAccountPosts)
+                strongSelf.view?.reloadTableView(accountInfo: myAccountInfo, accountPosts: myAccountPosts)
             }
         }
     }

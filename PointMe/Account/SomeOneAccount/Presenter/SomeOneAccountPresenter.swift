@@ -18,20 +18,20 @@ extension SomeOneAccountPresenter: SomeOneAccountModelOutput {
 
 extension SomeOneAccountPresenter: SomeOneAccountViewControllerOutput {
     
-    func userWantsToCheckSubscription(destinationUID: String, completion: @escaping (Bool) -> Void) {
+    func userWantsToCheckSubscription(destinationUID: String) {
         guard let strongUID = DatabaseManager.shared.currentUserUID else {
             print("debug: No currentUID")
             return
         }
-        model?.getUserPublishers(uid: strongUID) { snapshot in
+        model?.getUserPublishers(uid: strongUID) { [weak self] snapshot in
             guard let snapshotValue = snapshot.value as? [String] else {
                 return print("debug: getUserPublishers snapshotValue nil")
             }
-            completion(snapshotValue.contains(destinationUID))
+            self?.view?.fetchSubscription(isSubscribed: snapshotValue.contains(destinationUID))
         }
     }
 
-    func userWantsToViewAccountInfo(uid: String, completion: @escaping (MyAccountInfo, [MyAccountPost]) -> Void)
+    func userWantsToViewAccountInfo(uid: String)
     {
         model?.getAccountInfoData(uid: uid) {[weak self] data in
             guard let strongSelf = self else { return }
@@ -75,7 +75,7 @@ extension SomeOneAccountPresenter: SomeOneAccountViewControllerOutput {
             }
             group.leave()
             group.notify(queue: .main) {
-                completion(myAccountInfo, myAccountPosts)
+                strongSelf.view?.reloadTableView(accountInfo: myAccountInfo, accountPosts: myAccountPosts)
             }
         }
     }
@@ -102,5 +102,3 @@ extension SomeOneAccountPresenter: SomeOneAccountViewControllerOutput {
         }
     }
 }
-
-// testuser1@gmail.com
