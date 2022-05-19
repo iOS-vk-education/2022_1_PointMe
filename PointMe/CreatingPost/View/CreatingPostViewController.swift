@@ -376,7 +376,9 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     // MARK: - Actions
     
     @objc func didTapOpenMap() {
-        let container = CreateGeoLocationContainer.assemble(with: CreateGeoLocationContext())
+        let container = CreateGeoLocationContainer.assemble(with: CreateGeoLocationContext(
+            moduleOutput: self, location: model.locationTuple
+        ))
         navigationController?.pushViewController(container.viewController, animated: true)
     }
     
@@ -462,8 +464,12 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
         }
         
         let mapObjects: YMKMapObjectCollection = mapView.mapWindow.map.mapObjects
-        placemark = mapObjects.addPlacemark(with: location.pointYMK)
         
+        if placemark != nil {
+            mapObjects.clear()
+        }
+        
+        placemark = mapObjects.addPlacemark(with: location.pointYMK)
         placemark?.opacity = 1
         placemark?.setIconWith(iconPin, style: YMKIconStyle(
             anchor: CGPoint(x: 0.5, y: 1) as NSValue,
@@ -595,9 +601,31 @@ extension CreatingPostViewController: UITextViewDelegate {
 
 extension CreatingPostViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("ok")
+        if let _ = model.locationTuple { return }
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        model.fetchAddress(latitude: locValue.latitude, longitude: locValue.longitude) { [weak self] result in
+            switch result {
+            case .success():
+                self?.setMap(location: locValue)
+                self?.model.appendLocation(location: locValue.tupleLocation)
+            case .failure(_):
+                break
+            }
+        }
         setMap(location: locValue)
+        model.appendLocation(location: locValue.tupleLocation)
         print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+}
+
+
+extension CreatingPostViewController: CreateGeoLocationModuleOutput {
+    func sendPlace(address: String, latitude: Double, longitude: Double) {
+        let pointLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        setMap(location: pointLocation)
+        model.appendLocation(location: pointLocation.tupleLocation)
+        model.appendAddress(value: address)
     }
 }
 

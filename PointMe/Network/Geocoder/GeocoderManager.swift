@@ -18,23 +18,31 @@ final class GeocoderManager {
         return arrayParams.joined(separator: "")
     }
     
-    private func createAdressFromData(data: [String : Any]) -> String {
-        let keys: [String] = ["response", "GeoObjectCollection"]
-        let lastKeys: [String] = ["GeoObject", "metaDataProperty", "GeocoderMetaData"]
-        var jsonData: [String: Any] = data
+    private func createAddressFromData(data: [String : Any]) -> String {
+        let keys4featureMember: [String] = ["response", "GeoObjectCollection", "featureMember"]
+        let keys4address: [String] = ["GeoObject", "metaDataProperty", "GeocoderMetaData", "text"]
         
-        for key in keys {
-            jsonData = (jsonData[key] as? [String: Any]) ?? [:]
+        guard let featureMember = (data as NSDictionary).value(
+            forKeyPath: keys4featureMember.joined(separator: ".")
+        ) as? [[String : Any]] else {
+            return "Неизвестный адрес"
         }
         
-        let arrayJsonData: [[String: Any]] = (jsonData["featureMember"] as? [[String : Any]]) ?? [[:]]
-        jsonData = arrayJsonData.first ?? [:]
-        
-        for key in lastKeys {
-            jsonData = (jsonData[key] as? [String: Any]) ?? [:]
+        guard let geoObjectsJson = featureMember.first else {
+            return "Неизвестный адрес"
         }
         
-        return (jsonData["text"] as? String) ?? "Неизвестный адрес"
+        guard let address = (geoObjectsJson as NSDictionary).value(
+            forKeyPath: keys4address.joined(separator: ".")
+        ) as? String else {
+            return "Неизвестный адрес"
+        }
+        
+        let array = address.split(separator: ",").filter {
+            !$0.contains("Россия") && !$0.contains("административный округ") && !$0.contains("подъезд")
+        }
+        
+        return array.joined(separator: ",")
     }
     
     func loadDataPlaceBy(latitude: Double, longitude: Double, completion: @escaping (Result<String, Error>) -> Void) {
@@ -75,7 +83,7 @@ final class GeocoderManager {
             }
             
             DispatchQueue.main.async {
-                completion(.success(self.createAdressFromData(data: json)))
+                completion(.success(self.createAddressFromData(data: json)))
             }
         }
         

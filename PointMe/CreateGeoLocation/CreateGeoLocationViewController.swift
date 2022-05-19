@@ -21,6 +21,19 @@ final class CreateGeoLocationViewController: UIViewController {
         return label
     }()
     
+    private lazy var confirmeButton: UIButton = {
+        let button: UIButton = UIButton(type: .system)
+        
+        button.setTitle("Подтвердить", for: .normal)
+        button.titleLabel?.font = .buttonTitle
+        button.backgroundColor = .buttonColor
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(didTapButtonConfirme), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private let mapView: YMKMapView = YMKMapView()
     
     private var placemark: YMKPlacemarkMapObject?
@@ -50,10 +63,9 @@ final class CreateGeoLocationViewController: UIViewController {
         view.addSubview(bodySelectView)
         
         bodySelectView.addSubview(adressLabel)
+        bodySelectView.addSubview(confirmeButton)
         
         bodySelectView.alpha = 0.0
-        
-        
         mapView.mapWindow.map.addInputListener(with: self)
         
         locationManager.requestAlwaysAuthorization()
@@ -79,7 +91,7 @@ final class CreateGeoLocationViewController: UIViewController {
         
         bodySelectView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bodySelectView.heightAnchor.constraint(equalToConstant: 115),
+            bodySelectView.heightAnchor.constraint(equalToConstant: 130),
             bodySelectView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             bodySelectView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             bodySelectView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -45)
@@ -87,10 +99,18 @@ final class CreateGeoLocationViewController: UIViewController {
         
         adressLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            adressLabel.heightAnchor.constraint(equalToConstant: adressLabel.font.pointSize * 2.5),
+            adressLabel.heightAnchor.constraint(lessThanOrEqualToConstant: adressLabel.font.pointSize * 2.5),
             adressLabel.leftAnchor.constraint(equalTo: bodySelectView.leftAnchor, constant: 20),
             adressLabel.rightAnchor.constraint(equalTo: bodySelectView.rightAnchor, constant: -20),
             adressLabel.topAnchor.constraint(equalTo: bodySelectView.topAnchor, constant: 10)
+        ])
+        
+        confirmeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            confirmeButton.bottomAnchor.constraint(equalTo: bodySelectView.bottomAnchor, constant: -12),
+            confirmeButton.leftAnchor.constraint(equalTo: bodySelectView.leftAnchor, constant: 20),
+            confirmeButton.rightAnchor.constraint(equalTo: bodySelectView.rightAnchor, constant: -20),
+            confirmeButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
@@ -103,6 +123,10 @@ final class CreateGeoLocationViewController: UIViewController {
             cameraCallback: nil
         )
     }
+    
+    @objc private func didTapButtonConfirme() {
+        output.didTapButtonConfirme()
+    }
 }
 
 extension CreateGeoLocationViewController: CreateGeoLocationViewInput {
@@ -114,8 +138,9 @@ extension CreateGeoLocationViewController: CreateGeoLocationViewInput {
 extension CreateGeoLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        setMap(location: locValue)
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        let currentLocation = output.location ?? (latitude: locValue.latitude, longitude: locValue.longitude)
+        setMap(location: CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+        createPinOnMap(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
     }
 }
 
@@ -123,24 +148,26 @@ extension CreateGeoLocationViewController: YMKMapInputListener {
     func onMapTap(with map: YMKMap, point: YMKPoint) {}
     
     func onMapLongTap(with map: YMKMap, point: YMKPoint) {
-        if placemark == nil {
-            print("placemark == nil")
+        if self.bodySelectView.alpha.isZero {
             UIView.animate(withDuration: 0.3) {
                 self.bodySelectView.alpha = 1.0
             }
         }
         
+        output.didTapPoint(latitude: point.latitude, longitude: point.longitude)
+        createPinOnMap(latitude: point.latitude, longitude: point.longitude)
+    }
+    
+    private func createPinOnMap(latitude: Double, longitude: Double) {
         let mapObjects = mapView.mapWindow.map.mapObjects
         
         if let strongPlacemark = placemark {
             mapObjects.remove(with: strongPlacemark)
         }
         
-        output.didTapPoint(latitude: point.latitude, longitude: point.longitude)
-        
         guard let iconPin = UIImage(named: "pin") else { return }
         
-        placemark = mapObjects.addPlacemark(with: YMKPoint(latitude: point.latitude, longitude: point.longitude))
+        placemark = mapObjects.addPlacemark(with: YMKPoint(latitude: latitude, longitude: longitude))
         placemark?.opacity = 1
         placemark?.setIconWith(iconPin, style: YMKIconStyle(
             anchor: CGPoint(x: 0.5, y: 1) as NSValue,

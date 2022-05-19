@@ -343,20 +343,38 @@ final class DatabaseManager {
     }
     
     
-    public func isFavoritePost(idPost: String, completion: @escaping (Bool) -> Void) {
+    public func fetchLocalDataPost(idPost: String, completion: @escaping (Bool, Double, Double) -> Void) {
         guard let curUID = DatabaseManager.shared.currentUserUID else {
-            completion(false)
+            completion(false, 54.0, 54.0)
             return
         }
         
-        reference.child("users").child(curUID).child("favourite").getData { error, snapshot in
+        reference.child("users").child(curUID).child("favourite").getData { [weak self] error, snapshot in
             guard error == nil else {
-                completion(false)
+                completion(false, 54.0, 54.0)
                 return
             }
             
             let chartPosts = snapshot.value as? [String] ?? []
-            completion(chartPosts.contains(idPost))
+            let isFavotite = chartPosts.contains(idPost)
+            
+            self?.reference.child("posts").child(idPost).getData { error, snapshot in
+                guard error == nil else {
+                    completion(isFavotite, 54.0, 54.0)
+                    return
+                }
+                
+                guard let postsData = snapshot.value as? [String : Any] else {
+                    print("debug: postsData = snapshot.value")
+                    completion(isFavotite, 54.0, 54.0)
+                    return
+                }
+                
+                let latitude: Double = postsData["latitude"] as? Double ?? 54.0
+                let longitude: Double = postsData["longitude"] as? Double ?? 54.0
+                
+                completion(isFavotite, latitude, longitude)
+            }
         }
     }
         

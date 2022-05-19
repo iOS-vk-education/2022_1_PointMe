@@ -6,8 +6,14 @@ final class CreatingPostModel: SimpleLogger {
     static var nameClassLogger: String = "CreatingPostModel"
     private var arrayOfImagesURL: [URL] = []
     private var markValue: Int = 0
+    private var address: String?
+    private var location: (latitude: Double, longitude: Double)?
     
     init() {}
+    
+    var locationTuple: (latitude: Double, longitude: Double)? {
+        return location
+    }
     
     public func getImageURL(for index: Int) -> URL {
         return arrayOfImagesURL[index]
@@ -31,6 +37,14 @@ final class CreatingPostModel: SimpleLogger {
         markValue = value
     }
     
+    public func appendLocation(location: (latitude: Double, longitude: Double)) {
+        self.location = location
+    }
+    
+    public func appendAddress(value: String) {
+        address = value
+    }
+    
     public func addPost(title: String?, comment: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let title = title, let comment = comment, title != "", comment != "", comment != "Оставьте комментарий", markValue != 0 else {
             completion(.failure(AddPostError.invalidDataError))
@@ -50,12 +64,9 @@ final class CreatingPostModel: SimpleLogger {
         let postModel: PostModel = PostModel(
             uid: userId,
             title: title,
-            // FIX ME!!! Исправить хардкод
-            latitude: 55.751574,
-            // FIX ME!!! Исправить хардкод
-            longitude: 37.573856,
-            // FIX ME!!! Исправить хардкод
-            address: "test, address",
+            latitude: location?.latitude ?? 55.751574,
+            longitude: location?.longitude ?? 37.573856,
+            address: address ?? "Неизвестный адрес",
             comment: comment,
             keysImages: urlsStringImages,
             day: date.day,
@@ -74,6 +85,26 @@ final class CreatingPostModel: SimpleLogger {
                 self?.log(message: "Success create a post")
                 completion(.success(Void()))
                 break
+            }
+        }
+    }
+    
+    public func fetchAddress(latitude: Double, longitude: Double, completion: @escaping (Result<Void, Error>) -> Void) {
+        if let _ = address {
+            completion(.success(Void()))
+            return
+        }
+
+        GeocoderManager.shared.loadDataPlaceBy(latitude: latitude, longitude: longitude) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.appendAddress(value: data)
+                print("\(#function) \(data)")
+                completion(.success(Void()))
+            case .failure(let error):
+                self?.appendAddress(value: "Неизвестный адрес")
+                print("\(#function) error fetch addr")
+                completion(.failure(error))
             }
         }
     }

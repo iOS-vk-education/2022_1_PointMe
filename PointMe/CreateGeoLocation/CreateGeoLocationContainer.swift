@@ -13,6 +13,7 @@ final class CreateGeoLocationContainer {
 
 		presenter.view = viewController
 		presenter.moduleOutput = context.moduleOutput
+        presenter.setLocation(location: context.location)
 
 		interactor.output = presenter
         
@@ -30,4 +31,5 @@ final class CreateGeoLocationContainer {
 
 struct CreateGeoLocationContext {
 	weak var moduleOutput: CreateGeoLocationModuleOutput?
+    let location: (latitude: Double, longitude: Double)?
 }
