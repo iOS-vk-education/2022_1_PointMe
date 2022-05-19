@@ -1,5 +1,7 @@
 import UIKit
 import PinLayout
+import YandexMapsMobile
+import CoreLocation
 
 
 final class CreatingPostViewController: UIViewController, AlertMessages {
@@ -50,16 +52,6 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
         textField.placeholder = "Введите название места"
         
         return textField
-    }()
-    
-    
-    private lazy var mapView: UIView = {
-        let mapView: UIView = UIView()
-        
-        mapView.backgroundColor = .systemPink
-        mapView.layer.cornerRadius = Constants.Container.baseCornerRadius
-        
-        return mapView
     }()
     
     
@@ -169,13 +161,39 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     }()
     
     
+    private lazy var openMapButton: UIButton = {
+        let button: UIButton = UIButton(type: .system)
+        
+        button.setBackgroundImage(UIImage(named: "Subtract"), for: .normal)
+        button.addTarget(self, action: #selector(didTapOpenMap), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    
     private let imagePicker = UIImagePickerController()
+    
+    
+    private lazy var mapView: YMKMapView = {
+        let mapView: YMKMapView = YMKMapView()
+        
+        mapView.layer.masksToBounds = true
+        mapView.layer.cornerRadius = 10
+        
+        return mapView
+    }()
     
     
     private let containerView: UIView = UIView()
     
     
     private let model: CreatingPostModel = CreatingPostModel()
+    
+    
+    private let locationManager = CLLocationManager()
+    
+    
+    private var placemark: YMKPlacemarkMapObject?
     
     
     override func viewDidLoad() {
@@ -200,8 +218,19 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
             containerView.addSubview($0)
         }
         
+        mapView.addSubview(openMapButton)
+        
         circleArray.forEach {
             containerView.addSubview($0)
+        }
+        
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
         }
     }
     
@@ -233,11 +262,42 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
             .top()
             .height(Constants.Container.titleTextFieldHeight)
         
-        mapView.pin
-            .below(of: titleTextField)
-            .marginTop(Constants.Container.mapViewMarginTop)
-            .horizontally(Constants.Container.mapViewMarginHor)
-            .height(Constants.Container.mapViewHeight)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(
+                equalTo: titleTextField.bottomAnchor,
+                constant: Constants.Container.mapViewMarginTop
+            ),
+            mapView.leftAnchor.constraint(
+                equalTo: view.leftAnchor,
+                constant: Constants.Container.mapViewMarginHor
+            ),
+            mapView.rightAnchor.constraint(
+                equalTo: view.rightAnchor,
+                constant: -Constants.Container.mapViewMarginHor
+            ),
+            mapView.heightAnchor.constraint(
+                equalToConstant: Constants.Container.mapViewHeight
+            )
+        ])
+        
+        openMapButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            openMapButton.bottomAnchor.constraint(
+                equalTo: mapView.bottomAnchor,
+                constant: -12
+            ),
+            openMapButton.rightAnchor.constraint(
+                equalTo: mapView.rightAnchor,
+                constant: -12
+            ),
+            openMapButton.heightAnchor.constraint(
+                equalToConstant: 30
+            ),
+            openMapButton.widthAnchor.constraint(
+                equalToConstant: 30
+            )
+        ])
         
         photosCollectionView.pin
             .below(of: mapView)
@@ -315,6 +375,11 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     
     // MARK: - Actions
     
+    @objc func didTapOpenMap() {
+        let container = CreateGeoLocationContainer.assemble(with: CreateGeoLocationContext())
+        navigationController?.pushViewController(container.viewController, animated: true)
+    }
+    
     @objc private func didTapMarkView(recognizer: UITapGestureRecognizer) {
         var isFindLastMark: Bool = false
         var counter: Int = 0
@@ -380,6 +445,35 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
     
     private func didTapForBackViewController() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    
+    private func setMap(location: CLLocationCoordinate2D) {
+        let point = YMKPoint(latitude: location.latitude, longitude: location.longitude)
+        
+        mapView.mapWindow.map.move(
+            with: YMKCameraPosition(target: point, zoom: 15, azimuth: 0, tilt: 0),
+            animationType: YMKAnimation(type: YMKAnimationType.smooth, duration: 1),
+            cameraCallback: nil
+        )
+        
+        guard let iconPin = UIImage(named: "pin") else {
+            return
+        }
+        
+        let mapObjects: YMKMapObjectCollection = mapView.mapWindow.map.mapObjects
+        placemark = mapObjects.addPlacemark(with: location.pointYMK)
+        
+        placemark?.opacity = 1
+        placemark?.setIconWith(iconPin, style: YMKIconStyle(
+            anchor: CGPoint(x: 0.5, y: 1) as NSValue,
+            rotationType: YMKRotationType.noRotation.rawValue as NSNumber,
+            zIndex: 0,
+            flat: false,
+            visible: true,
+            scale: 0.7,
+            tappableArea: YMKRect(min: CGPoint(x: 0, y: 0), max: CGPoint(x: 1, y: 1))
+        ))
     }
 }
 
@@ -495,6 +589,15 @@ extension CreatingPostViewController: UITextViewDelegate {
             textView.text = "Оставьте комментарий"
             textView.textColor = UIColor.lightGray
         }
+    }
+}
+
+
+extension CreatingPostViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        setMap(location: locValue)
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }
 
