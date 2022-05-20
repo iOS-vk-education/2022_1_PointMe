@@ -287,11 +287,14 @@ final class PostPreviewCell: UITableViewCell {
         avatarImageButton.layer.cornerRadius = 25
         avatarImageButton.clipsToBounds = true
         avatarImageButton.contentMode = .scaleAspectFill
+        avatarImageButton.layer.borderWidth = 1
+        avatarImageButton.tintColor = .defaultBlackColor
         avatarImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
         avatarImageButton.addTarget(self, action: #selector(avatarTap), for: .touchUpInside)
         
-        
         containerImageView.layer.cornerRadius = 10
+        containerImageView.layer.borderWidth = 1
+        containerImageView.tintColor = .defaultBlackColor
         postImageView.layer.masksToBounds = true
         postImageView.contentMode = .scaleAspectFill
         postImageView.layer.cornerRadius = 10
@@ -406,8 +409,8 @@ private extension PostPreviewCell {
                 
                 static let titleLabelHeight: CGFloat = 25
                 
-                static let locationImageViewMarginTop: CGFloat = 10
-                static let locationImageViewSize: CGSize = CGSize(width: 15, height: 15)
+                static let locationImageViewMarginTop: CGFloat = 11
+                static let locationImageViewSize: CGSize = CGSize(width: 13, height: 13)
                 
                 static let locationLabelMarginTop: CGFloat = 7.5
                 static let locationLabelMarginLeft: CGFloat = 10
@@ -443,8 +446,8 @@ private extension PostPreviewCell {
                 
                 static let titleLabelHeight: CGFloat = 45
                 
-                static let locationImageViewMarginTop: CGFloat = 5
-                static let locationImageViewSize: CGSize = CGSize(width: 20, height: 20)
+                static let locationImageViewMarginTop: CGFloat = 11
+                static let locationImageViewSize: CGSize = CGSize(width: 13, height: 13)
                 
                 static let locationLabelMarginTop: CGFloat = 5
                 static let locationLabelMarginLeft: CGFloat = 10
