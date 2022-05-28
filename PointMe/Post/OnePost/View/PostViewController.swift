@@ -201,6 +201,20 @@ final class PostViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    func setup(context: PostContextWithoutAvatar) {
+        uid = context.uid
+        model.fetchDataWithAvatar(context: context) { [weak self] result in
+            switch result {
+            case .success():
+                print("debug: success fill data without avatar")
+                self?.fillData()
+                break
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
     func setup(context: PostContext) {
         uid = context.uid
         model.fetchData(context: context) { [weak self] result in
@@ -273,7 +287,6 @@ final class PostViewController: UIViewController {
             .top(Constants.UserHeader.usernameLabelMarginTop)
             .height(Constants.UserHeader.usernameLabelHeight)
             .width(200)
-            //.sizeToFit(.height)
         
         dateLabel.pin
             .after(of: userImageButton)
@@ -281,7 +294,6 @@ final class PostViewController: UIViewController {
             .top(Constants.UserHeader.dateLabelMarginTop)
             .height(Constants.UserHeader.dateLabelHeight)
             .width(200)
-            //.sizeToFit(.height)
         
         chartButton.pin
             .below(of: separatorView)
@@ -293,10 +305,10 @@ final class PostViewController: UIViewController {
             .below(of: separatorView)
             .marginTop(Constants.Container.titleMarginTop)
             .left(Constants.Container.titleMarginLeft)
+            .width(70%)
             .before(of: chartButton)
             .marginRight(Constants.Container.titleMarginRight)
-            .height(titleLabel.font.pointSize * 2.5)
-            .sizeToFit(.height)
+            .height(titleLabel.font.pointSize * 3)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -316,12 +328,6 @@ final class PostViewController: UIViewController {
                 equalToConstant: Constants.Container.mapViewHeight
             )
         ])
-        
-//        mapView.pin
-//            .horizontally(Constants.Container.mapViewMarginHor)
-//            .below(of: titleLabel)
-//            .marginTop(Constants.Container.mapViewMarginTop)
-//            .height(Constants.Container.mapViewHeight)
         
         if model.isImagesExist {
             

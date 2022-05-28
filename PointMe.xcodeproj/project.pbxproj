@@ -14,6 +14,22 @@
 		2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB2D280B926E00F90C09 /* FullScreenImagePresenterCell.swift */; };
 		2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB32280B94C300F90C09 /* FullScreenImagePresenterModel.swift */; };
 		2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01DB34280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift */; };
+		2C0479842841A04D00F44288 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04797E2841A04D00F44288 /* MapPresenter.swift */; };
+		2C0479852841A04D00F44288 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04797F2841A04D00F44288 /* MapRouter.swift */; };
+		2C0479862841A04D00F44288 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0479802841A04D00F44288 /* MapViewController.swift */; };
+		2C0479872841A04D00F44288 /* MapProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0479812841A04D00F44288 /* MapProtocols.swift */; };
+		2C0479882841A04D00F44288 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0479822841A04D00F44288 /* MapInteractor.swift */; };
+		2C0479892841A04D00F44288 /* MapContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0479832841A04D00F44288 /* MapContainer.swift */; };
+		2C04798B2842496200F44288 /* DatabaseManager+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04798A2842496200F44288 /* DatabaseManager+Map.swift */; };
+		2C04798D2842542400F44288 /* PostData4Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04798C2842542400F44288 /* PostData4Map.swift */; };
+		2C04798F284272A900F44288 /* PostMapObjectTapListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04798E284272A900F44288 /* PostMapObjectTapListener.swift */; };
+		2C04799728428EF400F44288 /* GeopointPlacesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799128428EF400F44288 /* GeopointPlacesPresenter.swift */; };
+		2C04799828428EF400F44288 /* GeopointPlacesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799228428EF400F44288 /* GeopointPlacesRouter.swift */; };
+		2C04799928428EF400F44288 /* GeopointPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799328428EF400F44288 /* GeopointPlacesViewController.swift */; };
+		2C04799A28428EF400F44288 /* GeopointPlacesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799428428EF400F44288 /* GeopointPlacesProtocols.swift */; };
+		2C04799B28428EF400F44288 /* GeopointPlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799528428EF400F44288 /* GeopointPlacesInteractor.swift */; };
+		2C04799C28428EF400F44288 /* GeopointPlacesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799628428EF400F44288 /* GeopointPlacesContainer.swift */; };
+		2C04799E284291A400F44288 /* GeopointPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04799D284291A400F44288 /* GeopointPlaceCell.swift */; };
 		2C05A1B927EE2A7700F77F1D /* ALS-Sirius.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1B827EE2A7700F77F1D /* ALS-Sirius.ttf */; };
 		2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BA27EE2ABF00F77F1D /* FontSet.swift */; };
 		2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */; };
@@ -71,7 +87,6 @@
 		8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */; };
 		873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69FF27EA40630004715E /* FavoritesVC.swift */; };
 		873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* MyAccountVC.swift */; };
-		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
 		8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB127EB10C700BC11B5 /* ColorSet.swift */; };
 		8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB527EB12ED00BC11B5 /* TabBar.swift */; };
 		8767D796282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */; };
@@ -103,6 +118,22 @@
 		2C01DB2D280B926E00F90C09 /* FullScreenImagePresenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterCell.swift; sourceTree = "<group>"; };
 		2C01DB32280B94C300F90C09 /* FullScreenImagePresenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterModel.swift; sourceTree = "<group>"; };
 		2C01DB34280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImagePresenterCellDelegate.swift; sourceTree = "<group>"; };
+		2C04797E2841A04D00F44288 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		2C04797F2841A04D00F44288 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
+		2C0479802841A04D00F44288 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		2C0479812841A04D00F44288 /* MapProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProtocols.swift; sourceTree = "<group>"; };
+		2C0479822841A04D00F44288 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
+		2C0479832841A04D00F44288 /* MapContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainer.swift; sourceTree = "<group>"; };
+		2C04798A2842496200F44288 /* DatabaseManager+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+Map.swift"; sourceTree = "<group>"; };
+		2C04798C2842542400F44288 /* PostData4Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData4Map.swift; sourceTree = "<group>"; };
+		2C04798E284272A900F44288 /* PostMapObjectTapListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapObjectTapListener.swift; sourceTree = "<group>"; };
+		2C04799128428EF400F44288 /* GeopointPlacesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlacesPresenter.swift; sourceTree = "<group>"; };
+		2C04799228428EF400F44288 /* GeopointPlacesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlacesRouter.swift; sourceTree = "<group>"; };
+		2C04799328428EF400F44288 /* GeopointPlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlacesViewController.swift; sourceTree = "<group>"; };
+		2C04799428428EF400F44288 /* GeopointPlacesProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlacesProtocols.swift; sourceTree = "<group>"; };
+		2C04799528428EF400F44288 /* GeopointPlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlacesInteractor.swift; sourceTree = "<group>"; };
+		2C04799628428EF400F44288 /* GeopointPlacesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlacesContainer.swift; sourceTree = "<group>"; };
+		2C04799D284291A400F44288 /* GeopointPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointPlaceCell.swift; sourceTree = "<group>"; };
 		2C05A1B827EE2A7700F77F1D /* ALS-Sirius.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ALS-Sirius.ttf"; sourceTree = "<group>"; };
 		2C05A1BA27EE2ABF00F77F1D /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -162,7 +193,6 @@
 		8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDeleteDelegateProtocol.swift; sourceTree = "<group>"; };
 		873C69FF27EA40630004715E /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		873C6A0227EA406A0004715E /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
-		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8744ACB127EB10C700BC11B5 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		8744ACB527EB12ED00BC11B5 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+FavoritesPostPreviewLoader.swift"; sourceTree = "<group>"; };
@@ -297,6 +327,20 @@
 				2C01DB34280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2C04799028428ECB00F44288 /* GeopointPlaces */ = {
+			isa = PBXGroup;
+			children = (
+				2C04799128428EF400F44288 /* GeopointPlacesPresenter.swift */,
+				2C04799228428EF400F44288 /* GeopointPlacesRouter.swift */,
+				2C04799328428EF400F44288 /* GeopointPlacesViewController.swift */,
+				2C04799428428EF400F44288 /* GeopointPlacesProtocols.swift */,
+				2C04799528428EF400F44288 /* GeopointPlacesInteractor.swift */,
+				2C04799628428EF400F44288 /* GeopointPlacesContainer.swift */,
+				2C04799D284291A400F44288 /* GeopointPlaceCell.swift */,
+			);
+			path = GeopointPlaces;
 			sourceTree = "<group>";
 		};
 		2C05A1B027EE286C00F77F1D /* SingIn */ = {
@@ -522,6 +566,7 @@
 		2CBAF2E727E7763E001A35B2 /* PointMe */ = {
 			isa = PBXGroup;
 			children = (
+				2C04799028428ECB00F44288 /* GeopointPlaces */,
 				2C1956A72835921500148CA7 /* CreateGeoLocation */,
 				2C01DB1C280B592E00F90C09 /* Post */,
 				2CC49F57280310BF00E35E68 /* CreatingPost */,
@@ -651,7 +696,15 @@
 		873C6A1B27EA5AFB0004715E /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				873C6A1C27EA5B110004715E /* MapVC.swift */,
+				2C04797E2841A04D00F44288 /* MapPresenter.swift */,
+				2C04797F2841A04D00F44288 /* MapRouter.swift */,
+				2C0479802841A04D00F44288 /* MapViewController.swift */,
+				2C0479812841A04D00F44288 /* MapProtocols.swift */,
+				2C0479822841A04D00F44288 /* MapInteractor.swift */,
+				2C0479832841A04D00F44288 /* MapContainer.swift */,
+				2C04798A2842496200F44288 /* DatabaseManager+Map.swift */,
+				2C04798C2842542400F44288 /* PostData4Map.swift */,
+				2C04798E284272A900F44288 /* PostMapObjectTapListener.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -899,19 +952,24 @@
 				7D4D9D8A280F413F008C4250 /* FeedNewsError.swift in Sources */,
 				2C01DB35280B9F5600F90C09 /* FullScreenImagePresenterCellDelegate.swift in Sources */,
 				2CA6DE5E281F3F1600292E0B /* PostContext.swift in Sources */,
+				2C04799B28428EF400F44288 /* GeopointPlacesInteractor.swift in Sources */,
 				2C1C0B7C280F979C007E436D /* CellTapButtonDelegate.swift in Sources */,
 				873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */,
 				2C1956AE2835923000148CA7 /* CreateGeoLocationPresenter.swift in Sources */,
 				87EC0F3C280EAF55001627CE /* MyAccountInfo.swift in Sources */,
 				87B033F1281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift in Sources */,
+				2C0479882841A04D00F44288 /* MapInteractor.swift in Sources */,
 				2CBAF2ED27E7763E001A35B2 /* SignInViewController.swift in Sources */,
+				2C04799928428EF400F44288 /* GeopointPlacesViewController.swift in Sources */,
 				876B16B4280DBC21001B08D1 /* MyAccountNetwork.swift in Sources */,
 				2C8C691427FDBB0000EF3054 /* SignUpModel.swift in Sources */,
+				2C04798B2842496200F44288 /* DatabaseManager+Map.swift in Sources */,
 				87EC0F43280EF65A001627CE /* MyAccountBuilder.swift in Sources */,
 				2C1956B32835923000148CA7 /* CreateGeoLocationContainer.swift in Sources */,
 				2C1956A628358DE300148CA7 /* CoreLocation+Extensions.swift in Sources */,
 				87B7F415280AD5F6000CA15B /* MyAccountModelIO.swift in Sources */,
 				87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */,
+				2C04799A28428EF400F44288 /* GeopointPlacesProtocols.swift in Sources */,
 				87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */,
 				7D4D9D87280F413F008C4250 /* FeedNewsModel.swift in Sources */,
 				2C1956AF2835923000148CA7 /* CreateGeoLocationRouter.swift in Sources */,
@@ -924,18 +982,22 @@
 				2C1956B02835923000148CA7 /* CreateGeoLocationViewController.swift in Sources */,
 				2C1956B5283595D000148CA7 /* ColorSetGeoLocation.swift in Sources */,
 				2C86F629282733E200CFF536 /* FindViewController.swift in Sources */,
+				2C0479852841A04D00F44288 /* MapRouter.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
+				2C04799C28428EF400F44288 /* GeopointPlacesContainer.swift in Sources */,
 				87B033F5281D5E2900F8BBEC /* SomeOneAccountModelIO.swift in Sources */,
 				2C1956B22835923000148CA7 /* CreateGeoLocationInteractor.swift in Sources */,
 				2C01DB27280B905C00F90C09 /* FullScreenImagePresenterViewController.swift in Sources */,
 				2C86F62A282733E200CFF536 /* FindUserCell.swift in Sources */,
 				8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */,
+				2C04798D2842542400F44288 /* PostData4Map.swift in Sources */,
 				2C86F62B282733E200CFF536 /* FindUserModel.swift in Sources */,
 				2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */,
 				87B033EC281D5A5900F8BBEC /* SomeOneAccountPresenter.swift in Sources */,
 				2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */,
 				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
 				2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */,
+				2C0479842841A04D00F44288 /* MapPresenter.swift in Sources */,
 				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
 				2C01DB25280B867D00F90C09 /* ImagePresentCell.swift in Sources */,
 				87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */,
@@ -945,18 +1007,22 @@
 				873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */,
 				7D4D9D88280F413F008C4250 /* FeedNewsFontSet.swift in Sources */,
 				2C1956B12835923000148CA7 /* CreateGeoLocationProtocols.swift in Sources */,
+				2C04798F284272A900F44288 /* PostMapObjectTapListener.swift in Sources */,
 				8767D796282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift in Sources */,
-				873C6A1D27EA5B110004715E /* MapVC.swift in Sources */,
 				7D4D9D85280F413F008C4250 /* FeedNewsColorSet.swift in Sources */,
 				2C86F62C282733E200CFF536 /* LoadFindUserData.swift in Sources */,
+				2C04799728428EF400F44288 /* GeopointPlacesPresenter.swift in Sources */,
 				87B164732831874A008A1954 /* PostPreviewButtonTapAvatarDelegate.swift in Sources */,
 				2C05A1BB27EE2ABF00F77F1D /* FontSet.swift in Sources */,
+				2C0479892841A04D00F44288 /* MapContainer.swift in Sources */,
 				2C1C0B7A280F7FA7007E436D /* PostPreviewCellModel.swift in Sources */,
 				2CBAF2E927E7763E001A35B2 /* AppDelegate.swift in Sources */,
 				2C01DB1F280B59A300F90C09 /* PostViewController.swift in Sources */,
 				8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */,
+				2C04799828428EF400F44288 /* GeopointPlacesRouter.swift in Sources */,
 				87B03401281D817200F8BBEC /* SomeOneAccountPostCell.swift in Sources */,
 				2C1C0B7E28101A42007E436D /* UserPreviewModel.swift in Sources */,
+				2C0479862841A04D00F44288 /* MapViewController.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				2C1C0B8128102A15007E436D /* PostPreviewButtonTapDelegate.swift in Sources */,
 				876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */,
@@ -970,7 +1036,9 @@
 				87918CBB2809DAE90071DDDB /* SomeOneAccountViewController.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2C1956A228358CDA00148CA7 /* GeocoderManager.swift in Sources */,
+				2C0479872841A04D00F44288 /* MapProtocols.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,
+				2C04799E284291A400F44288 /* GeopointPlaceCell.swift in Sources */,
 				2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */,
 				2CC49F5A280311FC00E35E68 /* CreatingPostViewController.swift in Sources */,
 			);

@@ -107,17 +107,17 @@ class FeedNewsViewController: UIViewController {
     
     
     @objc func updateRequestData() {
-        self.present(loadingAlert, animated: true, completion: nil)
+        //self.present(loadingAlert, animated: true, completion: nil)
         model.getPosts { [weak self] result in
             switch result {
             case .success():
                 print("success download")
-                self?.loadingAlert.dismiss(animated: true, completion: nil)
+                //self?.loadingAlert.dismiss(animated: true, completion: nil)
                 self?.setupsCell()
                 break
             case .failure(_):
                 print("fail download!!!!")
-                self?.loadingAlert.dismiss(animated: true, completion: nil)
+                //self?.loadingAlert.dismiss(animated: true, completion: nil)
                 break
             }
             self?.newsFeedTableView.refreshControl?.endRefreshing()

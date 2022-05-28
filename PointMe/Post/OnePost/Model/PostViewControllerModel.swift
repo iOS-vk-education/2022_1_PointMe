@@ -31,6 +31,30 @@ final class PostViewControllerModel {
     
     init() {}
     
+    
+    func fetchDataWithAvatar(context: PostContextWithoutAvatar, completion: @escaping (Result<Void, Error>) -> Void) {
+        var avatarData: Data?
+        
+        DatabaseManager.shared.getAvatar(userId: context.uid) { [weak self] result in
+            switch result {
+            case .success(let data):
+                avatarData = data
+            case .failure(_):
+                avatarData = nil
+            }
+            
+            self?.fetchData(context: PostContext(contextWithoutAvatar: context, avatar: avatarData)) { result in
+                switch result {
+                case .success():
+                    completion(.success(Void()))
+                case .failure(_):
+                    break
+                }
+            }
+        }
+    }
+    
+    
     func fetchData(context: PostContext, completion: @escaping (Result<Void, Error>) -> Void) {
         usernameValue = context.username
         dateVlaue = String(context.dateDay) + (dates[context.dateMonth] ?? " января ")  + String(context.dateYear) + " года"
