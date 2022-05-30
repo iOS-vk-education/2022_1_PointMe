@@ -68,7 +68,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
             separator.backgroundColor = .defaultBackgroundColor
             
             propertyContainer.append(container)
-            propertiesContainer.layer.cornerRadius = 24
+            propertiesContainer.layer.cornerRadius = Constants.PropertiesContainer.cornerRadius
             property.append((label, textField, separator))
         }
         
@@ -360,6 +360,7 @@ extension ProfileEditViewController {
             static let propertyQuantity: CGFloat = 2
             static let topIndent: CGFloat = 24
             static let leftRightIndent: CGFloat = 20
+            static let cornerRadius: CGFloat = 24
         }
         struct  Property {
             struct Title {

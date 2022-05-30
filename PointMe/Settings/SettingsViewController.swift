@@ -52,12 +52,12 @@ final class SettingsViewController: UIViewController, AlertMessages {
         
         exitButton.backgroundColor = .defaultBlackColor
         exitButton.setTitleColor(.defaultWhiteColor, for: .normal)
-        exitButton.layer.cornerRadius = 12
+        exitButton.layer.cornerRadius = Constants.Button.cornerRadius
         exitButton.setTitle("Выйти", for: .normal)
         exitButton.addTarget(self, action: #selector(didTapExitButton), for: .touchUpInside)
         
         pointsContainer.backgroundColor = .defaultWhiteColor
-        pointsContainer.layer.cornerRadius = 24
+        pointsContainer.layer.cornerRadius = Constants.Points.cornerRadius
         
         separator.backgroundColor = .defaultBackgroundColor
         
@@ -134,9 +134,11 @@ extension SettingsViewController {
             static let containerBetweenIndent: CGFloat = 18
             static let separatorHeight: CGFloat = 1
             static let pointsBetweenIndent: CGFloat = 12
+            static let cornerRadius: CGFloat = 24
         }
         struct Button {
             static let height: CGFloat = 60
+            static let cornerRadius: CGFloat = 12
         }
     }
 }
