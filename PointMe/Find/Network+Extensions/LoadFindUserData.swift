@@ -17,7 +17,7 @@ extension DatabaseManager {
                 return
             }
             
-            for key in data.keys {
+            for key in data.keys.sorted() {
                 guard key != DatabaseManager.shared.currentUserUID,
                       let curUserData = data[key] as? [String : Any] else {
                     continue
