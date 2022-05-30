@@ -41,7 +41,7 @@ extension SomeOneAccountNetwork: SomeOneAccountModelInput {
     }
     
     func getImage(destination: String, postImageKey: String, completion: @escaping (Data) -> Void) {
-        DatabaseManager.shared.getImage(destination: destination, postImageKey: postImageKey) { result in
+        DatabaseManager.shared.getImage(destination: destination, imageKey: postImageKey) { result in
             switch result {
             case .failure(let error):
                 print("Error getPostImages \(error)")

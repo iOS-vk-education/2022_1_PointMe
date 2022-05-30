@@ -15,6 +15,11 @@ final class DatabaseManager {
         infoReference = Database.database().reference(withPath: ".info/connected")
     }
     
+    func signOut(completion: ()->Void) {
+        guard let some = try? Auth.auth().signOut() else { return }
+        completion()
+    }
+    
     public var currentUserUID: String? {
         get {
             Auth.auth().currentUser?.uid
@@ -31,7 +36,84 @@ final class DatabaseManager {
                 }
             }
             
-            let accountInfo = MyAccountInfo(snapshot: snapshot, uid: uid)
+            let accountInfo = MyAccountInfo(snapshot: snapshot, uid: uid, confident: false)
+            DispatchQueue.main.async {
+                completion(.success(accountInfo))
+            }
+        }
+    }
+    
+    public func setEmail(email: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        guard let strongUID = currentUserUID else { return }
+        
+        Auth.auth().currentUser?.updateEmail(to: email) { [weak self] error in
+            guard let strongSelf = self else { return }
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(NSError()))
+                }
+            } else {
+                strongSelf.reference.child("users").child(strongUID).child("email").setValue(email) { error, _ in
+                    if let error = error {
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
+                    } else {
+                        completion(.success(Void()))
+                    }
+                }
+            }
+        }
+    }
+    
+    public func setAvatar(imageKey: String, imageData: Data, completion: @escaping (Result <Void, Error>) -> Void) {
+        guard let strongUID = currentUserUID else { return }
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        storage.child("avatars").child(imageKey).putData(imageData, metadata: metadata) { [weak self] metadata, error in
+            guard let strongSelf = self else { return }
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            } else {
+                strongSelf.reference.child("users").child(strongUID).child("avatar").setValue(imageKey) { error, _ in
+                    if let error = error {
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
+                    } else {
+                        completion(.success(Void()))
+                    }
+                }
+            }
+        }
+    }
+    
+    public func setUsername(username: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        guard let strongUID = currentUserUID else { return }
+        reference.child("users").child(strongUID).child("username").setValue(username) { error, _ in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.success(Void()))
+            }
+        }
+    }
+    
+    public func getMyConfidentInfo(completion: @escaping (Result<MyAccountInfo, Error>) -> Void) {
+        guard let stringUID = currentUserUID else { return }
+        reference.child("users").child(stringUID).getData() { error, snapshot in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+            
+            let accountInfo = MyAccountInfo(snapshot: snapshot, uid: stringUID, confident: true)
             DispatchQueue.main.async {
                 completion(.success(accountInfo))
             }
@@ -90,9 +172,9 @@ final class DatabaseManager {
         }
     }
     
-    public func getImage(destination: String, postImageKey: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    public func getImage(destination: String, imageKey: String, completion: @escaping (Result<Data, Error>) -> Void) {
         
-        storage.child(destination).child(postImageKey).getData(maxSize: 1024 * 1024 * 100) { data, error in
+        storage.child(destination).child(imageKey).getData(maxSize: 1024 * 1024 * 100) { data, error in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(error))

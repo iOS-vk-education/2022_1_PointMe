@@ -64,6 +64,7 @@
 		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
 		8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB127EB10C700BC11B5 /* ColorSet.swift */; };
 		8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8744ACB527EB12ED00BC11B5 /* TabBar.swift */; };
+		8763B6C8283FE0B900862C8A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8763B6C7283FE0B900862C8A /* SettingsViewController.swift */; };
 		8767D796282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */; };
 		8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767D795282C07D700944CCA /* FavoritesModel.swift */; };
 		876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */; };
@@ -72,6 +73,7 @@
 		87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */; };
 		87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */; };
 		87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */; };
+		87AE11FE28426FF4002FE1DC /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE11FD28426FF4002FE1DC /* ProfileEditViewController.swift */; };
 		87B033EC281D5A5900F8BBEC /* SomeOneAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033EB281D5A5900F8BBEC /* SomeOneAccountPresenter.swift */; };
 		87B033F1281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033F0281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift */; };
 		87B033F5281D5E2900F8BBEC /* SomeOneAccountModelIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B033F4281D5E2900F8BBEC /* SomeOneAccountModelIO.swift */; };
@@ -145,6 +147,7 @@
 		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8744ACB127EB10C700BC11B5 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		8744ACB527EB12ED00BC11B5 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		8763B6C7283FE0B900862C8A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8767D794282C07D700944CCA /* DatabaseManager+FavoritesPostPreviewLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseManager+FavoritesPostPreviewLoader.swift"; sourceTree = "<group>"; };
 		8767D795282C07D700944CCA /* FavoritesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesModel.swift; sourceTree = "<group>"; };
 		876B16B0280DBBB7001B08D1 /* MyAccountPostDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostDate.swift; sourceTree = "<group>"; };
@@ -153,6 +156,7 @@
 		87918CBD2809DCB20071DDDB /* MyAccountPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPostCell.swift; sourceTree = "<group>"; };
 		87918CC22809E4D40071DDDB /* MyAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountPresenter.swift; sourceTree = "<group>"; };
 		87918CC82809E5430071DDDB /* MyAccountViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewControllerIO.swift; sourceTree = "<group>"; };
+		87AE11FD28426FF4002FE1DC /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		87B033EB281D5A5900F8BBEC /* SomeOneAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountPresenter.swift; sourceTree = "<group>"; };
 		87B033F0281D5CC700F8BBEC /* SomeOneAccountViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountViewControllerIO.swift; sourceTree = "<group>"; };
 		87B033F4281D5E2900F8BBEC /* SomeOneAccountModelIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeOneAccountModelIO.swift; sourceTree = "<group>"; };
@@ -477,6 +481,7 @@
 		2CBAF2E727E7763E001A35B2 /* PointMe */ = {
 			isa = PBXGroup;
 			children = (
+				8763B6C6283FDFE600862C8A /* Settings */,
 				2C01DB1C280B592E00F90C09 /* Post */,
 				2CC49F57280310BF00E35E68 /* CreatingPost */,
 				2C8C690E27FCFC1500EF3054 /* Utils Protocols+Extensions */,
@@ -624,6 +629,15 @@
 				8744ACB527EB12ED00BC11B5 /* TabBar.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		8763B6C6283FDFE600862C8A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8763B6C7283FE0B900862C8A /* SettingsViewController.swift */,
+				87AE11FD28426FF4002FE1DC /* ProfileEditViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		87918CC02809E49B0071DDDB /* View */ = {
@@ -885,6 +899,7 @@
 				2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */,
 				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
 				2C01DB25280B867D00F90C09 /* ImagePresentCell.swift in Sources */,
+				87AE11FE28426FF4002FE1DC /* ProfileEditViewController.swift in Sources */,
 				87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */,
 				2C8C691627FDBF9800EF3054 /* DatabaseManager.swift in Sources */,
 				2C8C691E27FDCA6800EF3054 /* SignInModel.swift in Sources */,
@@ -903,6 +918,7 @@
 				8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */,
 				87B03401281D817200F8BBEC /* SomeOneAccountPostCell.swift in Sources */,
 				2C1C0B7E28101A42007E436D /* UserPreviewModel.swift in Sources */,
+				8763B6C8283FE0B900862C8A /* SettingsViewController.swift in Sources */,
 				2CBAF2EB27E7763E001A35B2 /* SceneDelegate.swift in Sources */,
 				2C1C0B8128102A15007E436D /* PostPreviewButtonTapDelegate.swift in Sources */,
 				876B16B1280DBBB7001B08D1 /* MyAccountPostDate.swift in Sources */,
