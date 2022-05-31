@@ -90,22 +90,6 @@ extension DatabaseManager {
                 }
                 
                 dispatchGroup.notify(queue: .main) {
-//                    completion(.success(arrayPosts.sort {
-//                        if $0.postDateYear < $1.postDateYear {
-//                            return true
-//                        }
-//
-//                        if $0.postDateYear == $1.postDateYear && $0.postDateMonth < $1.postDateMonth {
-//                            return true
-//                        }
-//
-//                        if $0.postDateYear == $1.postDateYear && $0.postDateMonth == $1.postDateMonth && $0.postDateDay < $1.postDateDay {
-//                            return true
-//                        }
-//
-//                        return false;
-//                    }))
-                    
                     completion(.success(arrayPosts))
                 }
             }
