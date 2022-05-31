@@ -5,6 +5,8 @@ struct MyAccountInfo {
     var uid: String
     
     let userName: String
+    let email: String?
+    let password: String?
     let userImageKey: String
     var userImage: Data?
     
@@ -14,7 +16,7 @@ struct MyAccountInfo {
     let publishers: [String]
     let numberOfSubscriptions: Int
     
-    init(snapshot: DataSnapshot, uid: String) {
+    init(snapshot: DataSnapshot, uid: String, confident: Bool) {
         let snapshotValue = snapshot.value as? [String : AnyObject]
         
         userName = snapshotValue?["username"] as? String ?? ""
@@ -35,6 +37,15 @@ struct MyAccountInfo {
             publishers = [""]
             numberOfSubscriptions = 0
         }
+        
+        if (confident) {
+            self.email = snapshotValue?["email"] as? String
+            self.password = snapshotValue?["password"] as? String
+        } else {
+            self.email = nil
+            self.password = nil
+        }
+        
         self.uid = uid
     }
     
@@ -54,5 +65,8 @@ struct MyAccountInfo {
         self.numberOfSubscribers = numberOfSubscribers
         self.publishers = publishers
         self.numberOfSubscriptions = numberOfSubscriptions
+        
+        self.email = nil
+        self.password = nil
     }
 }

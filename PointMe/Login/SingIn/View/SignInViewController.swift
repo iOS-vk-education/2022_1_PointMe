@@ -72,7 +72,6 @@ final class SignInViewController: UIViewController, AlertMessages {
         
         textField.font = .textFieldInput
         textField.textColor = .textFieldInputColor
-        textField.keyboardType = .emailAddress
         textField.borderStyle = UITextField.BorderStyle.none
         textField.contentVerticalAlignment = .bottom
         

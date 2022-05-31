@@ -2,6 +2,12 @@ import UIKit
 
 
 extension UIFont {
+    static let profileEditAvatarButton: UIFont = UIFont(name: "ALSSiriusVF", size: 14)!
+    
+    static let profileEditTitle: UIFont = UIFont(name: "ALSSiriusVF", size: 16)!
+    
+    static let settingsTitle: UIFont = UIFont(name: "ALSSiriusVF", size: 18)!
+    
     static let textFieldPlaceholderFont: UIFont = UIFont(name: "ALSSiriusVF", size: 20)!
     
     static let textFieldInput: UIFont = UIFont(name: "ALSSiriusVF", size: 20)!

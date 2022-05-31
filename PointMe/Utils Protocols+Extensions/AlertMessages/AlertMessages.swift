@@ -17,8 +17,10 @@ extension AlertMessages {
         viewController.present(alert, animated: true, completion: nil)
     }
     
-    func showDeleteAlertTwoButtons(forTitleText title: String,
+    func showDestructiveAlertTwoButtons(forTitleText title: String,
                                    forBodyText text: String,
+                                   destructiveText: String,
+                                   cancelText: String,
                                    viewController: UIViewController,
                                    destructiveAction: @escaping () -> Void,
                                    actionTwo: (() -> Void)? = nil) {
@@ -27,10 +29,10 @@ extension AlertMessages {
             message: text,
             preferredStyle: UIAlertController.Style.alert
         )
-        let alertActionOne: UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        let alertActionOne: UIAlertAction = UIAlertAction(title: destructiveText, style: .destructive) { _ in
             destructiveAction()
         }
-        let alertActionTwo: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let alertActionTwo: UIAlertAction = UIAlertAction(title: cancelText, style: .cancel) { _ in
             actionTwo?()
         }
         alert.addAction(alertActionTwo)
