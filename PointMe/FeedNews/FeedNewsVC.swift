@@ -2,6 +2,7 @@ import UIKit
 
 class FeedNewsViewController: UIViewController {
     
+    /*
     private lazy var loadingAlert: UIAlertController = {
         let alert = UIAlertController(
             title: "Ожидание",
@@ -26,6 +27,7 @@ class FeedNewsViewController: UIViewController {
         
         return alert
     }()
+    */
     
     private let newsFeedTableView = UITableView()
     
@@ -43,6 +45,8 @@ class FeedNewsViewController: UIViewController {
         
         setupNewsFeedTableView()
         registerCell()
+        
+        newsFeedTableView.refreshControl?.beginRefreshing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +122,7 @@ class FeedNewsViewController: UIViewController {
             case .failure(_):
                 print("fail download!!!!")
                 //self?.loadingAlert.dismiss(animated: true, completion: nil)
+                self?.setupsCell()
                 break
             }
             self?.newsFeedTableView.refreshControl?.endRefreshing()

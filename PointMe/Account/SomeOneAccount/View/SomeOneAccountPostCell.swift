@@ -160,6 +160,7 @@ final class SomeOneAccountPostCell: UITableViewCell {
         mainTitleLabel.tintColor = .defaultBlackColor
         mainTitleLabel.font = .postMainTitleLabel
         mainTitleLabel.textAlignment = .left
+        mainTitleLabel.numberOfLines = 2
         
         openButton.tintColor = .defaultWhiteColor
         openButton.layer.cornerRadius = Constants.OpenButton.cornerRadius
@@ -257,7 +258,7 @@ final class SomeOneAccountPostCell: UITableViewCell {
         mainTitleLabel.pin
             .top()
             .horizontally()
-            .height(Constants.MainTitleLabel.fontSize)
+            .sizeToFit(.width)
         
         placeViewContainer.pin
             .below(of: mainTitleLabel, aligned: .left)

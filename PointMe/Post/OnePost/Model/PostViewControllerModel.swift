@@ -79,7 +79,7 @@ final class PostViewControllerModel {
             
             for key in self.arrayDataImages {
                 group.enter()
-                DatabaseManager.shared.getImage(destination: "posts", postImageKey: key) { result in
+                DatabaseManager.shared.getImage(destination: "posts", imageKey: key) { result in
                     switch result {
                     case .success(let data):
                         lock.lock()

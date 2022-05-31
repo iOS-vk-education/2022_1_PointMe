@@ -16,6 +16,10 @@ extension MyAccountPresenter: MyAccountModelOutput {
 // MARK: - MyAccountViewControllerOutput
 
 extension MyAccountPresenter: MyAccountViewControllerOutput {
+    
+    func userWantsToEditProfile() {
+        view?.openSettings()
+    }
 
     func userWantsToRemovePost(postKey: String, postKeys: [String], imageKey: [String]) {
         model?.removePostfromDatabase(postKeys: postKeys) { result in

@@ -4,8 +4,6 @@ import PinLayout
  
 class MyAccountViewController: UIViewController, AlertMessages {
     
-    private let backButton = UIButton()
-    
     private let headerViewContainer: UIView = UIView()
     
     private let userPhoto: UIImageView = UIImageView()
@@ -160,7 +158,13 @@ class MyAccountViewController: UIViewController, AlertMessages {
     private func setupButton() {
         button.titleLabel?.font = .systemFont(ofSize: Constants.Button.fontSize)
         button.layer.cornerRadius = Constants.Button.cornerRadius
+        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
         setupEditButton()
+    }
+    
+    @objc
+    private func didTapEditButton() {
+        output?.userWantsToEditProfile()
     }
     
     private func setupEditButton() {
@@ -191,6 +195,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
     private func setupNavigationBar() {
         guard let navBar = navigationController?.navigationBar else { return }
         navBar.isHidden = true
+        navigationItem.backButtonTitle = ""
     }
     
     private func setupHeaderViewContainer() {
@@ -241,6 +246,7 @@ extension MyAccountViewController: UITableViewDelegate {
                         + MyAccountPostCell.Constants.AddressLabel.fontSize
                         + MyAccountPostCell.Constants.HeaderLine.width
                         + MyAccountPostCell.Constants.OpenButton.height
+                        + 6
             )
         }
     }
@@ -273,13 +279,18 @@ extension MyAccountViewController: MyAccountViewControllerInput {
         tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
     }
+    
+    func openSettings() {
+        let viewController = SettingsViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: - CellDeleteDelegate
 
 extension MyAccountViewController: CellDeleteDelegate {
     func deleteCell(sender: UITableViewCell) {
-        showDeleteAlertTwoButtons(forTitleText: "Подтверждение", forBodyText: "Вы уверены, что хотите удалить пост?", viewController: self) {
+        showDestructiveAlertTwoButtons(forTitleText: "Подтверждение", forBodyText: "Вы уверены, что хотите удалить пост?", destructiveText: "Удалить", cancelText: "Отмена", viewController: self) {
             guard let indexPath = self.tableView.indexPath(for: sender) else { return }
             let postKey = self.myAccountInfo.postKeys[indexPath.row]
             

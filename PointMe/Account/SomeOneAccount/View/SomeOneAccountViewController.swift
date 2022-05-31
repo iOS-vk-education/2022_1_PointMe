@@ -273,7 +273,7 @@ extension SomeOneAccountViewController: UITableViewDelegate {
                         4 * SomeOneAccountPostCell.Constants.DefaultPadding.topBottomPadding +
                         SomeOneAccountPostCell.Constants.AddressLabel.fontSize +
                         SomeOneAccountPostCell.Constants.HeaderLine.width +
-                        SomeOneAccountPostCell.Constants.OpenButton.height)
+                        SomeOneAccountPostCell.Constants.OpenButton.height + 6)
         }
     }
 }

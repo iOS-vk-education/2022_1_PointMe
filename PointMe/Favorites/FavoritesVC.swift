@@ -148,6 +148,7 @@ extension FavoritesViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.backgroundColor = .defaultBackgroundColor
         cell.delegateTapButton = self
+        cell.delegateTapAvatar = self
         return cell
     }
 }
@@ -176,5 +177,13 @@ extension FavoritesViewController: PostPreviewButtonTapDelegate {
         ))
         
         navigationController?.pushViewController(onePostViewController, animated: true)
+    }
+}
+
+extension FavoritesViewController: TapAvatarDelegate {
+    func didTapAvatar(uid: String) {
+        let builder = SomeOneAccountBuilder()
+        let viewController = builder.build(uid: uid)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
