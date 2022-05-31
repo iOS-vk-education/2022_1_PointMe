@@ -1,15 +1,17 @@
 import Foundation
 import Firebase
 
-
 final class DatabaseManager {
     static let shared: DatabaseManager = DatabaseManager()
     
-    private var reference: DatabaseReference!
-    private var storage: StorageReference!
-    private var infoReference: DatabaseReference!
+    private var reference: DatabaseReference
+    private var storage: StorageReference
+    private var infoReference: DatabaseReference
+    
+    var favoritesPostsManager: FavoritesPostsManager?
     
     private init() {
+        favoritesPostsManager = FavoritesPostsManager()
         storage = Storage.storage().reference()
         reference = Database.database().reference()
         infoReference = Database.database().reference(withPath: ".info/connected")
@@ -184,6 +186,43 @@ final class DatabaseManager {
         }
     }
     
+    public func removePostFromFavorites(postKey: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        reference.child("users").getData { [weak self] error, snapshot in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            
+            guard let dictUsersData = snapshot.value as? [String: Any] else {
+                completion(.failure(NSError()))
+                return
+            }
+            
+            for key in dictUsersData.keys {
+                guard let dictCurrentUserData = dictUsersData[key] as? [String: Any],
+                      let favourites = dictCurrentUserData["favourite"] as? [String],
+                      favourites.contains(postKey)
+                else {
+                    continue
+                }
+                
+                let newFavourites = favourites.filter {
+                    $0 != postKey
+                }
+                
+                self?.reference.child("users").child(key).child("favourite").setValue(newFavourites) { error, _ in
+                    guard error == nil else {
+                        return
+                    }
+                }
+                
+                print(dictCurrentUserData)
+            }
+            
+            completion(.success(Void()))
+        }
+    }
+    
     
     public func removeImageFromStorage(imageKey: String, completion: @escaping (Result <Void, Error>) -> Void) {
         storage.child("posts").child(imageKey).delete { error in
@@ -317,14 +356,10 @@ final class DatabaseManager {
         }
     }
     
-    public func addPost(postData: PostModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func addPost(postData: PostModel, imagesData: [Data], completion: @escaping (Result<Void, Error>) -> Void) {
         guard let keyPost = reference.child("posts").childByAutoId().key else {
             completion(.failure(AddPostError.serverError))
             return
-        }
-        
-        let keysImages: [String] = postData.keysImages.map { _ in
-            UUID().uuidString
         }
         
         let data: [String: Any] = [
@@ -334,7 +369,7 @@ final class DatabaseManager {
             "longitude" : postData.longitude,
             "address" : postData.address,
             "comment" : postData.comment,
-            "keysImages" : keysImages,
+            "keysImages" : postData.keysImages,
             "day" : postData.day,
             "month" : postData.month,
             "year" : postData.year,
@@ -355,15 +390,9 @@ final class DatabaseManager {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            for indexPost in (0 ..< keysImages.count) {
-                let url = URL(fileURLWithPath: postData.keysImages[indexPost])
-                
-                guard let dataImage = try? Data(contentsOf: url) else {
-                    completion(.failure(AddPostError.serverError))
-                    return
-                }
-                
-                self.storage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
+            for indexPost in (0 ..< postData.keysImages.count) {
+                let dataImage: Data = imagesData[indexPost]
+                self.storage.child("posts").child(postData.keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
                     guard error == nil else {
                         completion(.failure(AddPostError.serverError))
                         return
@@ -448,20 +477,38 @@ final class DatabaseManager {
     }
     
     
-    public func isFavoritePost(idPost: String, completion: @escaping (Bool) -> Void) {
+    public func fetchLocalDataPost(idPost: String, completion: @escaping (Bool, Double, Double) -> Void) {
         guard let curUID = DatabaseManager.shared.currentUserUID else {
-            completion(false)
+            completion(false, 54.0, 54.0)
             return
         }
         
-        reference.child("users").child(curUID).child("favourite").getData { error, snapshot in
+        reference.child("users").child(curUID).child("favourite").getData { [weak self] error, snapshot in
             guard error == nil else {
-                completion(false)
+                completion(false, 54.0, 54.0)
                 return
             }
             
             let chartPosts = snapshot.value as? [String] ?? []
-            completion(chartPosts.contains(idPost))
+            let isFavotite = chartPosts.contains(idPost)
+            
+            self?.reference.child("posts").child(idPost).getData { error, snapshot in
+                guard error == nil else {
+                    completion(isFavotite, 54.0, 54.0)
+                    return
+                }
+                
+                guard let postsData = snapshot.value as? [String : Any] else {
+                    print("debug: postsData = snapshot.value")
+                    completion(isFavotite, 54.0, 54.0)
+                    return
+                }
+                
+                let latitude: Double = postsData["latitude"] as? Double ?? 54.0
+                let longitude: Double = postsData["longitude"] as? Double ?? 54.0
+                
+                completion(isFavotite, latitude, longitude)
+            }
         }
     }
         

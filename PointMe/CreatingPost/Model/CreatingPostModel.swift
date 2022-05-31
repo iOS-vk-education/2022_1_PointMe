@@ -5,30 +5,45 @@ import Firebase
 final class CreatingPostModel: SimpleLogger {
     static var nameClassLogger: String = "CreatingPostModel"
     private var arrayOfImagesURL: [URL] = []
+    private var arrayOfImageData: [Data] = []
     private var markValue: Int = 0
+    private var address: String?
+    private var location: (latitude: Double, longitude: Double)?
     
     init() {}
     
-    public func getImageURL(for index: Int) -> URL {
-        return arrayOfImagesURL[index]
+    var locationTuple: (latitude: Double, longitude: Double)? {
+        return location
     }
     
-    public func appendURL(url value: URL) {
-        arrayOfImagesURL.append(value)
+    public func getImageData(by index: Int) -> Data {
+        return arrayOfImageData[index]
     }
     
-    public func removeByIndexURL(for index: Int) {
-        arrayOfImagesURL.remove(at: index)
+    public func appendImageData(in data: Data) {
+        arrayOfImageData.append(data)
+    }
+    
+    public func removeImage(by index: Int) {
+        arrayOfImageData.remove(at: index)
     }
     
     public var countImage: Int {
         get {
-            arrayOfImagesURL.count
+            arrayOfImageData.count
         }
     }
     
     public func updateMark(mark value: Int) {
         markValue = value
+    }
+    
+    public func appendLocation(location: (latitude: Double, longitude: Double)) {
+        self.location = location
+    }
+    
+    public func appendAddress(value: String) {
+        address = value
     }
     
     public func addPost(title: String?, comment: String?, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -43,19 +58,16 @@ final class CreatingPostModel: SimpleLogger {
         }
         
         let date = getCurrentDate()
-        let urlsStringImages: [String] = arrayOfImagesURL.map {
-            $0.path
+        let urlsStringImages: [String] = arrayOfImageData.map { _ in
+            UUID().uuidString
         }
         
         let postModel: PostModel = PostModel(
             uid: userId,
             title: title,
-            // FIX ME!!! Исправить хардкод
-            latitude: 55.751574,
-            // FIX ME!!! Исправить хардкод
-            longitude: 37.573856,
-            // FIX ME!!! Исправить хардкод
-            address: "test, address",
+            latitude: location?.latitude ?? 55.751574,
+            longitude: location?.longitude ?? 37.573856,
+            address: address ?? "Неизвестный адрес",
             comment: comment,
             keysImages: urlsStringImages,
             day: date.day,
@@ -64,7 +76,7 @@ final class CreatingPostModel: SimpleLogger {
             mark: markValue
         )
         
-        DatabaseManager.shared.addPost(postData: postModel) { [weak self] result in
+        DatabaseManager.shared.addPost(postData: postModel, imagesData: arrayOfImageData) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.log(message: "Error create a post")
@@ -74,6 +86,26 @@ final class CreatingPostModel: SimpleLogger {
                 self?.log(message: "Success create a post")
                 completion(.success(Void()))
                 break
+            }
+        }
+    }
+    
+    public func fetchAddress(latitude: Double, longitude: Double, completion: @escaping (Result<Void, Error>) -> Void) {
+        if address != nil{
+            completion(.success(Void()))
+            return
+        }
+
+        GeocoderManager.shared.loadDataPlaceBy(latitude: latitude, longitude: longitude) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.appendAddress(value: data)
+                print("\(#function) \(data)")
+                completion(.success(Void()))
+            case .failure(let error):
+                self?.appendAddress(value: "Неизвестный адрес")
+                print("\(#function) error fetch addr")
+                completion(.failure(error))
             }
         }
     }

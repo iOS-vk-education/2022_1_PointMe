@@ -1,6 +1,7 @@
 import UIKit
 import PinLayout
-
+import YandexMapsMobile
+import CoreLocation
 
 final class PostViewController: UIViewController {
     
@@ -8,7 +9,7 @@ final class PostViewController: UIViewController {
         let userImageButton: UIButton = UIButton()
         
         userImageButton.layer.masksToBounds = true
-        userImageButton.contentMode = .scaleAspectFill
+        userImageButton.imageView?.contentMode = .scaleAspectFill
         userImageButton.layer.cornerRadius = Constants.UserHeader.userImageSize.width / 2
         userImageButton.layer.borderWidth = Constants.UserHeader.userImageBorderWidth
         userImageButton.layer.borderColor = UIColor.userImageBorderColor.cgColor
@@ -79,10 +80,10 @@ final class PostViewController: UIViewController {
     }()
     
     
-    private lazy var mapView: UIView = {
-        let mapView: UIView = UIView()
+    private lazy var mapView: YMKMapView = {
+        let mapView: YMKMapView = YMKMapView()
         
-        mapView.backgroundColor = .systemPink
+        mapView.layer.masksToBounds = true
         mapView.layer.cornerRadius = Constants.Container.mapViewCornerRadius
         
         return mapView
@@ -154,8 +155,9 @@ final class PostViewController: UIViewController {
     
     private let containerView: UIView = UIView()
     
-    
     private let model: PostViewControllerModel = PostViewControllerModel()
+    
+    private var placemark: YMKPlacemarkMapObject?
     
     
     override func viewDidLoad() {
@@ -199,6 +201,20 @@ final class PostViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    func setup(context: PostContextWithoutAvatar) {
+        uid = context.uid
+        model.fetchDataWithAvatar(context: context) { [weak self] result in
+            switch result {
+            case .success():
+                print("debug: success fill data without avatar")
+                self?.fillData()
+                break
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
     func setup(context: PostContext) {
         uid = context.uid
         model.fetchData(context: context) { [weak self] result in
@@ -232,6 +248,9 @@ final class PostViewController: UIViewController {
         }
         
         viewDidLayoutSubviews()
+        
+        let point = CLLocationCoordinate2D(latitude: model.currentLocation.latitude, longitude: model.currentLocation.longitude)
+        setMap(location: point)
     }
     
     
@@ -268,7 +287,6 @@ final class PostViewController: UIViewController {
             .top(Constants.UserHeader.usernameLabelMarginTop)
             .height(Constants.UserHeader.usernameLabelHeight)
             .width(200)
-            //.sizeToFit(.height)
         
         dateLabel.pin
             .after(of: userImageButton)
@@ -276,7 +294,6 @@ final class PostViewController: UIViewController {
             .top(Constants.UserHeader.dateLabelMarginTop)
             .height(Constants.UserHeader.dateLabelHeight)
             .width(200)
-            //.sizeToFit(.height)
         
         chartButton.pin
             .below(of: separatorView)
@@ -288,16 +305,29 @@ final class PostViewController: UIViewController {
             .below(of: separatorView)
             .marginTop(Constants.Container.titleMarginTop)
             .left(Constants.Container.titleMarginLeft)
+            .width(70%)
             .before(of: chartButton)
             .marginRight(Constants.Container.titleMarginRight)
-            .height(Constants.Container.titleHeight)
-            .sizeToFit(.height)
+            .height(titleLabel.font.pointSize * 3)
         
-        mapView.pin
-            .horizontally(Constants.Container.mapViewMarginHor)
-            .below(of: titleLabel)
-            .marginTop(Constants.Container.mapViewMarginTop)
-            .height(Constants.Container.mapViewHeight)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(
+                equalTo: titleLabel.bottomAnchor,
+                constant: Constants.Container.mapViewMarginTop
+            ),
+            mapView.leftAnchor.constraint(
+                equalTo: view.leftAnchor,
+                constant: Constants.Container.mapViewMarginHor
+            ),
+            mapView.rightAnchor.constraint(
+                equalTo: view.rightAnchor,
+                constant: -Constants.Container.mapViewMarginHor
+            ),
+            mapView.heightAnchor.constraint(
+                equalToConstant: Constants.Container.mapViewHeight
+            )
+        ])
         
         if model.isImagesExist {
             
@@ -388,6 +418,38 @@ final class PostViewController: UIViewController {
                 break
             }
         })
+    }
+    
+    private func setMap(location: CLLocationCoordinate2D) {
+        let point = YMKPoint(latitude: location.latitude, longitude: location.longitude)
+        
+        mapView.mapWindow.map.move(
+            with: YMKCameraPosition(target: point, zoom: 15, azimuth: 0, tilt: 0),
+            animationType: YMKAnimation(type: YMKAnimationType.smooth, duration: 1),
+            cameraCallback: nil
+        )
+        
+        guard let iconPin = UIImage(named: "pin") else {
+            return
+        }
+        
+        let mapObjects: YMKMapObjectCollection = mapView.mapWindow.map.mapObjects
+        
+        if placemark != nil {
+            mapObjects.clear()
+        }
+        
+        placemark = mapObjects.addPlacemark(with: location.pointYMK)
+        placemark?.opacity = 1
+        placemark?.setIconWith(iconPin, style: YMKIconStyle(
+            anchor: CGPoint(x: 0.5, y: 1) as NSValue,
+            rotationType: YMKRotationType.noRotation.rawValue as NSNumber,
+            zIndex: 0,
+            flat: false,
+            visible: true,
+            scale: 0.7,
+            tappableArea: YMKRect(min: CGPoint(x: 0, y: 0), max: CGPoint(x: 1, y: 1))
+        ))
     }
 }
 

@@ -59,14 +59,14 @@ final class ImageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(indexPathCell: IndexPath, urlImage: URL) {
+    func setup(indexPathCell: IndexPath, dataImage: Data) {
         
         contentView.backgroundColor = .clear
         contentView.addSubview(bodyView)
         
         self.indexPath = indexPathCell
         
-        imageView.image = UIImage(contentsOfFile: urlImage.path)
+        imageView.image  = UIImage(data: dataImage)
         bodyView.addSubview(imageView)
         
         imageView.addSubview(view4Button)

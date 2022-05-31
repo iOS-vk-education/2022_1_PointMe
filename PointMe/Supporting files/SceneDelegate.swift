@@ -6,8 +6,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        let debugMode: Bool = true
+        let isAuth: Bool = DatabaseManager.shared.currentUserUID != nil ? true : false
+        if isAuth {
+            print("[DEBUG]: user is auth")
+        }
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
@@ -18,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             rootViewController: SignInViewController()
         )
         
-        let initViewController = debugMode ? TabBarController() : navigationController
+        let initViewController = isAuth ? TabBarController() : navigationController
         
         window?.rootViewController = initViewController
         window?.makeKeyAndVisible()

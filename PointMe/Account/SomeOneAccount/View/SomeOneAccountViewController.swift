@@ -319,7 +319,7 @@ extension SomeOneAccountViewController: CellTapButtonDelegate {
     func didTapOpen(sender: UITableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         let postViewController: PostViewController = PostViewController()
-        let title = someOneAccountPostData[indexPath.row].mainTitle + " " + someOneAccountPostData[indexPath.row].address
+        let title = someOneAccountPostData[indexPath.row].mainTitle //+ " " + someOneAccountPostData[indexPath.row].address
         postViewController.setup(context: PostContext(
             idPost: someOneAccountInfo.postKeys[indexPath.row],
             keysImages: someOneAccountPostData[indexPath.row].images,

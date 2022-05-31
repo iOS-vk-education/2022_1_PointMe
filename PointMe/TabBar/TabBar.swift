@@ -15,9 +15,11 @@ final class TabBarController: UITabBarController {
         let builder = MyAccountBuilder()
         let viewController = builder.build()
         
+        let mapContainer: MapContainer = MapContainer.assemble(with: MapContext())
+        
         let vc1 = UINavigationController(rootViewController: FeedNewsViewController())
         let vc2 = UINavigationController(rootViewController: FindViewController())
-        let vc3 = UINavigationController(rootViewController: MapViewController())
+        let vc3 = UINavigationController(rootViewController: mapContainer.viewController)
         let vc4 = UINavigationController(rootViewController: FavoritesViewController())
         let vc5 = UINavigationController(rootViewController: viewController)
         

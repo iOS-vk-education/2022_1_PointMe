@@ -27,8 +27,33 @@ final class PostViewControllerModel {
     private var isChartPostValue: Bool = false
     private var markValue: Int = 3
     private var commentTextValue: String = "Здесь было хорошо! Вкусная еда, добрые люди, отличная музыка."
+    private var location: (latitude: Double, longitude: Double) = (latitude: 55.751574, longitude: 37.573856)
     
     init() {}
+    
+    
+    func fetchDataWithAvatar(context: PostContextWithoutAvatar, completion: @escaping (Result<Void, Error>) -> Void) {
+        var avatarData: Data?
+        
+        DatabaseManager.shared.getAvatar(userId: context.uid) { [weak self] result in
+            switch result {
+            case .success(let data):
+                avatarData = data
+            case .failure(_):
+                avatarData = nil
+            }
+            
+            self?.fetchData(context: PostContext(contextWithoutAvatar: context, avatar: avatarData)) { result in
+                switch result {
+                case .success():
+                    completion(.success(Void()))
+                case .failure(_):
+                    break
+                }
+            }
+        }
+    }
+    
     
     func fetchData(context: PostContext, completion: @escaping (Result<Void, Error>) -> Void) {
         usernameValue = context.username
@@ -44,11 +69,12 @@ final class PostViewControllerModel {
         
         let group = DispatchGroup()
         let lock = NSLock()
-        DatabaseManager.shared.isFavoritePost(idPost: idPost) { [weak self] isFavorite in
+        DatabaseManager.shared.fetchLocalDataPost(idPost: idPost) { [weak self] isFavorite, latitude, longitude  in
             guard let self = self else {
                 return
             }
             
+            self.location = (latitude: latitude, longitude: longitude)
             self.isChartPostValue = isFavorite
             
             for key in self.arrayDataImages {
@@ -74,6 +100,10 @@ final class PostViewControllerModel {
             }
         }
         
+    }
+    
+    public var currentLocation: (latitude: Double, longitude: Double) {
+        return location
     }
     
     public var username: String {
@@ -134,8 +164,6 @@ final class PostViewControllerModel {
                 break
             }
         }
-        
-        ///isChartPostValue.toggle()
     }
     
     public var isImagesExist: Bool {

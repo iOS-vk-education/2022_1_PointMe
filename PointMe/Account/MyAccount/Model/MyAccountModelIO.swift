@@ -7,6 +7,7 @@ protocol MyAccountModelInput: AnyObject {
     func removePostfromDatabase(postKeys: [String], completion: @escaping (Result<Void, Error>) -> Void)
     func removePostFromPosts(postKey: String, completion: @escaping (Result<Void, Error>) -> Void)
     func removeImageFromStorage(imageKey: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func removePostFromFavorites(postKey: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 protocol MyAccountModelOutput: AnyObject {

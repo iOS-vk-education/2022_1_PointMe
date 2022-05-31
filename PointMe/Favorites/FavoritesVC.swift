@@ -58,6 +58,10 @@ class FavoritesViewController: UIViewController {
 //        ]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        model.setReloadCallback { [weak self] in
+            self?.favoritesTableView.reloadData()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -66,6 +70,7 @@ class FavoritesViewController: UIViewController {
         if !isLoadingStartData {
             isLoadingStartData.toggle()
             updateRequestData()
+            model.startListener()
         }
     }
     
