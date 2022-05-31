@@ -10,14 +10,14 @@ import UIKit
 
 final class MapContainer {
     let input: MapModuleInput
-	let viewController: UIViewController
-	private(set) weak var router: MapRouterInput!
-
-	class func assemble(with context: MapContext) -> MapContainer {
+    let viewController: UIViewController
+    private(set) weak var router: MapRouterInput?
+    
+    class func assemble(with context: MapContext) -> MapContainer {
         let router = MapRouter()
         let interactor = MapInteractor()
         let presenter = MapPresenter(router: router, interactor: interactor)
-		let viewController = MapViewController(output: presenter)
+        let viewController = MapViewController(output: presenter)
 
 		presenter.view = viewController
 		presenter.moduleOutput = context.moduleOutput

@@ -4,9 +4,9 @@ import Firebase
 final class DatabaseManager {
     static let shared: DatabaseManager = DatabaseManager()
     
-    private var reference: DatabaseReference!
-    private var storage: StorageReference!
-    private var infoReference: DatabaseReference!
+    private var reference: DatabaseReference
+    private var storage: StorageReference
+    private var infoReference: DatabaseReference
     
     var favoritesPostsManager: FavoritesPostsManager?
     
