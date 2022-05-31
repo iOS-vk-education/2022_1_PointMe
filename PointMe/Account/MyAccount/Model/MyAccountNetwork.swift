@@ -6,6 +6,12 @@ final class MyAccountNetwork {
 }
 
 extension MyAccountNetwork: MyAccountModelInput {
+    func removePostFromFavorites(postKey: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        DatabaseManager.shared.removePostFromFavorites(postKey: postKey) { result in
+            completion(result)
+        }
+    }
+    
     func removePostfromDatabase(postKeys: [String], completion: @escaping (Result<Void, Error>) -> Void) {
         DatabaseManager.shared.removePostFromUserPosts(postKeys: postKeys) { result in
             completion(result)

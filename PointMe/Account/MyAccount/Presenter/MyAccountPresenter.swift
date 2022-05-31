@@ -22,6 +22,14 @@ extension MyAccountPresenter: MyAccountViewControllerOutput {
     }
 
     func userWantsToRemovePost(postKey: String, postKeys: [String], imageKey: [String]) {
+        model?.removePostFromFavorites(postKey: postKey, completion: { result in
+            switch result {
+            case .failure(let error):
+                print("Holy cow removePostfromDatabase not done! (\(error))")
+            case .success():
+                print("removePostfromDatabase successfully done")
+            }
+        })
         model?.removePostfromDatabase(postKeys: postKeys) { result in
             switch result {
             case .failure(let error):

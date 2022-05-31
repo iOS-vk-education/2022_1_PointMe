@@ -1,7 +1,6 @@
 import Foundation
 import Firebase
 
-
 final class DatabaseManager {
     static let shared: DatabaseManager = DatabaseManager()
     
@@ -9,7 +8,10 @@ final class DatabaseManager {
     private var storage: StorageReference!
     private var infoReference: DatabaseReference!
     
+    var favoritesPostsManager: FavoritesPostsManager?
+    
     private init() {
+        favoritesPostsManager = FavoritesPostsManager()
         storage = Storage.storage().reference()
         reference = Database.database().reference()
         infoReference = Database.database().reference(withPath: ".info/connected")
@@ -180,6 +182,43 @@ final class DatabaseManager {
                 completion(.failure(NSError()))
                 return
             }
+            completion(.success(Void()))
+        }
+    }
+    
+    public func removePostFromFavorites(postKey: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        reference.child("users").getData { [weak self] error, snapshot in
+            guard error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            
+            guard let dictUsersData = snapshot.value as? [String: Any] else {
+                completion(.failure(NSError()))
+                return
+            }
+            
+            for key in dictUsersData.keys {
+                guard let dictCurrentUserData = dictUsersData[key] as? [String: Any],
+                      let favourites = dictCurrentUserData["favourite"] as? [String],
+                      favourites.contains(postKey)
+                else {
+                    continue
+                }
+                
+                let newFavourites = favourites.filter {
+                    $0 != postKey
+                }
+                
+                self?.reference.child("users").child(key).child("favourite").setValue(newFavourites) { error, _ in
+                    guard error == nil else {
+                        return
+                    }
+                }
+                
+                print(dictCurrentUserData)
+            }
+            
             completion(.success(Void()))
         }
     }

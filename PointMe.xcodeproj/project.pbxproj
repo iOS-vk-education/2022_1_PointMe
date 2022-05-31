@@ -35,6 +35,7 @@
 		2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */; };
 		2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A1C527EE5FED00F77F1D /* AuthNavigationViewController.swift */; };
 		2C05A1C827EE73D400F77F1D /* ChelaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */; };
+		2C0675C72846D0E5004EBDFC /* FavoritesPostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0675C62846D0E5004EBDFC /* FavoritesPostsManager.swift */; };
 		2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */; };
 		2C0BF5E02808CBB40058C84D /* AddPostError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF5DF2808CBB30058C84D /* AddPostError.swift */; };
 		2C1956A228358CDA00148CA7 /* GeocoderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1956A128358CDA00148CA7 /* GeocoderManager.swift */; };
@@ -147,6 +148,7 @@
 		2C05A1BC27EE2CA000F77F1D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2C05A1C527EE5FED00F77F1D /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
 		2C05A1C727EE73D400F77F1D /* ChelaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChelaOne-Regular.ttf"; sourceTree = "<group>"; };
+		2C0675C62846D0E5004EBDFC /* FavoritesPostsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPostsManager.swift; sourceTree = "<group>"; };
 		2C0BF5DC2808B59B0058C84D /* ImageCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellDelegate.swift; sourceTree = "<group>"; };
 		2C0BF5DF2808CBB30058C84D /* AddPostError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostError.swift; sourceTree = "<group>"; };
 		2C1956A128358CDA00148CA7 /* GeocoderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocoderManager.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				2C0BF5DE2808CBA10058C84D /* Errors */,
 				2C8C691727FDC2B700EF3054 /* Models */,
 				2C8C691527FDBF9800EF3054 /* DatabaseManager.swift */,
+				2C0675C62846D0E5004EBDFC /* FavoritesPostsManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */,
 				2C04799A28428EF400F44288 /* GeopointPlacesProtocols.swift in Sources */,
 				87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */,
+				2C0675C72846D0E5004EBDFC /* FavoritesPostsManager.swift in Sources */,
 				87396B4128463F4D005DEE7A /* PasswordModel.swift in Sources */,
 				7D4D9D87280F413F008C4250 /* FeedNewsModel.swift in Sources */,
 				2C1956AF2835923000148CA7 /* CreateGeoLocationRouter.swift in Sources */,
