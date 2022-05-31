@@ -114,7 +114,9 @@ extension MapViewController: YMKClusterListener {
         let iconSize = CGSize(width: externalRadius * 2, height: externalRadius * 2)
 
         UIGraphicsBeginImageContext(iconSize)
-        let ctx = UIGraphicsGetCurrentContext()!
+        guard let ctx = UIGraphicsGetCurrentContext() else {
+            return UIImage()
+        }
 
         ctx.setFillColor(UIColor.red.cgColor)
         ctx.fillEllipse(in: CGRect(
@@ -133,7 +135,6 @@ extension MapViewController: YMKClusterListener {
             withAttributes: [
                 NSAttributedString.Key.font: font,
                 NSAttributedString.Key.foregroundColor: UIColor.black])
-//        let image = UIGraphicsGetImageFromCurrentImageContext()!
         return UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
     }
 }
