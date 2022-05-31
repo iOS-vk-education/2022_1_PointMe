@@ -179,6 +179,10 @@ final class CreatingPostViewController: UIViewController, AlertMessages {
         
         mapView.layer.masksToBounds = true
         mapView.layer.cornerRadius = 10
+        mapView.mapWindow.map.isScrollGesturesEnabled = false
+        mapView.mapWindow.map.isTiltGesturesEnabled = false
+        mapView.mapWindow.map.isRotateGesturesEnabled = false
+        mapView.mapWindow.map.isZoomGesturesEnabled = false
         
         return mapView
     }()
@@ -602,8 +606,7 @@ extension CreatingPostViewController: UITextViewDelegate {
 extension CreatingPostViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("ok")
-        if let _ = model.locationTuple { return }
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate, model.locationTuple == nil else { return }
         model.fetchAddress(latitude: locValue.latitude, longitude: locValue.longitude) { [weak self] result in
             switch result {
             case .success():

@@ -52,9 +52,9 @@ final class CreateGeoLocationViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         title = "Выберите место"
         view.backgroundColor = .backgroundPostViewController
@@ -139,6 +139,7 @@ extension CreateGeoLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         let currentLocation = output.location ?? (latitude: locValue.latitude, longitude: locValue.longitude)
+        print("currentLocation = \(currentLocation)")
         setMap(location: CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
         createPinOnMap(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
     }

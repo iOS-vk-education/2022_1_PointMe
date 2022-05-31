@@ -1,13 +1,13 @@
 import Foundation
 
 final class CreateGeoLocationPresenter {
-	weak var view: CreateGeoLocationViewInput?
+    weak var view: CreateGeoLocationViewInput?
     weak var moduleOutput: CreateGeoLocationModuleOutput?
-
-	private let router: CreateGeoLocationRouterInput
-	private let interactor: CreateGeoLocationInteractorInput
+    
+    private let router: CreateGeoLocationRouterInput
+    private let interactor: CreateGeoLocationInteractorInput
     private var pointLocation: (latitude: Double, longitude: Double)?
-
+    
     init(router: CreateGeoLocationRouterInput, interactor: CreateGeoLocationInteractorInput) {
         self.router = router
         self.interactor = interactor

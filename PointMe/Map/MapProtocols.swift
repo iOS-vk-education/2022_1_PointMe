@@ -19,6 +19,8 @@ protocol MapViewInput: AnyObject {
     func addDataToMap(index: Int, geoData: (latitude: Double, longitude: Double))
     
     func updateCluster()
+    
+    func setupMapCoords(coords: (latitude: Double, longitude: Double))
 }
 
 protocol MapViewOutput: AnyObject {

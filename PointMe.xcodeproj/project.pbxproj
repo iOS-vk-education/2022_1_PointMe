@@ -46,7 +46,6 @@
 		2C1956B12835923000148CA7 /* CreateGeoLocationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1956AB2835923000148CA7 /* CreateGeoLocationProtocols.swift */; };
 		2C1956B22835923000148CA7 /* CreateGeoLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1956AC2835923000148CA7 /* CreateGeoLocationInteractor.swift */; };
 		2C1956B32835923000148CA7 /* CreateGeoLocationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1956AD2835923000148CA7 /* CreateGeoLocationContainer.swift */; };
-		2C1956B5283595D000148CA7 /* ColorSetGeoLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1956B4283595D000148CA7 /* ColorSetGeoLocation.swift */; };
 		2C1C0B7A280F7FA7007E436D /* PostPreviewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C0B79280F7FA7007E436D /* PostPreviewCellModel.swift */; };
 		2C1C0B7C280F979C007E436D /* CellTapButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C0B7B280F979C007E436D /* CellTapButtonDelegate.swift */; };
 		2C1C0B7E28101A42007E436D /* UserPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C0B7D28101A41007E436D /* UserPreviewModel.swift */; };
@@ -150,7 +149,6 @@
 		2C1956AB2835923000148CA7 /* CreateGeoLocationProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGeoLocationProtocols.swift; sourceTree = "<group>"; };
 		2C1956AC2835923000148CA7 /* CreateGeoLocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGeoLocationInteractor.swift; sourceTree = "<group>"; };
 		2C1956AD2835923000148CA7 /* CreateGeoLocationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGeoLocationContainer.swift; sourceTree = "<group>"; };
-		2C1956B4283595D000148CA7 /* ColorSetGeoLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSetGeoLocation.swift; sourceTree = "<group>"; };
 		2C1C0B79280F7FA7007E436D /* PostPreviewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreviewCellModel.swift; sourceTree = "<group>"; };
 		2C1C0B7B280F979C007E436D /* CellTapButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTapButtonDelegate.swift; sourceTree = "<group>"; };
 		2C1C0B7D28101A41007E436D /* UserPreviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreviewModel.swift; sourceTree = "<group>"; };
@@ -445,7 +443,6 @@
 				2C1956AB2835923000148CA7 /* CreateGeoLocationProtocols.swift */,
 				2C1956AC2835923000148CA7 /* CreateGeoLocationInteractor.swift */,
 				2C1956AD2835923000148CA7 /* CreateGeoLocationContainer.swift */,
-				2C1956B4283595D000148CA7 /* ColorSetGeoLocation.swift */,
 			);
 			path = CreateGeoLocation;
 			sourceTree = "<group>";
@@ -980,7 +977,6 @@
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C1956B02835923000148CA7 /* CreateGeoLocationViewController.swift in Sources */,
-				2C1956B5283595D000148CA7 /* ColorSetGeoLocation.swift in Sources */,
 				2C86F629282733E200CFF536 /* FindViewController.swift in Sources */,
 				2C0479852841A04D00F44288 /* MapRouter.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
@@ -1190,6 +1186,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This demo app";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
@@ -1220,6 +1217,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This demo app";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;

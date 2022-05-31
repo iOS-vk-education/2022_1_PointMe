@@ -9,8 +9,6 @@ final class MapViewController: UIViewController {
     
     private var placemark: YMKPlacemarkMapObject?
     
-    private let locationManager = CLLocationManager()
-    
     private var postsData: [PostData4Map] = []
     
     private var placemarkCollection: YMKClusterizedPlacemarkCollection?
@@ -40,15 +38,6 @@ final class MapViewController: UIViewController {
         
         setupLayout()
         
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-        
         placemarkCollection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
         placemarkTapListener = PlacemarkMapObjectTapListener(controller: self, output: output)
         
@@ -77,14 +66,22 @@ final class MapViewController: UIViewController {
 }
 
 extension MapViewController: MapViewInput {
+    func setupMapCoords(coords: (latitude: Double, longitude: Double)) {
+        setMap(location: CLLocationCoordinate2D(latitude: coords.latitude, longitude: coords.longitude))
+    }
+    
     func updateCluster() {
         placemarkCollection?.clusterPlacemarks(withClusterRadius: 60, minZoom: 15)
     }
     
     func addDataToMap(index: Int, geoData: (latitude: Double, longitude: Double)) {
+        guard let pinImage = UIImage(named: "pin") else {
+            return
+        }
+        
         let dataObj = placemarkCollection?.addPlacemark(
             with: YMKPoint(latitude: geoData.latitude, longitude: geoData.longitude),
-            image: UIImage(named: "pin")!,
+            image: pinImage,
             style: YMKIconStyle()
         )
         
@@ -93,16 +90,6 @@ extension MapViewController: MapViewInput {
         if let placemarkTapListener = placemarkTapListener {
             dataObj?.addTapListener(with: placemarkTapListener)
         }
-    }
-}
-
-extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        let currentLocation = (latitude: locValue.latitude, longitude: locValue.longitude)
-        setMap(location: CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
-        print("\(currentLocation)")
-//        createPinOnMap(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
     }
 }
 
@@ -146,8 +133,8 @@ extension MapViewController: YMKClusterListener {
             withAttributes: [
                 NSAttributedString.Key.font: font,
                 NSAttributedString.Key.foregroundColor: UIColor.black])
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        return image
+//        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        return UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
     }
 }
 

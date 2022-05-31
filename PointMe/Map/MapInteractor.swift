@@ -45,11 +45,9 @@ extension MapInteractor: MapInteractorInput {
         DatabaseManager.shared.getDataPosts4Map { [weak self] result in
             switch result {
             case .success(let data):
-                print("success map data load")
                 self?.postsData = data
                 self?.output?.notifyMapData(isSuccess: true)
             case .failure(_):
-                print("\nerror map data load!\n")
                 self?.output?.notifyMapData(isSuccess: false)
             }
         }

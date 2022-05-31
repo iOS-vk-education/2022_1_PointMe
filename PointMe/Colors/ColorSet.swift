@@ -173,4 +173,11 @@ extension UIColor {
         blue: 37 / 255,
         alpha: 1.0
     )
+    
+    static let backgroundMapView: UIColor = UIColor(
+        red: 1,
+        green: 1,
+        blue: 1,
+        alpha: 1
+    )
 }

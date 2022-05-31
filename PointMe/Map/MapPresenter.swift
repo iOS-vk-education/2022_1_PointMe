@@ -1,12 +1,5 @@
-//
-//  MapPresenter.swift
-//  PointMe
-//
-//  Created by Павел Топорков on 28.05.2022.
-//  
-//
-
 import Foundation
+import CoreLocation
 
 final class MapPresenter: NSObject {
 	weak var view: MapViewInput?
@@ -14,10 +7,14 @@ final class MapPresenter: NSObject {
 
 	private let router: MapRouterInput
 	private let interactor: MapInteractorInput
+    
+    private let locationManager = CLLocationManager()
 
     init(router: MapRouterInput, interactor: MapInteractorInput) {
         self.router = router
         self.interactor = interactor
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
     }
 }
 
@@ -34,6 +31,11 @@ extension MapPresenter: MapViewOutput {
     }
     
     func loadMapData() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
         interactor.fetchMapData()
     }
 }
@@ -49,7 +51,6 @@ extension MapPresenter: MapInteractorOutput {
     
     func notifyMapData(isSuccess: Bool) {
         guard isSuccess else {
-            print("notifyMapData false")
             return
         }
         
@@ -59,5 +60,13 @@ extension MapPresenter: MapInteractorOutput {
         }
         
         view?.updateCluster()
+    }
+}
+
+extension MapPresenter: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        let currentLocation = (latitude: locValue.latitude, longitude: locValue.longitude)
+        view?.setupMapCoords(coords: currentLocation)
     }
 }

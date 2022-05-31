@@ -90,7 +90,7 @@ final class CreatingPostModel: SimpleLogger {
     }
     
     public func fetchAddress(latitude: Double, longitude: Double, completion: @escaping (Result<Void, Error>) -> Void) {
-        if let _ = address {
+        if address != nil{
             completion(.success(Void()))
             return
         }

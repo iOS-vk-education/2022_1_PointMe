@@ -1,8 +1,7 @@
 import Foundation
 
 final class CreateGeoLocationInteractor {
-	weak var output: CreateGeoLocationInteractorOutput?
-    
+    weak var output: CreateGeoLocationInteractorOutput?
     private var adressValue: String?
     private var locationValue: (latitude: Double, longitude: Double)?
 }

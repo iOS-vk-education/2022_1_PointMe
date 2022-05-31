@@ -27,8 +27,6 @@ extension DatabaseManager {
                 return
             }
             
-            print("\ndata for map: \(data)\n")
-            
             for key in data.keys {
                 guard let postData = data[key] as? [String : Any],
                       let uidPostUser = postData["uid"] as? String,
@@ -75,8 +73,6 @@ extension DatabaseManager {
             
             let avatarPath: String = snapshot.value as? String ?? ""
             
-            print(snapshot.value)
-            
             storage.child("avatars").child(avatarPath).getData(maxSize: 1024 * 1024 * 100) { data, error in
                 if let error = error {
                     DispatchQueue.main.async {
@@ -90,21 +86,6 @@ extension DatabaseManager {
                     }
                 }
             }
-            
-            
         }
-        
-//        storage.child(destination).child(postImageKey).getData(maxSize: 1024 * 1024 * 100) { data, error in
-//            if let error = error {
-//                DispatchQueue.main.async {
-//                    completion(.failure(error))
-//                }
-//            }
-//            if let data = data {
-//                DispatchQueue.main.async {
-//                    completion(.success(data))
-//                }
-//            }
-//        }
     }
 }
