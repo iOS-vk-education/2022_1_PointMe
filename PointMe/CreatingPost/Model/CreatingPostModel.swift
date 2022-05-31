@@ -5,6 +5,7 @@ import Firebase
 final class CreatingPostModel: SimpleLogger {
     static var nameClassLogger: String = "CreatingPostModel"
     private var arrayOfImagesURL: [URL] = []
+    private var arrayOfImageData: [Data] = []
     private var markValue: Int = 0
     private var address: String?
     private var location: (latitude: Double, longitude: Double)?
@@ -15,21 +16,21 @@ final class CreatingPostModel: SimpleLogger {
         return location
     }
     
-    public func getImageURL(for index: Int) -> URL {
-        return arrayOfImagesURL[index]
+    public func getImageData(by index: Int) -> Data {
+        return arrayOfImageData[index]
     }
     
-    public func appendURL(url value: URL) {
-        arrayOfImagesURL.append(value)
+    public func appendImageData(in data: Data) {
+        arrayOfImageData.append(data)
     }
     
-    public func removeByIndexURL(for index: Int) {
-        arrayOfImagesURL.remove(at: index)
+    public func removeImage(by index: Int) {
+        arrayOfImageData.remove(at: index)
     }
     
     public var countImage: Int {
         get {
-            arrayOfImagesURL.count
+            arrayOfImageData.count
         }
     }
     
@@ -57,8 +58,8 @@ final class CreatingPostModel: SimpleLogger {
         }
         
         let date = getCurrentDate()
-        let urlsStringImages: [String] = arrayOfImagesURL.map {
-            $0.path
+        let urlsStringImages: [String] = arrayOfImageData.map { _ in
+            UUID().uuidString
         }
         
         let postModel: PostModel = PostModel(
@@ -75,7 +76,7 @@ final class CreatingPostModel: SimpleLogger {
             mark: markValue
         )
         
-        DatabaseManager.shared.addPost(postData: postModel) { [weak self] result in
+        DatabaseManager.shared.addPost(postData: postModel, imagesData: arrayOfImageData) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.log(message: "Error create a post")

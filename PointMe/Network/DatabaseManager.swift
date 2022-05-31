@@ -317,14 +317,10 @@ final class DatabaseManager {
         }
     }
     
-    public func addPost(postData: PostModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func addPost(postData: PostModel, imagesData: [Data], completion: @escaping (Result<Void, Error>) -> Void) {
         guard let keyPost = reference.child("posts").childByAutoId().key else {
             completion(.failure(AddPostError.serverError))
             return
-        }
-        
-        let keysImages: [String] = postData.keysImages.map { _ in
-            UUID().uuidString
         }
         
         let data: [String: Any] = [
@@ -334,7 +330,7 @@ final class DatabaseManager {
             "longitude" : postData.longitude,
             "address" : postData.address,
             "comment" : postData.comment,
-            "keysImages" : keysImages,
+            "keysImages" : postData.keysImages,
             "day" : postData.day,
             "month" : postData.month,
             "year" : postData.year,
@@ -355,15 +351,9 @@ final class DatabaseManager {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            for indexPost in (0 ..< keysImages.count) {
-                let url = URL(fileURLWithPath: postData.keysImages[indexPost])
-                
-                guard let dataImage = try? Data(contentsOf: url) else {
-                    completion(.failure(AddPostError.serverError))
-                    return
-                }
-                
-                self.storage.child("posts").child(keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
+            for indexPost in (0 ..< postData.keysImages.count) {
+                let dataImage: Data = imagesData[indexPost]
+                self.storage.child("posts").child(postData.keysImages[indexPost]).putData(dataImage, metadata: metadata) { metadata, error in
                     guard error == nil else {
                         completion(.failure(AddPostError.serverError))
                         return

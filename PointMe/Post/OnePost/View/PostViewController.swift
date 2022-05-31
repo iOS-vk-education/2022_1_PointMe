@@ -9,7 +9,7 @@ final class PostViewController: UIViewController {
         let userImageButton: UIButton = UIButton()
         
         userImageButton.layer.masksToBounds = true
-        userImageButton.contentMode = .scaleAspectFill
+        userImageButton.imageView?.contentMode = .scaleAspectFill
         userImageButton.layer.cornerRadius = Constants.UserHeader.userImageSize.width / 2
         userImageButton.layer.borderWidth = Constants.UserHeader.userImageBorderWidth
         userImageButton.layer.borderColor = UIColor.userImageBorderColor.cgColor

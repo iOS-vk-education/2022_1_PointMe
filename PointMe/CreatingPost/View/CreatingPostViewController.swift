@@ -514,7 +514,7 @@ extension CreatingPostViewController: UICollectionViewDelegateFlowLayout, UIColl
             return UICollectionViewCell()
         }
         
-        cell.setup(indexPathCell: indexPath, urlImage: model.getImageURL(for: indexPath.item - 1))
+        cell.setup(indexPathCell: indexPath, dataImage: model.getImageData(by: indexPath.item - 1))
         cell.delegat = self
         
         return cell
@@ -553,7 +553,7 @@ extension CreatingPostViewController: UICollectionViewDelegateFlowLayout, UIColl
 extension CreatingPostViewController: ImageCellDelegate {
     func didTapDeleteImageButton(indexPathCell: IndexPath) {
         photosCollectionView.deleteItems(at: [indexPathCell])
-        self.model.removeByIndexURL(for: indexPathCell.item - 1)
+        self.model.removeImage(by: indexPathCell.item - 1)
         photosCollectionView.reloadData()
     }
 }
@@ -563,13 +563,8 @@ extension CreatingPostViewController: UIImagePickerControllerDelegate & UINaviga
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
 
-        let imageName = UUID().uuidString
-        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-            try? jpegData.write(to: imagePath)
-            
-            model.appendURL(url: imagePath)
+        if let jpegData = image.jpegData(compressionQuality: 0.6) {
+            model.appendImageData(in: jpegData)
             let indexPath = IndexPath(item: model.countImage, section: 0)
             photosCollectionView.insertItems(at: [indexPath])
         }
