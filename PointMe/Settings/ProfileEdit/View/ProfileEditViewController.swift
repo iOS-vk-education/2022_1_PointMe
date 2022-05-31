@@ -19,10 +19,11 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
     private let imagePicker: UIImagePickerController = UIImagePickerController()
     
     private let titles: [String] = ["Имя", "Почта"]
-    
-    private var information: (username: String, email: String, image: Data?, imageKey: String) = ("", "", Data(), "")
+    private var information: (username: String, email: String, image: Data?, imageKey: String) = ("", "", nil, "")
     
     private var avatarFlag: Bool = false
+    
+    var model: ProfileEditViewControllerOutput?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
         
         view.backgroundColor = .defaultBackgroundColor
         
-        for i in 0...1 {
+        for i in 0..<Constants.PropertiesContainer.propertyQuantity {
             let container = UIView()
             let label = UILabel()
             let textField = UITextField()
@@ -74,7 +75,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
         
         avatarView.layer.cornerRadius = Constants.HeadContainer.height / 2
         avatarView.layer.borderColor = UIColor.defaultBlackColor.cgColor
-        avatarView.layer.borderWidth = Constants.HeadContainer.cornerRadius
+        avatarView.layer.borderWidth = Constants.HeadContainer.avatarBorderWidth
         avatarView.clipsToBounds = true
         avatarView.contentMode = .scaleAspectFill
         avatarView.tintColor = .defaultBlackColor
@@ -88,7 +89,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
         
         acceptButton.backgroundColor = .defaultBlackColor
         acceptButton.layer.cornerRadius = Constants.AcceptButton.cornerRadius
-        acceptButton.setTitle("Подтвердить", for: .normal)
+        acceptButton.setTitle("Применить", for: .normal)
         acceptButton.setTitleColor(.defaultWhiteColor, for: .normal)
         acceptButton.addTarget(self, action: #selector(changeInfo), for: .touchUpInside)
         
@@ -112,7 +113,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
             headContainer.addSubview($0)
         }
         
-        for i in 0...1 {
+        for i in 0..<Constants.PropertiesContainer.propertyQuantity {
             propertyContainer[i].addSubview(property[i].title)
             propertyContainer[i].addSubview(property[i].textField)
             propertyContainer[i].addSubview(property[i].separator)
@@ -154,7 +155,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
             propertiesContainer.topAnchor.constraint(equalTo: headContainer.bottomAnchor, constant: Constants.PropertiesContainer.topIndent),
             propertiesContainer.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: Constants.PropertiesContainer.leftRightIndent),
             propertiesContainer.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -Constants.PropertiesContainer.leftRightIndent),
-            propertiesContainer.heightAnchor.constraint(equalToConstant: (Constants.Property.height + Constants.Property.separatorHeight) * 2 + (Constants.PropertiesContainer.propertyQuantity + 3) * Constants.Property.upDownIndent),
+            propertiesContainer.heightAnchor.constraint(equalToConstant: (Constants.Property.height + Constants.Property.separatorHeight) * CGFloat(Constants.PropertiesContainer.propertyQuantity) + CGFloat(Constants.PropertiesContainer.propertyQuantity + 3) * Constants.Property.upDownIndent),
             
             propertyContainer[0].topAnchor.constraint(equalTo: propertiesContainer.topAnchor, constant: Constants.Property.upDownIndent * 2),
             propertyContainer[0].leftAnchor.constraint(equalTo: propertiesContainer.leftAnchor, constant: Constants.Property.leftRightIndent),
@@ -162,7 +163,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
             propertyContainer[0].heightAnchor.constraint(equalToConstant: Constants.Property.height + Constants.Property.separatorHeight)
         ])
         
-        for i in 1...1 {
+        for i in 1..<Constants.PropertiesContainer.propertyQuantity {
             propertyContainer[i].translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
@@ -173,7 +174,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
             ])
         }
         
-        for i in 0...1 {
+        for i in 0..<Constants.PropertiesContainer.propertyQuantity {
             property[i].title.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 property[i].title.topAnchor.constraint(equalTo: propertyContainer[i].topAnchor),
@@ -207,6 +208,10 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
         ])
     }
     
+    private func getInfo() {
+        model?.getInfo()
+    }
+    
     @objc
     private func tapEditButton() {
         present(imagePicker, animated: true)
@@ -214,110 +219,41 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
     
     @objc
     private func changeInfo() {
-        
-        let group = DispatchGroup()
-        if (property[0].textField.text != property[0].textField.placeholder) {
-            group.enter()
-            usernameChange() {
-                group.leave()
-            }
+        var username: String? = nil
+        var email: String? = nil
+        var avatar: Data? = nil
+        if (property[0].textField.text != property[0].textField.placeholder && property[0].textField.text != "") {
+            username = property[0].textField.text
+        }
+        if (property[1].textField.text != property[1].textField.placeholder && property[1].textField.text != "") {
+            email = property[0].textField.text
+        }
+        if (avatarFlag) {
+            avatar = information.image
         }
         
-        if (property[1].textField.text != property[1].textField.placeholder) {
-            group.enter()
-            emailChange() {
-                group.leave()
-            }
-        }
-        
-        if avatarFlag {
-            group.enter()
-            changeAvatar() {
-                group.leave()
-            }
-        }
-        
-        group.notify(queue: .main) {
-            self.makeAlert(forTitleText: "Успешно!", forBodyText: "Удалось применить изменения.")
-        }
+        model?.changeInfo(username: username, email: email, avatar: avatar, avatarKey: information.imageKey)
     }
     
-    // MARK: - Network Block
-    
-    private func changeAvatar(completion: @escaping () -> Void) {
-        guard let image = information.image else { return }
-        DatabaseManager.shared.setAvatar(imageKey: information.imageKey, imageData: image) { [weak self] result in
-            switch result {
-            case .failure(_):
-                self?.makeAlert(forTitleText: "Ошибка!", forBodyText: "Не удалось загрузить фотографию. Попробуйте позже")
-            case .success():
-                completion()
-            }
-        }
-    }
-        
-    
-    private func emailChange(completion: @escaping () -> Void) {
-        guard let strongEmail = property[1].textField.text else { return }
-        DatabaseManager.shared.setEmail(email: strongEmail) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                let errCode = AuthErrorCode(rawValue: error._code)
-                print(errCode)
-                switch errCode {
-                case .requiresRecentLogin:
-                    self?.makeAlert(forTitleText: "Внимание!", forBodyText: "Необходимо перезайти, чтобы изменить почту.")
-                case .invalidEmail:
-                    self?.makeAlert(forTitleText: "Внимание!", forBodyText: "Неверно указана почта. Исправьте и попробуйте снова")
-                default:
-                    self?.makeAlert(forTitleText: "Упс!!", forBodyText: "Что-то пошло не так. Проверьте правильность ввода или перезайдите в аккаунт")
-                }
-            case .success():
-                completion()
-            }
-        }
-    }
-    
-    private func usernameChange(completion: @escaping () -> Void) {
-        guard let strongUsername = property[0].textField.text else { return }
-        DatabaseManager.shared.setUsername(username: strongUsername) { [weak self] result in
-            switch result {
-            case .failure(_):
-                self?.makeAlert(forTitleText: "Ошибка!", forBodyText: "Не удалось изменить имя пользователя.")
-            case .success():
-                completion()
-            }
-        }
-    }
-    
-    private func getInfo() {
-        DatabaseManager.shared.getMyConfidentInfo() { [weak self] result in
-            switch result {
-            case .failure(_):
-                self?.makeAlert(forTitleText: "Ошибка!", forBodyText: "Не удалось получить данные о профиле")
-            case .success(let accountInfo):
-                guard let email = accountInfo.email else { return }
-                self?.information.email = email
-                self?.information.username = accountInfo.userName
-                self?.information.imageKey = accountInfo.userImageKey
-                DatabaseManager.shared.getImage(destination: "avatars", imageKey: accountInfo.userImageKey) { result in
-                    switch result {
-                    case .failure(_):
-                        self?.makeAlert(forTitleText: "Ошибка!", forBodyText: "Не удалось получить данные о профиле")
-                    case .success(let data):
-                        self?.information.image = data
-                        self?.configureProperties()
-                    }
-                }
-            }
-            
-        }
-    }
-    
-    private func makeAlert(forTitleText: String, forBodyText: String) {
+}
+
+// MARK: - ProfileEditViewControllerInput
+
+extension ProfileEditViewController : ProfileEditViewControllerInput {
+    func makeAlert(forTitleText: String, forBodyText: String) {
         showWarningAlert(forTitleText: forTitleText, forBodyText: forBodyText, viewController: self)
     }
+    
+    func fetchInfo(username: String, email: String, image: Data?, imageKey: String) {
+        information.username = username
+        information.email = email
+        information.image = image
+        information.imageKey = imageKey
+        configureProperties()
+    }
 }
+
+// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 
 extension ProfileEditViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -350,6 +286,7 @@ extension ProfileEditViewController {
             static let leftRightIndent: CGFloat = 38
             static let height: CGFloat = 90
             static let cornerRadius: CGFloat = 10
+            static let avatarBorderWidth: CGFloat = 1
         }
         struct EditButton {
             static let leftIndent: CGFloat = 40
@@ -357,7 +294,7 @@ extension ProfileEditViewController {
             static let cornerRadius: CGFloat = 10
         }
         struct PropertiesContainer {
-            static let propertyQuantity: CGFloat = 2
+            static let propertyQuantity: Int = 2
             static let topIndent: CGFloat = 24
             static let leftRightIndent: CGFloat = 20
             static let cornerRadius: CGFloat = 24

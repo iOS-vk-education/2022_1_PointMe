@@ -162,11 +162,9 @@ class MyAccountViewController: UIViewController, AlertMessages {
         setupEditButton()
     }
     
-    // Нужно реализовать в presenter
     @objc
     private func didTapEditButton() {
-        let viewController = SettingsViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        output?.userWantsToEditProfile()
     }
     
     private func setupEditButton() {
@@ -280,6 +278,11 @@ extension MyAccountViewController: MyAccountViewControllerInput {
         
         tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    func openSettings() {
+        let viewController = SettingsViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

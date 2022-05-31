@@ -59,6 +59,13 @@
 		7D4D9D8A280F413F008C4250 /* FeedNewsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D82280F413F008C4250 /* FeedNewsError.swift */; };
 		7D4D9D8B280F413F008C4250 /* PostPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4D9D83280F413F008C4250 /* PostPreviewCell.swift */; };
 		8720CA13280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */; };
+		87396B2928460688005DEE7A /* PasswordEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B2828460688005DEE7A /* PasswordEditViewController.swift */; };
+		87396B302846266E005DEE7A /* ProfileEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B2F2846266E005DEE7A /* ProfileEditModel.swift */; };
+		87396B37284628CE005DEE7A /* ProfileEditViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B36284628CE005DEE7A /* ProfileEditViewControllerIO.swift */; };
+		87396B3B2846370B005DEE7A /* ProfileEditBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B3A2846370B005DEE7A /* ProfileEditBuilder.swift */; };
+		87396B4128463F4D005DEE7A /* PasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B4028463F4D005DEE7A /* PasswordModel.swift */; };
+		87396B4528463F92005DEE7A /* PasswordViewControllerIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B4428463F92005DEE7A /* PasswordViewControllerIO.swift */; };
+		87396B48284646F4005DEE7A /* PasswordBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87396B47284646F4005DEE7A /* PasswordBuilder.swift */; };
 		873C6A0027EA40630004715E /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C69FF27EA40630004715E /* FavoritesVC.swift */; };
 		873C6A0327EA406A0004715E /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A0227EA406A0004715E /* MyAccountVC.swift */; };
 		873C6A1D27EA5B110004715E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C6A1C27EA5B110004715E /* MapVC.swift */; };
@@ -142,6 +149,13 @@
 		7D4D9D82280F413F008C4250 /* FeedNewsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedNewsError.swift; sourceTree = "<group>"; };
 		7D4D9D83280F413F008C4250 /* PostPreviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPreviewCell.swift; sourceTree = "<group>"; };
 		8720CA12280D54D0008B3D88 /* CellDeleteDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDeleteDelegateProtocol.swift; sourceTree = "<group>"; };
+		87396B2828460688005DEE7A /* PasswordEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditViewController.swift; sourceTree = "<group>"; };
+		87396B2F2846266E005DEE7A /* ProfileEditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditModel.swift; sourceTree = "<group>"; };
+		87396B36284628CE005DEE7A /* ProfileEditViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewControllerIO.swift; sourceTree = "<group>"; };
+		87396B3A2846370B005DEE7A /* ProfileEditBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditBuilder.swift; sourceTree = "<group>"; };
+		87396B4028463F4D005DEE7A /* PasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordModel.swift; sourceTree = "<group>"; };
+		87396B4428463F92005DEE7A /* PasswordViewControllerIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewControllerIO.swift; sourceTree = "<group>"; };
+		87396B47284646F4005DEE7A /* PasswordBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordBuilder.swift; sourceTree = "<group>"; };
 		873C69FF27EA40630004715E /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		873C6A0227EA406A0004715E /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		873C6A1C27EA5B110004715E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -549,6 +563,60 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
+		87396B2B284625CD005DEE7A /* ProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				87396B2D284625F6005DEE7A /* View */,
+				87396B2C284625F3005DEE7A /* Model */,
+				87396B3A2846370B005DEE7A /* ProfileEditBuilder.swift */,
+			);
+			path = ProfileEdit;
+			sourceTree = "<group>";
+		};
+		87396B2C284625F3005DEE7A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				87396B2F2846266E005DEE7A /* ProfileEditModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		87396B2D284625F6005DEE7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87AE11FD28426FF4002FE1DC /* ProfileEditViewController.swift */,
+				87396B36284628CE005DEE7A /* ProfileEditViewControllerIO.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		87396B3D28463F03005DEE7A /* PasswordEdit */ = {
+			isa = PBXGroup;
+			children = (
+				87396B3F28463F27005DEE7A /* Model */,
+				87396B3E28463F16005DEE7A /* View */,
+				87396B47284646F4005DEE7A /* PasswordBuilder.swift */,
+			);
+			path = PasswordEdit;
+			sourceTree = "<group>";
+		};
+		87396B3E28463F16005DEE7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87396B2828460688005DEE7A /* PasswordEditViewController.swift */,
+				87396B4428463F92005DEE7A /* PasswordViewControllerIO.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		87396B3F28463F27005DEE7A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				87396B4028463F4D005DEE7A /* PasswordModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		873C6A0627EA49AE0004715E /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,8 +702,9 @@
 		8763B6C6283FDFE600862C8A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				87396B3D28463F03005DEE7A /* PasswordEdit */,
+				87396B2B284625CD005DEE7A /* ProfileEdit */,
 				8763B6C7283FE0B900862C8A /* SettingsViewController.swift */,
-				87AE11FD28426FF4002FE1DC /* ProfileEditViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -878,26 +947,32 @@
 				87B7F415280AD5F6000CA15B /* MyAccountModelIO.swift in Sources */,
 				87918CBE2809DCB20071DDDB /* MyAccountPostCell.swift in Sources */,
 				87B7F418280ADEAC000CA15B /* MyAccountPost.swift in Sources */,
+				87396B4128463F4D005DEE7A /* PasswordModel.swift in Sources */,
 				7D4D9D87280F413F008C4250 /* FeedNewsModel.swift in Sources */,
 				87B033F8281D5E5600F8BBEC /* SomeOneAccountNetwork.swift in Sources */,
 				7D4D9D84280F413F008C4250 /* PostPreviewModel.swift in Sources */,
+				87396B4528463F92005DEE7A /* PasswordViewControllerIO.swift in Sources */,
 				7D4D9D8B280F413F008C4250 /* PostPreviewCell.swift in Sources */,
 				2C1C0B8328102CBF007E436D /* FeedNewsVC.swift in Sources */,
 				2C8C690827FB72C600EF3054 /* AlertMessages.swift in Sources */,
 				8744ACB227EB10C700BC11B5 /* ColorSet.swift in Sources */,
 				2C86F629282733E200CFF536 /* FindViewController.swift in Sources */,
+				87396B3B2846370B005DEE7A /* ProfileEditBuilder.swift in Sources */,
 				2C05A1C627EE5FED00F77F1D /* AuthNavigationViewController.swift in Sources */,
 				87B033F5281D5E2900F8BBEC /* SomeOneAccountModelIO.swift in Sources */,
 				2C01DB27280B905C00F90C09 /* FullScreenImagePresenterViewController.swift in Sources */,
 				2C86F62A282733E200CFF536 /* FindUserCell.swift in Sources */,
 				8767D797282C07D700944CCA /* FavoritesModel.swift in Sources */,
+				87396B302846266E005DEE7A /* ProfileEditModel.swift in Sources */,
 				2C86F62B282733E200CFF536 /* FindUserModel.swift in Sources */,
 				2C0BF5DD2808B59B0058C84D /* ImageCellDelegate.swift in Sources */,
 				87B033EC281D5A5900F8BBEC /* SomeOneAccountPresenter.swift in Sources */,
 				2C01DB33280B94C300F90C09 /* FullScreenImagePresenterModel.swift in Sources */,
 				2CC49F5D28032EA500E35E68 /* AddPhotoCell.swift in Sources */,
+				87396B48284646F4005DEE7A /* PasswordBuilder.swift in Sources */,
 				2C01DB2E280B926E00F90C09 /* FullScreenImagePresenterCell.swift in Sources */,
 				2C9ACE062807360000FC54EC /* PostModel.swift in Sources */,
+				87396B2928460688005DEE7A /* PasswordEditViewController.swift in Sources */,
 				2C01DB25280B867D00F90C09 /* ImagePresentCell.swift in Sources */,
 				87AE11FE28426FF4002FE1DC /* ProfileEditViewController.swift in Sources */,
 				87918CC92809E5430071DDDB /* MyAccountViewControllerIO.swift in Sources */,
@@ -928,6 +1003,7 @@
 				87918CC32809E4D40071DDDB /* MyAccountPresenter.swift in Sources */,
 				7D4D9D86280F413F008C4250 /* DatabaseManager+PostPreviewLoader.swift in Sources */,
 				8744ACB627EB12ED00BC11B5 /* TabBar.swift in Sources */,
+				87396B37284628CE005DEE7A /* ProfileEditViewControllerIO.swift in Sources */,
 				87918CBB2809DAE90071DDDB /* SomeOneAccountViewController.swift in Sources */,
 				2C05A1BD27EE2CA000F77F1D /* SignUpViewController.swift in Sources */,
 				2CC49F642803861300E35E68 /* CreatingPostModel.swift in Sources */,

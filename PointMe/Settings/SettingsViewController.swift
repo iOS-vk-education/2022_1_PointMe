@@ -49,6 +49,7 @@ final class SettingsViewController: UIViewController, AlertMessages {
         }
         
         points[0].addTarget(self, action: #selector(didTapEditProfile), for: .touchUpInside)
+        points[1].addTarget(self, action: #selector(didTapEditPassword), for: .touchUpInside)
         
         exitButton.backgroundColor = .defaultBlackColor
         exitButton.setTitleColor(.defaultWhiteColor, for: .normal)
@@ -85,10 +86,20 @@ final class SettingsViewController: UIViewController, AlertMessages {
     
     @objc
     private func didTapEditProfile() {
-        let viewController = ProfileEditViewController()
         navigationItem.backButtonTitle = ""
+        let builder = ProfileEditBuilder()
+        let viewController = builder.build()
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    @objc
+    private func didTapEditPassword() {
+        navigationItem.backButtonTitle = ""
+        let builder = PasswordEditBuilder()
+        let viewController = builder.build()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
     
     private func setupConstraints() {
         

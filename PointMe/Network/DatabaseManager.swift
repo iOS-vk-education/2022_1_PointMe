@@ -66,6 +66,29 @@ final class DatabaseManager {
         }
     }
     
+    public func setPassword(password: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        guard let strongUID = currentUserUID else { return }
+        
+        Auth.auth().currentUser?.updatePassword(to: password) { [weak self] error in
+            guard let strongSelf = self else { return }
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(NSError()))
+                }
+            } else {
+                strongSelf.reference.child("users").child(strongUID).child("password").setValue(password) { error, _ in
+                    if let error = error {
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
+                    } else {
+                        completion(.success(Void()))
+                    }
+                }
+            }
+        }
+    }
+    
     public func setAvatar(imageKey: String, imageData: Data, completion: @escaping (Result <Void, Error>) -> Void) {
         guard let strongUID = currentUserUID else { return }
         let metadata = StorageMetadata()
