@@ -3,6 +3,9 @@ import Firebase
 
 extension DatabaseManager {
     func getDataPosts4Map(completion: @escaping (Result<[PostData4Map], Error>) -> Void) {
+        let dispatchGroup: DispatchGroup = DispatchGroup()
+        let lock: NSLock = NSLock()
+        
         guard let currentUID = DatabaseManager.shared.currentUserUID else {
             completion(.failure(NSError()))
             return
@@ -35,25 +38,38 @@ extension DatabaseManager {
                     continue
                 }
                 
-                resultArray.append(
-                    PostData4Map(
-                        idPost: key,
-                        keysImages: postData["keysImages"] as? [String] ?? [],
-                        latitude: postData["latitude"] as? Double ?? 55.751574,
-                        longitude: postData["longitude"] as? Double ?? 37.573856,
-                        username: postData["username"] as? String ?? "",
-                        dateDay: postData["day"] as? Int ?? 1,
-                        dateMonth: postData["month"] as? Int ?? 1,
-                        dateYear: postData["year"] as? Int ?? 2022,
-                        title: postData["title"] as? String ?? "",
-                        comment: postData["comment"] as? String ?? "",
-                        mark: postData["mark"] as? Int ?? 1,
-                        uid: postData["uid"] as? String ?? ""
-                    )
-                )
+                dispatchGroup.enter()
+                reference.child("users").child(uidPostUser).child("username").getData { error, snapshot in
+                    guard error == nil else {
+                        return
+                    }
+                    
+                    if let dataUsernameValue = snapshot.value as? String {
+                        lock.lock()
+                        resultArray.append(
+                            PostData4Map(
+                                idPost: key,
+                                keysImages: postData["keysImages"] as? [String] ?? [],
+                                latitude: postData["latitude"] as? Double ?? 55.751574,
+                                longitude: postData["longitude"] as? Double ?? 37.573856,
+                                username: dataUsernameValue,
+                                dateDay: postData["day"] as? Int ?? 1,
+                                dateMonth: postData["month"] as? Int ?? 1,
+                                dateYear: postData["year"] as? Int ?? 2022,
+                                title: postData["title"] as? String ?? "",
+                                comment: postData["comment"] as? String ?? "",
+                                mark: postData["mark"] as? Int ?? 1,
+                                uid: postData["uid"] as? String ?? ""
+                            )
+                        )
+                        lock.unlock()
+                    }
+                    dispatchGroup.leave()
+                }
             }
             
-            DispatchQueue.main.async {
+            dispatchGroup.notify(queue: .main) {
+                print("errorflex final")
                 completion(.success(resultArray))
             }
         }

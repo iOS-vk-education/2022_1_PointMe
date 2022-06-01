@@ -217,7 +217,7 @@ final class PostViewController: UIViewController {
     
     func setup(context: PostContext) {
         uid = context.uid
-        model.fetchData(context: context) { [weak self] result in
+        model.fetchData(context: context, isPreload: true) { [weak self] result in
             switch result {
             case .success():
                 print("debug: success fill data")
@@ -246,6 +246,8 @@ final class PostViewController: UIViewController {
         if let dataAvatar = model.avatar {
             userImageButton.setImage(UIImage(data: dataAvatar), for: .normal)
         }
+        
+        //viewDidLayoutSubviews()
         
         viewDidLayoutSubviews()
         
@@ -329,6 +331,8 @@ final class PostViewController: UIViewController {
             )
         ])
         
+        
+        print("\(#function) = model.isImagesExist = \(model.isImagesExist)")
         if model.isImagesExist {
             
             photosCollectionView.pin
@@ -455,6 +459,7 @@ final class PostViewController: UIViewController {
 
 extension PostViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("\(#function) = \(model.countDataImages), \(collectionView.frame)")
         return model.countDataImages
     }
     

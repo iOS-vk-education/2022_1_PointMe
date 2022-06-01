@@ -18,6 +18,8 @@ extension MapInteractor: MapInteractorInput {
     
     func fetchAvatar4Post(by index: Int) {
         
+        print("\(#function) = \(self.postsData[index].keysImages)")
+        
         output?.notifyPostContext(context: PostContextWithoutAvatar(
             idPost: self.postsData[index].idPost,
             keysImages: self.postsData[index].keysImages,
@@ -46,6 +48,7 @@ extension MapInteractor: MapInteractorInput {
             switch result {
             case .success(let data):
                 self?.postsData = data
+                print("\(#function) = \(self?.postsData)")
                 self?.output?.notifyMapData(isSuccess: true)
             case .failure(_):
                 self?.output?.notifyMapData(isSuccess: false)

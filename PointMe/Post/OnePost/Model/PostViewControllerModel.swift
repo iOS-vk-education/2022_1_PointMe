@@ -28,12 +28,24 @@ final class PostViewControllerModel {
     private var markValue: Int = 3
     private var commentTextValue: String = "Здесь было хорошо! Вкусная еда, добрые люди, отличная музыка."
     private var location: (latitude: Double, longitude: Double) = (latitude: 55.751574, longitude: 37.573856)
+    private var isImagesExistsValues: Bool = false
     
     init() {}
     
     
     func fetchDataWithAvatar(context: PostContextWithoutAvatar, completion: @escaping (Result<Void, Error>) -> Void) {
+        print("\(#function)")
+        
         var avatarData: Data?
+        
+//        isImagesExistsValues = context.keysImages.isEmpty ? false : true
+        usernameValue = context.username
+        dateVlaue = String(context.dateDay) + (dates[context.dateMonth] ?? " января ")  + String(context.dateYear) + " года"
+        titleValue = context.title
+        markValue = context.mark
+        commentTextValue = context.comment
+        arrayDataImages = context.keysImages
+        idPost = context.idPost
         
         DatabaseManager.shared.getAvatar(userId: context.uid) { [weak self] result in
             switch result {
@@ -43,10 +55,12 @@ final class PostViewControllerModel {
                 avatarData = nil
             }
             
-            self?.fetchData(context: PostContext(contextWithoutAvatar: context, avatar: avatarData)) { result in
+            self?.fetchData(context: PostContext(contextWithoutAvatar: context, avatar: avatarData), isPreload: false) { result in
                 switch result {
                 case .success():
-                    completion(.success(Void()))
+                    DispatchQueue.main.async {
+                        completion(.success(Void()))
+                    }
                 case .failure(_):
                     break
                 }
@@ -55,17 +69,20 @@ final class PostViewControllerModel {
     }
     
     
-    func fetchData(context: PostContext, completion: @escaping (Result<Void, Error>) -> Void) {
-        usernameValue = context.username
-        dateVlaue = String(context.dateDay) + (dates[context.dateMonth] ?? " января ")  + String(context.dateYear) + " года"
-        titleValue = context.title
-        markValue = context.mark
-        commentTextValue = context.comment
+    func fetchData(context: PostContext, isPreload: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
+        print("\(#function)")
+        if isPreload {
+            usernameValue = context.username
+            dateVlaue = String(context.dateDay) + (dates[context.dateMonth] ?? " января ")  + String(context.dateYear) + " года"
+            titleValue = context.title
+            markValue = context.mark
+            commentTextValue = context.comment
+            arrayDataImages = context.keysImages
+            idPost = context.idPost
+        }
         avatarData = context.avatarImage
-        arrayDataImages = context.keysImages
-        avatarData = context.avatarImage
-        idPost = context.idPost
-        print("debug: \(usernameValue), \(dateVlaue), \(titleValue)")
+        
+        print("debug: fetchDataPost \(usernameValue), \(dateVlaue), \(titleValue), \(context.keysImages)")
         
         let group = DispatchGroup()
         let lock = NSLock()

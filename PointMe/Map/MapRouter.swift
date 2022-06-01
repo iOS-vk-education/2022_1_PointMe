@@ -19,6 +19,7 @@ extension MapRouter: MapRouterInput {
     }
     
     func showPost(context: PostContextWithoutAvatar) {
+        print("\(#function) = \(context)")
         let onePostViewController: PostViewController = PostViewController()
         onePostViewController.setup(context: context)
         viewController?.navigationController?.pushViewController(onePostViewController, animated: true)

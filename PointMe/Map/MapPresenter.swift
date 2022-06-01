@@ -45,6 +45,8 @@ extension MapPresenter: MapInteractorOutput {
         guard let context = context else {
             return
         }
+        
+        print("\(#function) = \(context)")
 
         router.showPost(context: context)
     }
