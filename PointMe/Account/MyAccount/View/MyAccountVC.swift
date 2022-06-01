@@ -133,7 +133,7 @@ class MyAccountViewController: UIViewController, AlertMessages {
         if let image = myAccountInfo.userImage {
             userPhoto.image = UIImage(data: image)
         } else {
-            userPhoto.image = UIImage(systemName: "person")
+            userPhoto.image = UIImage(named: "avatar")
         }
     }
     
@@ -310,7 +310,7 @@ extension MyAccountViewController: CellTapButtonDelegate {
     func didTapOpen(sender: UITableViewCell) {
         let indexPath = tableView.indexPath(for: sender)!
         let postViewController: PostViewController = PostViewController()
-        let title = myAccountPostData[indexPath.row].mainTitle + " " + myAccountPostData[indexPath.row].address
+        let title = myAccountPostData[indexPath.row].mainTitle // + " " + myAccountPostData[indexPath.row].address
         postViewController.setup(context: PostContext(
             idPost: myAccountInfo.postKeys[indexPath.row],
             keysImages: myAccountPostData[indexPath.row].images,

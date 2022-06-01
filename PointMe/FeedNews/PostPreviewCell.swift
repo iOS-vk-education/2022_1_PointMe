@@ -54,6 +54,7 @@ final class PostPreviewCell: UITableViewCell {
         titleLabel.text = nil
         locationLabel.text = nil
         markLabel.text = nil
+        avatarImageButton.imageView?.image = nil
         
         markImageView.forEach {
             $0.image = UIImage(systemName: "circle")
@@ -286,10 +287,10 @@ final class PostPreviewCell: UITableViewCell {
         containerPublicationInformationView.backgroundColor = .containerPublicationInformationViewColor
         avatarImageButton.layer.cornerRadius = 25
         avatarImageButton.clipsToBounds = true
-        avatarImageButton.contentMode = .scaleAspectFill
+        avatarImageButton.imageView?.contentMode = .scaleAspectFill
         avatarImageButton.layer.borderWidth = 1
         avatarImageButton.tintColor = .defaultBlackColor
-        avatarImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
+        avatarImageButton.setImage(UIImage(named: "avatar"), for: .normal)
         avatarImageButton.addTarget(self, action: #selector(avatarTap), for: .touchUpInside)
         
         containerImageView.layer.cornerRadius = 10

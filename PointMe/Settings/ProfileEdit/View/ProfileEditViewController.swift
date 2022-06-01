@@ -104,7 +104,7 @@ final class ProfileEditViewController: UIViewController, AlertMessages {
         if let image = information.image {
             avatarView.image = UIImage(data: image)
         } else {
-            avatarView.image = UIImage(systemName: "person")
+            avatarView.image = UIImage(named: "avatar")
         }
     }
     

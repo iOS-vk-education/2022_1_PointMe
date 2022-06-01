@@ -58,7 +58,7 @@ final class MapViewController: UIViewController {
         let point = YMKPoint(latitude: location.latitude, longitude: location.longitude)
         
         mapView.mapWindow.map.move(
-            with: YMKCameraPosition(target: point, zoom: 11, azimuth: 0, tilt: 0),
+            with: YMKCameraPosition(target: point, zoom: 9, azimuth: 0, tilt: 0),
             animationType: YMKAnimation(type: YMKAnimationType.smooth, duration: 1),
             cameraCallback: nil
         )
