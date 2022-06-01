@@ -25,7 +25,8 @@ extension SomeOneAccountPresenter: SomeOneAccountViewControllerOutput {
         }
         model?.getUserPublishers(uid: strongUID) { [weak self] snapshot in
             guard let snapshotValue = snapshot.value as? [String] else {
-                return print("debug: getUserPublishers snapshotValue nil")
+                self?.view?.fetchSubscription(isSubscribed: false)
+                return
             }
             self?.view?.fetchSubscription(isSubscribed: snapshotValue.contains(destinationUID))
         }
