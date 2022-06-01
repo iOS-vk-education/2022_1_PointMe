@@ -186,21 +186,21 @@ class SomeOneAccountViewController: UIViewController, AlertMessages {
     }
     
     @objc
-        private func didTapButtonSubscribe() {
-            if isSubscribed == false {
-                output?.userWantsToBecomeSubscribe(uid: someOneAccountInfo.uid)
-                button.setTitle(Constants.Button.subscribedText, for: .normal)
-                button.backgroundColor = .lightGray
-                button.tintColor = .black
-                isSubscribed = true
-            } else {
-                output?.userWantsToDismissSubscribe(uid: someOneAccountInfo.uid)
-                button.setTitle(Constants.Button.subscribeText, for: .normal)
-                button.backgroundColor = .defaultRedColor
-                button.tintColor = .white
-                isSubscribed = false
-            }
+    private func didTapButtonSubscribe() {
+        if isSubscribed == false {
+            output?.userWantsToBecomeSubscribe(uid: someOneAccountInfo.uid)
+            button.setTitle(Constants.Button.subscribedText, for: .normal)
+            button.backgroundColor = .lightGray
+            button.tintColor = .black
+            isSubscribed = true
+        } else {
+            output?.userWantsToDismissSubscribe(uid: someOneAccountInfo.uid)
+            button.setTitle(Constants.Button.subscribeText, for: .normal)
+            button.backgroundColor = .defaultRedColor
+            button.tintColor = .white
+            isSubscribed = false
         }
+    }
     
     private func setupSubscribersLabel() {
         subscribersLabel.tintColor = .defaultBlackColor
